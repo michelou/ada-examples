@@ -1,0 +1,7 @@
+.idea/
+.project
+.settings/
+.vscode/
+*_LOCAL/
+out/
+target/
