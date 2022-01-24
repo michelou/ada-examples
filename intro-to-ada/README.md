@@ -9,13 +9,15 @@
   </tr>
 </table>
 
+## <span id="greet">`Greet`</span>
+
 ## <span id="week">`Week`</span>
 
 This example consists of the 2 Ada source files [`Week.ads`](./Week/src/Week.ads) and [`Main.ads`](./Week/src/Main.adb).
 
 We provide 2 ways to generate the `Week.exe` executable :
 - run batch file [`build.bat`](./Week/build.bat) which calls the [`GNATmake`](gnu_gnatmake) tool.
-- run the [GPR tools](https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug.html) with the project file [`Build.gpr`](./Week/Build.gpr) <sup id="anchor_01">[1](#footnote_01)</sup>.
+- run the [GPR tools](https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug.html) with the project file [`main.gpr`](./Week/main.gpr) <sup id="anchor_01">[1](#footnote_01)</sup>.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./Week/build.bat">build</a> clean run</b>

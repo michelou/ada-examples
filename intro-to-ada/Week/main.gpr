@@ -1,5 +1,5 @@
 --- @summary Week program
-project Build is
+project Main is
 
     -- project level attributes
     type Mode_Type is ("debug", "release");
@@ -31,4 +31,4 @@ project Build is
         -- for Image_Dir use TargetDir & "/docs/images";
     end Documentation;
 
-end Build;
+end Main;
