@@ -45,17 +45,18 @@ set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_TARGET_OBJ_DIR=%_TARGET_DIR%\obj"
 
+if not exist "%_ROOT_DIR%build.gpr" (
+    echo %_ERROR_LABEL% GNAT Ada project file not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 if not exist "%GNAT_HOME%\bin\gnatmake.exe" (
     echo %_ERROR_LABEL% GNAT installation not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
 set "_GNATMAKE_CMD=%GNAT_HOME%\bin\gnatmake.exe"
-
-set _DIFF_CMD=
-if exist "%GIT_HOME%\usr\bin\diff.exe" (
-    set "_DIFF_CMD=%GIT_HOME%\usr\bin\diff.exe" 
-)
+set "_GNATDOC_CMD=%GNAT_HOME%\bin\gnatdoc.exe"
 goto :eof
 
 :env_colors
@@ -188,7 +189,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Properties : _PROJECT_NAME=%_PROJECT_NAME% _PROJECT_VERSION=%_PROJECT_VERSION% 1>&2
     echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: %_COMMANDS% 1>&2
-    echo %_DEBUG_LABEL% Variables  : GNAT_HOME="%GNAT_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "GNAT_HOME=%GNAT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : _MAIN_NAME=%_MAIN_NAME% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
@@ -209,18 +210,17 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%           show commands executed by this script
-echo     %__BEG_O%-timer%__END%           display total elapsed time
-echo     %__BEG_O%-verbose%__END%         display progress messages
+echo     %__BEG_O%-debug%__END%       show commands executed by this script
+echo     %__BEG_O%-timer%__END%       display total elapsed time
+echo     %__BEG_O%-verbose%__END%     display progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
-echo     %__BEG_O%clean%__END%            delete generated class files
-echo     %__BEG_O%compile%__END%          compile Ada source files
-echo     %__BEG_O%decompile%__END%        decompile generated code with %__BEG_N%CFR%__END%
-echo     %__BEG_O%doc%__END%              generate HTML documentation
-echo     %__BEG_O%help%__END%             display this help message
-echo     %__BEG_O%lint%__END%             analyze Ada source files with %__BEG_N%Scalafmt%__END%
-echo     %__BEG_O%test%__END%             execute unit tests with %__BEG_N%JUnit%__END%
+echo     %__BEG_O%clean%__END%        delete generated class files
+echo     %__BEG_O%compile%__END%      compile Ada source files
+echo     %__BEG_O%doc%__END%          generate HTML documentation
+echo     %__BEG_O%help%__END%         display this help message
+echo     %__BEG_O%lint%__END%         analyze Ada source files
+echo     %__BEG_O%test%__END%         execute unit tests
 goto :eof
 
 :clean
@@ -242,7 +242,7 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :lint
-echo 111111111111
+echo %_WARNING_LABEL% nyi 1>&2
 goto :eof
 
 :compile
@@ -274,12 +274,18 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
-:decompile
-echo 222222222222
-goto :eof
-
 :doc
-echo 33333333333333
+set __GNATDOC_OPTS="--project=%_ROOT_DIR%build.gpr"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATDOC_CMD%" %__GNATDOC_OPTS% 1>&2
+) else if %_VERBOSE%==1 ( echo Generate documentation 1>&2
+)
+call "%_GNATDOC_CMD%" %__GNATDOC_OPTS%
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to generate documentation 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 goto :eof
 
 :run

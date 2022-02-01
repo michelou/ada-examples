@@ -15,7 +15,7 @@
 ## <span id="greetings">`Greetings`</span>
 
 <pre>
-<b>&gt; gprclean -q &amp; gprbuild -q &amp; target\Greetings.exe</b>
+<b>&gt; <a href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/companion_tools.html#cleaning-up-with-gprclean">gprclean</a> -q &amp; <a href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/building_with_gprbuild.html#command-line">gprbuild</a> -q &amp; target\Greetings.exe</b>
 Hello WORLD!
 Goodbye WORLD!
 </pre>
@@ -35,7 +35,7 @@ Some project file examples :
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
