@@ -16,12 +16,12 @@
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [Git 2.35][git_downloads] ([*release notes*][git_relnotes])
-- [GNAT Community 2021][gnat2021_downloads] ([*announcement*][gnat2021_announcement])
+- [GNAT CE 2021][gnat2021_downloads] ([*announcement*][gnat2021_announcement])
 
 Optionally one may also install the following software:
 
 - [AdaControl 1.22][adactl_downloads]
-- [GNAT Community 2019][gnat2019_downloads] <sup id="anchor_01">[1](#footnote_01)</sup>
+- [GNAT CE 2019][gnat2019_downloads] <sup id="anchor_01">[1](#footnote_01)</sup>
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][linux_opt] directory on Unix).
@@ -61,6 +61,10 @@ where
 ## <span id="footnotes">Footnotes</span>
 
 <span id="footnote_01">[1]</span> ***GNAT 2019*** [↩](#anchor_01)
+
+<dl><dd>
+GNAT CE 2019 is the latest version of GNAT CE that supports ASIS, which is required for running [AdaControl 1.22][adactl_downloads].
+</dd></dl>
 
 <span id="footnote_02">[2]</span> ***Downloads*** [↩](#anchor_02)
 
