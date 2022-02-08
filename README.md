@@ -22,17 +22,19 @@ Optionally one may also install the following software:
 
 - [AdaControl 1.22][adactl_downloads]
 - [GNAT CE 2019][gnat2019_downloads] <sup id="anchor_01">[1](#footnote_01)</sup>
+- [MSYS2][msys2_downloads] <sup id="anchor_02">[2](#footnote_02)</sup>
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][linux_opt] directory on Unix).
 
-For instance our development environment looks as follows (February 2022) <sup id="anchor_02">[2](#footnote_02)</sup>:
+For instance our development environment looks as follows (February 2022) <sup id="anchor_03">[3](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\adactl-1.22r15\  <i>( 79 MB)</i>
-C:\opt\Git-2.35.1\      <i>(282 MB)</i>
-C:\opt\GNAT\2019\       <i>(1.1 GB)</i>
-C:\opt\GNAT\2021\       <i>(2.8 GB)</i>
+C:\opt\adactl-1.22r16c\  <i>( 79 MB)</i>
+C:\opt\Git-2.35.1\       <i>(282 MB)</i>
+C:\opt\GNAT\2019\        <i>(1.1 GB)</i>
+C:\opt\GNAT\2021\        <i>(2.8 GB)</i>
+C:\opt\msys64\           <i>(2.8 GB)</i>
 </pre>
 
 > **:mag_right:** Git for Windows provides a BASH emulation used to run [**`git`**][git_docs] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -63,17 +65,70 @@ where
 <span id="footnote_01">[1]</span> ***GNAT 2019*** [↩](#anchor_01)
 
 <dl><dd>
-GNAT CE 2019 is the latest version of GNAT CE that supports ASIS, which is required for running [AdaControl 1.22][adactl_downloads].
+GNAT CE 2019 is the latest version of GNAT CE that supports <a href="https://en.wikipedia.org/wiki/Ada_Semantic_Interface_Specification">ASIS</a>, which is required for running <a href="https://www.adalog.fr/en/adacontrol.html">AdaControl 1.22</a>.
 </dd></dl>
 
-<span id="footnote_02">[2]</span> ***Downloads*** [↩](#anchor_02)
+<span id="footnote_02">[2]</span> ***GNAT tools in MSYS2*** [↩](#anchor_02)
+
+<dl><dd>
+The <a href="http://repo.msys2.org/distrib/x86_64/" alt="MSYS2">MSYS64</a> software distribution also includes GNAT tools whose versions may differ from the GNAT CE distribution:
+</dd>
+<dd>
+<pre style="font-size:80%;max-width:484px;">
+  <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> /r c:\opt\msys64 gnat.exe gnatmake.exe</b>
+  c:\opt\msys64\mingw64\bin\gnat.exe
+  c:\opt\msys64\mingw64\bin\gnatmake.exe
+  &nbsp;
+  <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> /r c:\opt\msys64 gcc.exe make.exe pacman.exe</b>
+  c:\opt\msys64\mingw64\bin\gcc.exe
+  c:\opt\msys64\usr\bin\make.exe
+  c:\opt\msys64\usr\bin\pacman.exe
+</pre>
+</dd>
+<dd>
+<a href=""><code>gnat.exe</code>/<code>gnatmake.exe</code></a>
+<pre style="font-size:80%;">
+  <b>&gt; c:\opt\msys64\mingw64\bin\gnat.exe --version | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> GNAT</b>
+  GNAT 11.2.0
+&nbsp;
+  <b>&gt; c:\opt\msys64\mingw64\bin\gnatmake.exe --version | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> GNAT</b>
+  GNATMAKE 11.2.0
+</pre>
+</dd>
+<dd>
+<a href=""><code>gcc.exe</code>/<code>make.exe</code></a>
+<pre style="font-size:80%;">
+  <b>&gt; c:\opt\msys64\mingw64\bin\<a href="https://gcc.gnu.org/onlinedocs/gcc/Invoking-GCC.html">gcc.exe</a> --version | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> gcc</b>
+  gcc (Rev3, Built by MSYS2 project) 11.2.0
+  &nbsp;
+  <b>&gt; c:\opt\msys64\usr\bin\<a href="https://www.gnu.org/software/make/manual/make.html">make.exe</a> --version | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> Make</b>
+  GNU Make 4.3
+</pre>
+</dd>
+
+<dd>
+<a href="https://wiki.archlinux.org/index.php/Pacman"><code>pacman.exe</code></a> helps us to keep our MSYS2 installation up-to-date:
+</dd>
+<dd>
+<pre style="font-size:80%;">
+   <b>&gt; c:\opt\msys64\usr\bin\<a href="https://www.archlinux.org/pacman/pacman.8.html">pacman.exe</a> -Syu</b></b>
+   :: Synchronizing package databases...
+   [...]
+   :: Running post-transaction hooks...
+   (1/3) Compiling GSettings XML schema files...
+   (2/3) Updating icon theme caches...
+   (3/3) Updating the info directory file...
+</pre>
+</dd></dl>
+
+<span id="footnote_03">[3]</span> ***Downloads*** [↩](#anchor_03)
 
 <dl><dd>
 In our case we downloaded the following installation files (see <a href="#proj_deps">section 1</a>):
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://www.adalog.fr/en/adacontrol.html">adactl-1.22r15-exe_windows_gnattools.zip</a>            <i>( 27 MB)</i>
+<a href="https://www.adalog.fr/en/adacontrol.html">adactl-1.22r16c-exe_windows_ce2019.zip</a>              <i>( 26 MB)</i>
 <a href="https://www.adacore.com/download/more">gnat-community-2019-20190517-x86_64-windows-bin.exe</a> <i>(380 MB)</i>
 <a href="https://www.adacore.com/download">gnat-2021-20210519-x86_64-windows64-bin.exe</a>         <i>(562 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.35.1-64-bit.7z.exe</a>                    <i>( 41 MB)</i>
@@ -112,6 +167,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [man1_rmdir]: https://www.linux.org/docs/man1/rmdir.html
 [man1_sed]: https://www.linux.org/docs/man1/sed.html
 [man1_wc]: https://www.linux.org/docs/man1/wc.html
+[msys2_downloads]: http://repo.msys2.org/distrib/x86_64/
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
 [rust_examples]: https://github.com/michelou/rust-examples
 [scala3_examples]: https://github.com/michelou/dotty-examples
