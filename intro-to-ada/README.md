@@ -9,15 +9,36 @@
   </tr>
 </table>
 
+Code examples presented in this document can be built in two ways :
+- the batch file [`build.bat`](./Week/build.bat) calls the [`GNATmake`](gnu_gnatmake) build tool (try option `-help` to display other features)
+- the [GPR tools](https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug.html) &ndash; e.g. `gprclean` and `gprbuild` &ndash; get their build information from the project file [`main.gpr`](./Week/main.gpr) <sup id="anchor_01">[1](#footnote_01)</sup>.
+
 ## <span id="greet">`Greet`</span>
+
+We can build/execute this code example as follows (source file [`Greet.adb`](./Greet/src/Greet.adb), project file [`main.gpr`](./Greet/main.gpr)) :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./Greet/build.bat">build</a> -verbose run</b>
+Compile 1 Ada source files to object directory "target\obj"
+Execute program "Greet.exe"
+ 2 3 5 7 11
+&nbsp;
+<b>&gt; <a href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug.html">gprbuild</a> &amp; target\Greet.exe</b>
+using project file main.gpr
+Compile
+   [Ada]          greet.adb
+greet.adb:11:04: warning: "Arr" is not modified, could be declared constant [-gnatwk]
+Bind
+   [gprbind]      greet.bexch
+   [Ada]          greet.ali
+Link
+   [link]         greet.adb
+ 2 3 5 7 11
+</pre>
 
 ## <span id="week">`Week`</span>
 
-This example consists of the 2 Ada source files [`Week.ads`](./Week/src/Week.ads) and [`Main.ads`](./Week/src/Main.adb).
-
-We provide 2 ways to generate the `Week.exe` executable :
-- run batch file [`build.bat`](./Week/build.bat) which calls the [`GNATmake`](gnu_gnatmake) tool.
-- run the [GPR tools](https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug.html) with the project file [`main.gpr`](./Week/main.gpr) <sup id="anchor_01">[1](#footnote_01)</sup>.
+We can build/execute this code example as follows (source files [`Week.ads`](./Week/src/Week.ads) and [`Main.adb`](./Week/src/Main.adb), project file [`main.gpr`](./Week/build.gpr)) :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./Week/build.bat">build</a> clean run</b>
@@ -27,7 +48,7 @@ First day of the week is Monday
 First day of the week is Monday
 </pre>
 
-> **:mag_right:** Option `-verbose` displays progress information :
+> **:mag_right:** Use option `-verbose` to display progress information :
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="./Week/build.bat">build</a> -verbose clean run</b>
 > Delete directory "target"
@@ -35,6 +56,7 @@ First day of the week is Monday
 > Execute program "Week.exe"
 > First day of the week is Monday
 > </pre>
+> and use option `-debug` to see further build details such as the arguments passed to the executed commands.
 
 ## <span id="footnotes">Footnotes</span>
 

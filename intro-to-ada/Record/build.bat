@@ -148,7 +148,7 @@ set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
 for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
-set _MAIN_NAME=%_PROJECT_NAME%
+set _MAIN_NAME=record_selection
 set _MAIN_ARGS=
 set _EXE_NAME=%_PROJECT_NAME%
 

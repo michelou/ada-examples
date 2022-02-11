@@ -3,6 +3,9 @@
 
 # Explicitly declare text files you want to always be normalized and converted
 # to native line endings on checkout.
+*.adb text
+*.adc text
+*.ads text
 *.c text
 *.cpp text
 *.h text
@@ -39,7 +42,3 @@
 *.zip binary
 
 docs/* linguist-documentation
-
-# Project specific settings
-*_LOCAL/
-*_LOCAL.txt

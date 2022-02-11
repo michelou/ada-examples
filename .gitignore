@@ -7,3 +7,5 @@ out/
 target/
 *_LOCAL.md
 *_LOCAL.txt
+*.stderr
+*.stdout

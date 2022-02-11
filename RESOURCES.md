@@ -1,4 +1,4 @@
-# <span id="top">Ada Resources</span> <span style="size:25%;"><a href="README.md">↩</a></span>
+gp# <span id="top">Ada Resources</span> <span style="size:25%;"><a href="README.md">↩</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -45,6 +45,7 @@
 - [Ada-Belgium](https://people.cs.kuleuven.be/~dirk.craeynest/ada-belgium/).
 - [Ada Narkive Archives](https://comp.lang.ada.narkive.com/).
 - [Ada Planet](https://www.laeran.pl/adaplanet/i/).
+- [Ada Switzerland](https://www.ada-switzerland.ch/)
 
 ## <span id="projects">Projects</span>
 

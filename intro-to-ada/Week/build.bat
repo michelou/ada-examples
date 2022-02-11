@@ -12,9 +12,6 @@ set _EXITCODE=0
 call :env
 if not %_EXITCODE%==0 goto end
 
-call :props
-if not %_EXITCODE%==0 goto end
-
 call :args %*
 if not %_EXITCODE%==0 goto end
 
@@ -104,43 +101,9 @@ set _STRONG_BG_YELLOW=[103m
 set _STRONG_BG_BLUE=[104m
 goto :eof
 
-@rem output parameters: _MAIN_CLASS_DEFAULT, _MAIN_ARGS_DEFAULT
-@rem                    _PROJECT_NAME, _PROJECT_URL, _PROJECT_VERSION
-:props
-set _MAIN_NAME_DEFAULT=main
-set _MAIN_ARGS_DEFAULT=
-
-for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
-set _PROJECT_URL=github.com/%USERNAME%/ada-examples
-set _PROJECT_VERSION=0.1-SNAPSHOT
-
-set "__PROPS_FILE=%_ROOT_DIR%project\build.properties"
-if exist "%__PROPS_FILE%" (
-    for /f "tokens=1,* delims==" %%i in (%__PROPS_FILE%) do (
-        set __NAME=
-        set __VALUE=
-        for /f "delims= " %%n in ("%%i") do set __NAME=%%n
-        @rem line comments start with "#"
-        if defined __NAME if not "!__NAME:~0,1!"=="#" (
-            @rem trim value
-            for /f "tokens=*" %%v in ("%%~j") do set __VALUE=%%v
-            set "_!__NAME:.=_!=!__VALUE!"
-        )
-    )
-    if defined _main_name set _MAIN_NAME_DEFAULT=!_main_name!
-    if defined _main_args set _MAIN_ARGS_DEFAULT=!_main_args!
-    if defined _project_name set _PROJECT_NAME=!_project_name!
-    if defined _project_url set _PROJECT_URL=!_project_url!
-    if defined _project_version set _PROJECT_VERSION=!_project_version!
-)
-goto :eof
-
 @rem input parameter: %*
 :args
 set _COMMANDS=
-set _INSTRUMENTED=
-set _MAIN_NAME=%_MAIN_NAME_DEFAULT%
-set _MAIN_ARGS=%_MAIN_ARGS_DEFAULT%
 set _TIMER=0
 set _VERBOSE=0
 set __N=0
@@ -184,8 +147,12 @@ goto :args_loop
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
+for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
+set _MAIN_NAME=main
+set _MAIN_ARGS=
+set _EXE_NAME=%_PROJECT_NAME%
+
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% Properties : _PROJECT_NAME=%_PROJECT_NAME% _PROJECT_VERSION=%_PROJECT_VERSION% 1>&2
     echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: %_COMMANDS% 1>&2
     echo %_DEBUG_LABEL% Variables  : GNAT_HOME="%GNAT_HOME%" 1>&2
@@ -209,25 +176,25 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%           show commands executed by this script
-echo     %__BEG_O%-timer%__END%           display total elapsed time
-echo     %__BEG_O%-verbose%__END%         display progress messages
+echo     %__BEG_O%-debug%__END%      show commands executed by this script
+echo     %__BEG_O%-timer%__END%      display total elapsed time
+echo     %__BEG_O%-verbose%__END%    display progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
-echo     %__BEG_O%clean%__END%            delete generated class files
-echo     %__BEG_O%compile%__END%          compile Ada source files
-echo     %__BEG_O%decompile%__END%        decompile generated code with %__BEG_N%CFR%__END%
-echo     %__BEG_O%doc%__END%              generate HTML documentation
-echo     %__BEG_O%help%__END%             display this help message
-echo     %__BEG_O%lint%__END%             analyze Ada source files with %__BEG_N%Scalafmt%__END%
-echo     %__BEG_O%test%__END%             execute unit tests with %__BEG_N%JUnit%__END%
+echo     %__BEG_O%clean%__END%       delete generated class files
+echo     %__BEG_O%compile%__END%     compile Ada source files
+echo     %__BEG_O%decompile%__END%   decompile generated code with %__BEG_N%CFR%__END%
+echo     %__BEG_O%doc%__END%         generate HTML documentation
+echo     %__BEG_O%help%__END%        display this help message
+echo     %__BEG_O%lint%__END%        analyze Ada source files with %__BEG_N%Scalafmt%__END%
+echo     %__BEG_O%test%__END%        execute unit tests with %__BEG_N%JUnit%__END%
 goto :eof
 
 :clean
 call :rmdir "%_TARGET_DIR%"
 goto :eof
 
-@rem input parameter(s): %1=directory path
+@rem input parameter: %1=directory path
 :rmdir
 set "__DIR=%~1"
 if not exist "%__DIR%\" goto :eof
@@ -242,7 +209,7 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :lint
-echo 111111111111
+echo %_WARNING_LABEL% Subcommand 'lint' is not yet implemented 1>&2
 goto :eof
 
 :compile
@@ -253,10 +220,10 @@ for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.adb" "%_SOURCE_DIR%\*.ads" 2^>NUL') d
     @rem echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATMAKE_CMD%" "%_SOURCE_DIR%\%_MAIN_NAME%.adb" -D "%_TARGET_OBJ_DIR%" -o "%_TARGET_DIR%\%_PROJECT_NAME%.exe" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATMAKE_CMD%" "%_SOURCE_DIR%\%_MAIN_NAME%.adb" -D "%_TARGET_OBJ_DIR%" -o "%_TARGET_DIR%\%_EXE_NAME%.exe" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N% Ada source files to object directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
 )
-call "%_GNATMAKE_CMD%" "%_SOURCE_DIR%\%_MAIN_NAME%.adb" -D "%_TARGET_OBJ_DIR%" -o "%_TARGET_DIR%\%_PROJECT_NAME%.exe" %_STDERR_REDIRECT%
+call "%_GNATMAKE_CMD%" "%_SOURCE_DIR%\%_MAIN_NAME%.adb" -D "%_TARGET_OBJ_DIR%" -o "%_TARGET_DIR%\%_EXE_NAME%.exe" %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Compilation of Ada source files failed 1>&2
     set _EXITCODE=1
@@ -265,17 +232,17 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :decompile
-echo 222222222222
+echo %_WARNING_LABEL% Subcommand 'decompile' is not yet implemented 1>&2
 goto :eof
 
 :doc
-echo 33333333333
+echo %_WARNING_LABEL% Subcommand 'doc' is not yet implemented 1>&2
 goto :eof
 
 :run
-set "__EXE_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
+set "__EXE_FILE=%_TARGET_DIR%\%_EXE_NAME%.exe"
 if not exist "%__EXE_FILE%" (
-    echo %_ERROR_LABEL% Main executable '%_PROJECT_NAME%' not found ^(%__EXE_FILE%^) 1>&2
+    echo %_ERROR_LABEL% Main executable '%_EXE_NAME%' not found ^(%__EXE_FILE%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -290,12 +257,8 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
-:compile_test
-echo 44444444444
-goto :eof
-
 :test
-echo 55555555555
+echo %_WARNING_LABEL% Subcommand 'test' is not yet implemented 1>&2
 goto :eof
 
 @rem output parameter: _DURATION
@@ -313,7 +276,7 @@ goto :eof
 if %_TIMER%==1 (
     for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
     call :duration "%_TIMER_START%" "!__TIMER_END!"
-    echo Total elapsed time: !_DURATION! 1>&2
+    echo Total execution time: !_DURATION! 1>&2
 )
 if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
 exit /b %_EXITCODE%
