@@ -1,0 +1,1 @@
+Source: https://rosettacode.org/wiki/Dining_philosophers#Ordered_mutexes

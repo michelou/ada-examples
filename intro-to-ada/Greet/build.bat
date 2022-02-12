@@ -48,11 +48,6 @@ if not exist "%GNAT_HOME%\bin\gnatmake.exe" (
     goto :eof
 )
 set "_GNATMAKE_CMD=%GNAT_HOME%\bin\gnatmake.exe"
-
-set _DIFF_CMD=
-if exist "%GIT_HOME%\usr\bin\diff.exe" (
-    set "_DIFF_CMD=%GIT_HOME%\usr\bin\diff.exe" 
-)
 goto :eof
 
 :env_colors
@@ -128,7 +123,6 @@ if "%__ARG:~0,1%"=="-" (
     @rem subcommand
     if "%__ARG%"=="clean" ( set _COMMANDS=!_COMMANDS! clean
     ) else if "%__ARG%"=="compile" ( set _COMMANDS=!_COMMANDS! compile
-    ) else if "%__ARG%"=="decompile" ( set _COMMANDS=!_COMMANDS! compile decompile
     ) else if "%__ARG%"=="doc" ( set _COMMANDS=!_COMMANDS! doc
     ) else if "%__ARG%"=="help" ( set _COMMANDS=help
     ) else if "%__ARG%"=="lint" ( set _COMMANDS=!_COMMANDS! lint

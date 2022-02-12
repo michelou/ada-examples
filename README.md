@@ -44,8 +44,9 @@ C:\opt\msys64\           <i>(2.8 GB)</i>
 This project is organized as follows:
 <pre style="font-size:80%;">
 <a href="docs/">docs\</a>
-<a href="examples/">examples\</a>{<a href="examples/README.md">README.md</a>}
-<a href="intro-to-ada/">intro-to-ada\</a>{<a href="intro-to-ada/README.md">README.md</a>, <a href="intro-to-ada/Week/">Week</a>}
+<a href="aunit-examples/">aunit-examples\</a>{<a href="aunit-examples/README.md">README.md</a>, <a href="aunit-examples/calculator/">calculator</a>, etc.}
+<a href="examples/">examples\</a>{<a href="examples/README.md">README.md</a>, <a href="examples/Greetings">Greetings</a>, etc.}
+<a href="intro-to-ada/">intro-to-ada\</a>{<a href="intro-to-ada/README.md">README.md</a>, <a href="intro-to-ada/Greet/">Greet</a>, <a href="intro-to-ada/Week/">Week</a>, etc.}
 README.md
 <a href="RESOURCES.md">RESOURCES.md</a>
 <a href="setenv.bat">setenv.bat</a>
@@ -53,8 +54,10 @@ README.md
 
 where
 
-- directory [**`docs\`**](docs/) contains [Ada] related papers/articles.
+- directory [**`docs\`**](docs/) contains [Ada] related documents.
+- directory [**`aunit-examples\`**](aunit-examples/) contains [Ada] code examples from GitHub project [`AdaCore/aunit`](https://github.com/AdaCore/aunit).
 - directory [**`examples\`**](examples/) contains [Ada] code examples grabbed from various websites.
+- directory [**`intro-to-ada\`**](intro-to-ada/) contains [Ada] code examples from AdaCore's course <a href="https://learn.adacore.com/courses/intro-to-ada">Introduction to Ada</a>.
 - file [**`README.md`**](README.md) is the [Markdown][github_markdown] document for this page.
 - file [**`RESOURCES.md`**](RESOURCES.md) gathers [Ada] related informations.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
