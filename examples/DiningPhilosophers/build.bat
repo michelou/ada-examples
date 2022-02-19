@@ -224,11 +224,11 @@ if %__N%==0 (
 set __GNATMAKE_OPTS=-we -d -D "%_TARGET_OBJ_DIR%" -o "%_TARGET_DIR%\%_EXE_NAME%.exe"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to object directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of %__N_FILES% failed 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )

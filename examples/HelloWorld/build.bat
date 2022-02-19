@@ -156,8 +156,10 @@ goto :args_loop
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
+for %%i in ("%~dp0.") do set _PROJECT_NAME=%%~ni
 set _MAIN_NAME=main
 set _MAIN_ARGS=
+set _EXE_NAME=%_PROJECT_NAME%
 
 if not "!_COMMANDS:compile=!"=="%_COMMANDS%" if defined _MSYS if not defined _MSYS_GNATMAKE_CMD (
     echo %_WARNING_LABEL% MSYS GNAT Make not found; use standard GNAT Make instead 1>&2
@@ -243,7 +245,7 @@ if %_MSYS%==1 ( set "__GNATMAKE_CMD=%_MSYS_GNATMAKE_CMD%"
 ) else ( set "__GNATMAKE_CMD=%_GNATMAKE_CMD%"
 )
 @rem -we : Treat all warnings as errors
-set __GNATMAKE_OPTS=-we -D "%_TARGET_OBJ_DIR%" -o "%_TARGET_DIR%\%_PROJECT_NAME%.exe"
+set __GNATMAKE_OPTS=-we -D "%_TARGET_OBJ_DIR%" -o "%_TARGET_DIR%\%_EXE_NAME%.exe"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__GNATMAKE_CMD%" %__GNATMAKE_OPTS% "%_SOURCE_MAIN_DIR%\%_MAIN_NAME%.adb" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
@@ -271,15 +273,15 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :run
-set "__EXE_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
+set "__EXE_FILE=%_TARGET_DIR%\%_EXE_NAME%.exe"
 if not exist "%__EXE_FILE%" (
-    echo %_ERROR_LABEL% Main executable '%_PROJECT_NAME%' not found ^(%__EXE_FILE%^) 1>&2
+    echo %_ERROR_LABEL% Main executable '%_EXE_NAME%' not found ^(%__EXE_FILE%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
 call "%__EXE_FILE%" %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Program execution failed ^(%_PROJECT_NAME%^) 1>&2
+    echo %_ERROR_LABEL% Program execution failed ^(%_EXE_NAME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
