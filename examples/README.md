@@ -10,7 +10,8 @@
 </table>
 
 ## <span id="hello">`HelloWorld`</span>
- <sup id="anchor_01">[1](#footnote_01)</sup>
+
+*WIP* <sup id="anchor_01">[1](#footnote_01)</sup>
 
 ## <span id="greetings">`Greetings`</span>
 
@@ -35,7 +36,7 @@ Some project file examples :
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

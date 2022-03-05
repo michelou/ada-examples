@@ -15,6 +15,11 @@
 - [AdaCore Technologies for cyber security, part 2: The challenge of secure software][article_chapman2] by Roderick Chapman, June 2018.
 - [AdaCore Technologies for cyber security, part 1][article_chapman1] by Roderick Chapman, May 2018.
 
+## <span id="blogs">Blogs</span>
+
+- [Declaring subtypes of private types](https://ada.tips/declaring-subtypes-of-private-types.html) by Jacob Sparre Andersen, September 2017.
+- [Self-referencing Objects](https://ada.tips/self-referencing-objects.html) by Jacob Sparre Andersen, August 2014.
+
 ## <span id="books">Books</span>
 
 - [Ada for the C++ or Java Developer][book_ochem] by Quentin Ochem et al., 2021.
@@ -66,7 +71,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

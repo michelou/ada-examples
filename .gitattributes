@@ -40,6 +40,10 @@
 *.ps1 eol=crlf linguist-detectable=false
 *.sln text eol=crlf linguist-detectable=false
 
+# https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
+Makefile text eol=crlf linguist-detectable=false
+Makefile.inc text eol=crlf linguist-detectable=false
+
 # Declare files that will always have LF line endings on checkout.
 *.sh eol=lf linguist-detectable=false
 
