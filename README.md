@@ -4,7 +4,7 @@
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:25%;"><a href="https://www.adacore.com/" rel="external"><img src="docs/images/adamascot.png" width="100" alt="Ada project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://www.adacore.com/" rel="external" title="Ada">Ada</a> code examples coming from various websites and books.<br/>
-  It also includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a> for experimenting with <a href="https://www.adacore.com/" rel="external">Ada</a> on the <b>Microsoft Windows</b> platform.
+  It also includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a> for experimenting with <a href="https://www.adacore.com/" rel="external">Ada</a> on the <b>Microsoft Windows</b> platform.
   </td>
   </tr>
 </table>
@@ -47,6 +47,7 @@ This project is organized as follows:
 <a href="aunit-examples/">aunit-examples\</a>{<a href="aunit-examples/README.md">README.md</a>, <a href="aunit-examples/calculator/">calculator</a>, etc.}
 <a href="examples/">examples\</a>{<a href="examples/README.md">README.md</a>, <a href="examples/Greetings">Greetings</a>, etc.}
 <a href="intro-to-ada/">intro-to-ada\</a>{<a href="intro-to-ada/README.md">README.md</a>, <a href="intro-to-ada/Greet/">Greet</a>, <a href="intro-to-ada/Week/">Week</a>, etc.}
+<a href="shvets-examples/">shvets-examples\</a>{<a href="svhets-examples/README.md">README.md</a>, <a href="svhets-examples/ch02">ch02</a>, etc.}
 README.md
 <a href="RESOURCES.md">RESOURCES.md</a>
 <a href="setenv.bat">setenv.bat</a>
@@ -58,7 +59,8 @@ where
 - directory [**`docs\`**](docs/) contains [Ada] related documents.
 - directory [**`aunit-examples\`**](aunit-examples/) contains [Ada] code examples from GitHub project [`AdaCore/aunit`](https://github.com/AdaCore/aunit).
 - directory [**`examples\`**](examples/) contains [Ada] code examples grabbed from various websites.
-- directory [**`intro-to-ada\`**](intro-to-ada/) contains [Ada] code examples from AdaCore's course <a href="https://learn.adacore.com/courses/intro-to-ada">Introduction to Ada</a>.
+- directory [**`intro-to-ada\`**](intro-to-ada/) contains [Ada] code examples from AdaCore's course <a href="https://learn.adacore.com/courses/intro-to-ada" rel="external">*Introduction to Ada*</a>.
+- directory [**`shvets-examples`**](./shvets-examples/) contains [Ada] code examples from Shvets's book <a href="https://www.apress.com/9781484254271" rel="external">*Beginning Ada Programming*</a>.
 - file [**`README.md`**](README.md) is the [Markdown][github_markdown] document for this page.
 - file [**`RESOURCES.md`**](RESOURCES.md) gathers [Ada] related informations.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.

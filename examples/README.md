@@ -11,7 +11,27 @@
 
 ## <span id="hello">`HelloWorld`</span>
 
-*WIP* <sup id="anchor_01">[1](#footnote_01)</sup>
+This example contains the source file [`main.adb`](./HelloWorld/src/main/ada/main.adb), the project file [`build.gpr`](./HelloWorld/build.gpr) and the batch file [`build.bat`](./HelloWorld/build.bat).
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./HelloWorld/build.bat">build</a> -verbose clean run</b>
+Compile 1 Ada source file to directory "target\obj"
+Hello WORLD!
+</pre>
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="">gprclean</a>&amp; <a href="">gprbuild</a>&amp; target\HelloWorld.exe</b>
+using project file build.gpr
+using project file build.gpr
+Compile
+   [Ada]          main.adb
+Bind
+   [gprbind]      main.bexch
+   [Ada]          main.ali
+Link
+   [link]         main.adb
+Hello WORLD!
+</pre>
 
 ## <span id="greetings">`Greetings`</span>
 
@@ -21,9 +41,10 @@ Hello WORLD!
 Goodbye WORLD!
 </pre>
 
+<!--
 ## <span id="footnotes">Footnotes</span>
 
-<span id="footnote_01">[1]</span> ***GNAT Project Files*** [↩](#anchor_01) <!-- 2018-11-18 -->
+<span id="footnote_01">[1]</span> ***GNAT Project Files*** [↩](#anchor_01)
 
 <dl><dd>
 TODO: <a href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/gnat_project_manager.html#executable-file-names">Executable file names</a>.
@@ -33,6 +54,7 @@ Some project file examples :
 <ul><li><a href="https://github.com/AdaCore/gprbuild"><code>AdaCore/gprbuild</code></a> project: <a href="https://github.com/AdaCore/gprbuild/blob/master/gprbuild.gpr"><code>gprbuild.grp</code></a></li>
 </ul>
 </dd></dl>
+-->
 
 ***
 
