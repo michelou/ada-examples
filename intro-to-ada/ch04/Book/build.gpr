@@ -1,5 +1,5 @@
---- @summary Week program
-project Main is
+--- @summary Book program
+project Build is
 
     -- project level attributes
     type Mode_Type is ("debug", "release");
@@ -7,7 +7,7 @@ project Main is
     TargetDir := "target";
 
     for Languages use ("Ada");
-    for Source_Dirs use ("src");
+    for Source_Dirs use ("src/main/ada");
     for Main use ("main.adb");
 
     for Exec_Dir use TargetDir;
@@ -15,7 +15,7 @@ project Main is
     for Create_Missing_Dirs use "True";
 
     package Builder is
-        for Executable ("main.adb") use "Week";
+        for Executable ("main.adb") use "Book";
     end Builder;
 
     package Compiler is
@@ -33,4 +33,4 @@ project Main is
         -- for Image_Dir use TargetDir & "/docs/images";
     end Documentation;
 
-end Main;
+end Build;

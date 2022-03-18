@@ -39,6 +39,7 @@ set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
 set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 
 set "_SOURCE_DIR=%_ROOT_DIR%src"
+set "_SOURCE_MAIN_DIR=%_SOURCE_DIR%\main\ada"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_TARGET_OBJ_DIR=%_TARGET_DIR%\obj"
 
@@ -99,7 +100,6 @@ goto :eof
 @rem input parameter: %*
 :args
 set _COMMANDS=
-set _TIMER=0
 set _VERBOSE=0
 set __N=0
 :args_loop
@@ -112,7 +112,6 @@ if "%__ARG:~0,1%"=="-" (
     @rem option
     if "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if "%__ARG%"=="-help" ( set _HELP=1
-    ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
@@ -145,14 +144,14 @@ for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
 set _MAIN_NAME=%_PROJECT_NAME%
 set _MAIN_ARGS=
 set _EXE_NAME=%_PROJECT_NAME%
+set "_EXE_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
 
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Options    : _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: %_COMMANDS% 1>&2
     echo %_DEBUG_LABEL% Variables  : GNAT_HOME="%GNAT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : _MAIN_NAME=%_MAIN_NAME% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
 )
-if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
 :help
@@ -171,7 +170,7 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-debug%__END%      show commands executed by this script
-echo     %__BEG_O%-timer%__END%      display total elapsed time
+echo     %__BEG_O%-help%__END%       display this help message
 echo     %__BEG_O%-verbose%__END%    display progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
@@ -210,16 +209,22 @@ goto :eof
 if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%" 1>NUL
 
 set __N=0
-for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.adb" "%_SOURCE_DIR%\*.ads" 2^>NUL') do (
+for /f %%f in ('dir /s /b "%_SOURCE_MAIN_DIR%\*.adb" "%_SOURCE_MAIN_DIR%\*.ads" 2^>NUL') do (
     @rem echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATMAKE_CMD%" "%_SOURCE_DIR%\%_MAIN_NAME%.adb" -D "%_TARGET_OBJ_DIR%" -o "%_TARGET_DIR%\%_EXE_NAME%.exe" 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N% Ada source files to object directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
+if %__N%==0 (
+    echo %_WARNING_LABEL% No Ada source file found 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% Ada source file
+) else ( set __N_FILES=%__N% Ada source files
 )
-call "%_GNATMAKE_CMD%" "%_SOURCE_DIR%\%_MAIN_NAME%.adb" -D "%_TARGET_OBJ_DIR%" -o "%_TARGET_DIR%\%_EXE_NAME%.exe" %_STDERR_REDIRECT%
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATMAKE_CMD%" "%_SOURCE_MAIN_DIR%\%_MAIN_NAME%.adb" -D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_GNATMAKE_CMD%" "%_SOURCE_MAIN_DIR%\%_MAIN_NAME%.adb" -D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%" %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of Ada source files failed 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -245,7 +250,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__EXE_FILE%" %_MAIN_ARGS% 1>&2
 )
 call "%__EXE_FILE%" %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Program execution failed ^("!__EXE_FILE:%_TARGET_DIR%\=!"^) 1>&2
+    echo %_ERROR_LABEL% Failed to execute program "!__EXE_FILE:%_TARGET_DIR%\=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -255,23 +260,10 @@ goto :eof
 echo %_WARNING_LABEL% Subcommand 'test' is not yet implemented 1>&2
 goto :eof
 
-@rem output parameter: _DURATION
-:duration
-set __START=%~1
-set __END=%~2
-
-for /f "delims=" %%i in ('powershell -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
-goto :eof
-
 @rem #########################################################################
 @rem ## Cleanups
 
 :end
-if %_TIMER%==1 (
-    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
-    call :duration "%_TIMER_START%" "!__TIMER_END!"
-    echo Total execution time: !_DURATION! 1>&2
-)
 if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
 exit /b %_EXITCODE%
 endlocal

@@ -1,13 +1,13 @@
--- https://learn.adacore.com/courses/intro-to-ada/chapters/arrays.html
-project Main is
+-- https://learn.adacore.com/courses/intro-to-ada/chapters/subprograms.html
+project Build is
 
     TargetDir := "target";
 
-    for Source_Dirs use ("src");
+    for Source_Dirs use ("src/main/ada");
     for Languages use ("Ada");
     for Exec_Dir use TargetDir;
     for Object_Dir use TargetDir & "/obj";
-    for Main use ("greet");
+    for Main use ("mutually_recursive_subprograms");
 
     package Compiler is
         for Default_Switches ("Ada") use ("-g", "-O0", "-gnata", "-gnatwa");
@@ -17,7 +17,7 @@ project Main is
     package Builder is
         for Default_Switches ("Ada") use ("-g");
         --BUILDER_SWITCHES_PLACEHOLDER--
-        for Global_Configuration_Pragmas use "main.adc";
+        for Global_Configuration_Pragmas use "build.adc";
     end Builder;
 
-end Main;
+end Build;
