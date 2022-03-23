@@ -137,6 +137,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://www.adalog.fr/en/adacontrol.html">adactl-1.22r16c-exe_windows_ce2019.zip</a>              <i>( 26 MB)</i>
 <a href="https://www.adacore.com/download/more">gnat-community-2019-20190517-x86_64-windows-bin.exe</a> <i>(380 MB)</i>
 <a href="https://www.adacore.com/download">gnat-2021-20210519-x86_64-windows64-bin.exe</a>         <i>(562 MB)</i>
+<a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20220319.exe</a>                           <i>( 92 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.35.1-64-bit.7z.exe</a>                    <i>( 41 MB)</i>
 </pre>
 </dd></dl>
