@@ -9,7 +9,7 @@
   </tr>
 </table>
 
-We made the following changes to the original <a href="https://github.com/AdaCore/aunit"><code>AdaCore/aunit</code></a> code examples:
+We made the following changes to the original [`AdaCore/aunit`][adacore_aunit] code examples:
 - We introduce a parent project file [`Makefile.inc`](./Makefile.inc) which gathers all tool definitions and takes care of different settings for 3 environments: MSYS2, Windows and Unix.
 - We require the two environment variables `GNAT_HOME` and `MSYS_HOME` to be defined when working in the MSYS2 and Windows environments (behavior is unchanged under Unix).
 
@@ -60,10 +60,11 @@ Unexpected Errors: 0
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/April 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
 
+[adacore_aunit]: https://github.com/AdaCore/aunit
 [gnu_gnatmake]: https://gcc.gnu.org/onlinedocs/gnat_ugn/Building-with-gnatmake.html
 [gnu_make]: https://www.gnu.org/software/make/manual/make.html
