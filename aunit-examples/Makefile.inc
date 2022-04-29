@@ -18,9 +18,9 @@ endif
 #
 MSYS_PATH    = $(subst \,/,$(MSYS_HOME))
 CP           = $(MSYS_PATH)/usr/bin/cp.exe
-DIFF         = $(MSYS_PATH))/usr/bin/diff.exe
+DIFF         = $(MSYS_PATH)/usr/bin/diff.exe
 ECHO         = $(MSYS_PATH)/usr/bin/echo.exe
-FIND         = $(MSYS_PATH))/usr/bin/find.exe
+FIND         = $(MSYS_PATH)/usr/bin/find.exe
 GREP         = $(MSYS_PATH)/usr/bin/grep.exe
 RM           = $(MSYS_PATH)/usr/bin/rm.exe
 #
