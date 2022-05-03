@@ -17,6 +17,7 @@
 
 ## <span id="blogs">Blogs</span>
 
+- [Ada 202x support in GNAT](https://blog.adacore.com/ada-202x-support-in-gnat) by Arnaud Charlet, October 2020.
 - [Declaring subtypes of private types](https://ada.tips/declaring-subtypes-of-private-types.html) by Jacob Sparre Andersen, September 2017.
 - [Self-referencing Objects](https://ada.tips/self-referencing-objects.html) by Jacob Sparre Andersen, August 2014.
 
@@ -51,6 +52,7 @@
 - [Ada Narkive Archives](https://comp.lang.ada.narkive.com/).
 - [Ada Planet](https://www.laeran.pl/adaplanet/i/).
 - [Ada Switzerland](https://www.ada-switzerland.ch/)
+- [AdaCore News](https://www.eejournal.com/?s=AdaCore) ([Electronic Engineering Journal](https://www.eejournal.com/)).
 
 ## <span id="projects">Projects</span>
 
@@ -71,7 +73,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
