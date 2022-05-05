@@ -13,34 +13,41 @@ Code examples presented in this document can be built in two ways :
 - the batch file [`build.bat`](./Week/build.bat) calls the [`GNATmake`](gnu_gnatmake) build tool (try option `-help` to display other features)
 - the [GPR tools][gpr_tools] &ndash; e.g. [**`gprclean`**][gprclean_cli] and [**`gprbuild`**][gprbuild_cli] &ndash; get their build information from the project file [`main.gpr`](./Week/main.gpr) <sup id="anchor_01">[1](#footnote_01)</sup>.
 
-## <span id="greet">`Greet`</span>
+## <span id="forward_declaration">`forward_declaration`</span>
 
-We can build/execute this code example as follows (source file [`Greet.adb`](./Greet/src/Greet.adb), project file [`main.gpr`](./Greet/main.gpr)) :
+Code example [`forward_declaration`](./ch03/forward_declaration/) consists of
+- the source file [`mutually_recursive_subprograms.adb`](./ch03/forward_declaration/src/main/ada/mutually_recursive_subprograms.adb)
+- the project file [`build.gpr`](./ch03/forward_declaration/build.gpr) and
+- the batch file [`build.bat`](./ch03/forward_declaration/build.bat).
+
+We can build/execute this project as follows :
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="./Greet/build.bat">build</a> -verbose run</b>
-Compile 1 Ada source files to object directory "target\obj"
-Execute program "Greet.exe"
- 2 3 5 7 11
+<b>&gt; <a href="./ch03/forward_declaration/build.bat">build</a> clean run</b>
+</pre>
+
+## <span id="book">`Book`</span>
+
+Code example [`Book`](./ch04/Book/) consists of
+- the five source files [`book.ads`](./ch04/Book/src/main/ada/book.ads), [`book.adb`](./ch04/Book/src/main/ada/book.adb), [`book-additional_operations.ads`](./ch04/Book/src/main/ada/book-additional_operations.ads), [`book-additional_operations.adb`](./ch04/Book/src/main/ada/book-additional_operations.adb) and [`main.adb`](./ch04/Book/src/main/ada/main.adb).
+- the project file [`build.gpr`](./ch04/Book/build.gpr) and
+- the batch file [`build.bat`](./ch04/Book/build.bat).
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./ch04/Book/build.bat">build</a> clean run</b>
+Book Title: Visible for my children
+Book Author: Author not visible for my children
 &nbsp;
-<b>&gt; <a href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug.html">gprbuild</a> &amp; target\Greet.exe</b>
-using project file main.gpr
-Compile
-   [Ada]          greet.adb
-greet.adb:11:04: warning: "Arr" is not modified, could be declared constant [-gnatwk]
-Bind
-   [gprbind]      greet.bexch
-   [Ada]          greet.ali
-Link
-   [link]         greet.adb
- 2 3 5 7 11
+<b>&gt; <a href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/companion_tools.html#cleaning-up-with-gprclean">gprclean</a> -q &amp; <a href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/building_with_gprbuild.html#command-line">gprbuild</a> -q &amp; target\Book.exe</b>
+Book Title: Visible for my children
+Book Author: Author not visible for my children
 </pre>
 
 ## <span id="week">`Week`</span>
 
 Code example [`Week`](./ch04/Week/) consists of
 - the two source files [`Week.ads`](./ch04/Week/src/Week.ads) and [`Main.adb`](./ch04/Week/src/Main.adb),
-- the project file [`main.gpr`](./ch04/Week/main.gpr) and
+- the project file [`build.gpr`](./ch04/Week/build.gpr) and
 - the batch file [`build.bat`](./ch04/Week/build.bat).
 
 We can build/execute this project as follows :
@@ -69,6 +76,29 @@ Code example [`Enumeration`](./ch05/Enumeration/) consists of
 - the source file [`enumeration_example.adb`](./ch05/Enumeration/src/main/ada/enumeration_example.adb),
 - the project file [`build.gpr`](./ch05/Enumeration/build.gpr) and
 - the batch file [`build.bat`](./ch05/Enumeration/build.bat).
+
+## <span id="greet">`Greet`</span>
+
+We can build/execute this code example as follows (source file [`Greet.adb`](./ch07/Greet/src/main/ada/Greet.adb), project file [`build.gpr`](./ch07/Greet/build.gpr)) :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./ch07/Greet/build.bat">build</a> -verbose run</b>
+Compile 1 Ada source files to object directory "target\obj"
+Execute program "Greet.exe"
+ 2 3 5 7 11
+&nbsp;
+<b>&gt; <a href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug.html" rel="external">gprbuild</a> &amp; target\Greet.exe</b>
+using project file main.gpr
+Compile
+   [Ada]          greet.adb
+greet.adb:11:04: warning: "Arr" is not modified, could be declared constant [-gnatwk]
+Bind
+   [gprbind]      greet.bexch
+   [Ada]          greet.ali
+Link
+   [link]         greet.adb
+ 2 3 5 7 11
+</pre>
 
 ## <span id="footnotes">Footnotes</span>
 
