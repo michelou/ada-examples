@@ -1,0 +1,16 @@
+authors = [
+"Jon Hollan, Mark Hoffman, & Brandon Ball",
+]
+description = "Hangman game for the console"
+executables = [
+"hangmain",
+]
+maintainers = [
+"alejandro@mosteo.com",
+]
+maintainers-logins = [
+"mosteo",
+]
+name = "hangman"
+version = "1.0.0"
+

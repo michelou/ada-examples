@@ -1,0 +1,3 @@
+Source: https://github.com/alire-project/alire/blob/master/doc/getting-started.md
+
+Command: alr get hangman

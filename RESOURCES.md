@@ -49,10 +49,13 @@
 ## <span id="news">News</span>
 
 - [Ada-Belgium](https://people.cs.kuleuven.be/~dirk.craeynest/ada-belgium/).
+- [Ada Europe](http://www.ada-europe.org/).
+- [Ada France](https://www.ada-france.org/).
 - [Ada Narkive Archives](https://comp.lang.ada.narkive.com/).
 - [Ada Planet](https://www.laeran.pl/adaplanet/i/).
 - [Ada Switzerland](https://www.ada-switzerland.ch/)
 - [AdaCore News](https://www.eejournal.com/?s=AdaCore) ([Electronic Engineering Journal](https://www.eejournal.com/)).
+- **reddit** - [r/ada](https://www.reddit.com/r/ada/).
 
 ## <span id="projects">Projects</span>
 
@@ -62,9 +65,10 @@
 
 ## <span id="tools">Tools and Frameworks</span>
 
-- [alr][tool_alire] - a command-line tool  to obtain, build, and incorporate Ada libraries into a project (similar role to Rust's cargo).
-- [LEA][tool_lea] - a Lightweight Editor for Ada.
-- [SweetAda](https://www.sweetada.org/) - a lightweight development framework to inplement Ada-based software systems.
+- [alr][tool_alire] &ndash; a command-line tool  to obtain, build, and incorporate Ada libraries into a project (similar role to Rust's [cargo](https://doc.rust-lang.org/cargo/commands/cargo.html)).
+- [Language Support for Ada](https://marketplace.visualstudio.com/items?itemName=AdaCore.ada) &ndash; a Language Server providing Ada and SPARK support in Visual Studio Code.
+- [LEA][tool_lea] &ndash; a Lightweight Editor for Ada.
+- [SweetAda](https://www.sweetada.org/) &ndash; a lightweight development framework to inplement Ada-based software systems.
 
 ## <span id="others">Other resources</span>
 

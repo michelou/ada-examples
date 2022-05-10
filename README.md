@@ -9,7 +9,7 @@
   </tr>
 </table>
 
-[Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX][wix_examples] are other topics we are continuously monitoring.
+[Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX][wix_examples] are other topics we are continuously monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -21,6 +21,7 @@ This project depends on the following external software for the **Microsoft Wind
 Optionally one may also install the following software:
 
 - [AdaControl 1.22][adactl_downloads]
+- [Alire 1.1][alire_downloads]
 - [GNAT CE 2019][gnat2019_downloads] <sup id="anchor_01">[1](#footnote_01)</sup>
 - [MSYS2][msys2_downloads] <sup id="anchor_02">[2](#footnote_02)</sup>
 
@@ -31,7 +32,7 @@ For instance our development environment looks as follows (May 2022) <sup id="an
 
 <pre style="font-size:80%;">
 C:\opt\adactl-1.22r16c\  <i>( 79 MB)</i>
-C:\opt\Git-2.36.0\       <i>(282 MB)</i>
+C:\opt\Git-2.36.1\       <i>(282 MB)</i>
 C:\opt\GNAT\2019\        <i>(1.1 GB)</i>
 C:\opt\GNAT\2021\        <i>(2.8 GB)</i>
 C:\opt\msys64\           <i>(2.8 GB)</i>
@@ -135,10 +136,11 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://www.adalog.fr/en/adacontrol.html">adactl-1.22r16c-exe_windows_ce2019.zip</a>              <i>( 26 MB)</i>
+<a href="https://github.com/alire-project/alire/releases/" rel="external">alr-1.1.3-bin-x86_64-windows.zip</a>                    <i>(  9 MB)</b>
 <a href="https://www.adacore.com/download/more">gnat-community-2019-20190517-x86_64-windows-bin.exe</a> <i>(380 MB)</i>
 <a href="https://www.adacore.com/download">gnat-2021-20210519-x86_64-windows64-bin.exe</a>         <i>(562 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20220319.exe</a>                           <i>( 92 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.36.0-64-bit.7z.exe</a>                    <i>( 41 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.36.1-64-bit.7z.exe</a>                    <i>( 41 MB)</i>
 </pre>
 </dd></dl>
 
@@ -152,12 +154,13 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [ada]: https://www.adacore.com/
 [adactl_downloads]: https://www.adalog.fr/en/adacontrol.html
 [akka_examples]: https://github.com/michelou/akka-examples
+[alire_downloads]: https://github.com/alire-project/alire/releases/
 [cpp_examples]: https://github.com/michelou/cpp-examples
 [deno_examples]: https://github.com/michelou/deno-examples
 [git_docs]: https://
 [git_downloads]: https://git-scm.com/download/win
 [github_markdown]: https://github.github.com/gfm/
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.36.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.36.1.txt
 [gnat2019_downloads]: https://www.adacore.com/download/more
 [gnat2021_announcement]: https://blog.adacore.com/gnat-community-2021-is-here
 [gnat2021_downloads]: https://www.adacore.com/download
@@ -180,6 +183,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
 [rust_examples]: https://github.com/michelou/rust-examples
 [scala3_examples]: https://github.com/michelou/dotty-examples
+[spark_examples]: https://github.com/michelou/spark-examples
 [spring_examples]: https://github.com/michelou/spring-examples
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
