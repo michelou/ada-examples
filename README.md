@@ -21,7 +21,7 @@ This project depends on the following external software for the **Microsoft Wind
 Optionally one may also install the following software:
 
 - [AdaControl 1.22][adactl_downloads]
-- [Alire 1.1][alire_downloads]
+- [Alire 1.2][alire_downloads] ([*changes*][alire_changes])
 - [GNAT CE 2019][gnat2019_downloads] <sup id="anchor_01">[1](#footnote_01)</sup>
 - [MSYS2][msys2_downloads] <sup id="anchor_02">[2](#footnote_02)</sup>
 
@@ -78,15 +78,15 @@ GNAT CE 2019 is the latest version of GNAT CE that supports <a href="https://en.
 <span id="footnote_02">[2]</span> ***GNAT tools in MSYS2*** [↩](#anchor_02)
 
 <dl><dd>
-The <a href="http://repo.msys2.org/distrib/x86_64/" alt="MSYS2">MSYS64</a> software distribution also includes GNAT tools whose versions may differ from the GNAT CE distribution:
+The <a href="http://repo.msys2.org/distrib/x86_64/" rel="external">MSYS64</a> software distribution also includes GNAT tools whose versions may differ from the GNAT CE distribution:
 </dd>
 <dd>
 <pre style="font-size:80%;max-width:484px;">
-  <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> /r c:\opt\msys64 gnat.exe gnatmake.exe</b>
+  <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> /r c:\opt\msys64 gnat.exe gnatmake.exe</b>
   c:\opt\msys64\mingw64\bin\gnat.exe
   c:\opt\msys64\mingw64\bin\gnatmake.exe
   &nbsp;
-  <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> /r c:\opt\msys64 gcc.exe make.exe pacman.exe</b>
+  <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> /r c:\opt\msys64 gcc.exe make.exe pacman.exe</b>
   c:\opt\msys64\mingw64\bin\gcc.exe
   c:\opt\msys64\usr\bin\make.exe
   c:\opt\msys64\usr\bin\pacman.exe
@@ -136,7 +136,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://www.adalog.fr/en/adacontrol.html">adactl-1.22r16c-exe_windows_ce2019.zip</a>              <i>( 26 MB)</i>
-<a href="https://github.com/alire-project/alire/releases/" rel="external">alr-1.1.3-bin-x86_64-windows.zip</a>                    <i>(  9 MB)</b>
+<a href="https://github.com/alire-project/alire/releases/" rel="external">alr-1.2.0-rc1-bin-x86_64-windows.zip</a>                <i>(  9 MB)</b>
 <a href="https://www.adacore.com/download/more">gnat-community-2019-20190517-x86_64-windows-bin.exe</a> <i>(380 MB)</i>
 <a href="https://www.adacore.com/download">gnat-2021-20210519-x86_64-windows64-bin.exe</a>         <i>(562 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20220319.exe</a>                           <i>( 92 MB)</i>
@@ -154,6 +154,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [ada]: https://www.adacore.com/
 [adactl_downloads]: https://www.adalog.fr/en/adacontrol.html
 [akka_examples]: https://github.com/michelou/akka-examples
+[alire_changes]: https://github.com/alire-project/alire/blob/master/doc/user-changes.md#release-12-dev
 [alire_downloads]: https://github.com/alire-project/alire/releases/
 [cpp_examples]: https://github.com/michelou/cpp-examples
 [deno_examples]: https://github.com/michelou/deno-examples

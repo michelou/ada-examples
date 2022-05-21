@@ -54,11 +54,114 @@ Unexpected Errors: 0
 
 ## <span id="failures">`failures`</span>
 
-*tbd*
+Project `failures` consists of 3 sets of files:
+- the 3 build files [`harness.gpr`](failures/harness.gpr), [`Makefile`](failures/Makefile) and [`Makefile.inc`](./Makefile.inc) (parent file).
+- the 2 library source files [`math.adb`](failures/tested_lib/src/math.adb) and [`math.ads`](failures/tested_lib/src/math.ads).
+- the 5 test source files [`math-test.adb`](failures/tests/math-test.adb), [`math-test.ads`](failures/tests/math-test.ads), [`math_suite.adb`](failures/tests/math_suite.adb), [`math_suite.ads`](failures/tests/math_suite.ads), [`test_math.adb`](failures/tests/test_math.adb).
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html" rel="external">make</a></b>
+"C:/opt/GNAT/2021/bin/gprbuild.exe" -p -Pharness
+Setup
+   [mkdir]        object directory for project TestLib
+   [mkdir]        object directory for project Harness
+Compile
+   [Ada]          test_math.adb
+   [Ada]          math.adb
+   [Ada]          math_suite.adb
+   [Ada]          math-test.adb
+Build Libraries
+   [gprlib]       testlib.lexch
+   [archive]      libtestlib.a
+   [index]        libtestlib.a
+Bind
+   [gprbind]      test_math.bexch
+   [Ada]          test_math.ali
+Link
+   [link]         test_math.adb
+&nbsp;
+<b>&gt; test_math.exe</b>
+&nbsp;
+OK Test addition
+OK Test subtraction
+&nbsp;
+FAIL Test addition (failure expected)
+    Test should fail this assertion, as 5+3 /= 9
+    at math-test.adb:29
+&nbsp;
+ERROR Test addition (error expected)
+    CONSTRAINT_ERROR
+    Exception Message: math.adb:8 overflow check failed
+    Traceback:
+        [%USERPROFILE%\workspace-perso\ada-examples\aunit-examples\failures\test_math.exe]
+        0x7ff7f85626f2 Math."+" at math.adb:8
+        0x7ff7f8561e98 Math.Test.Test_Addition_Error at math-test.adb:37
+        0x7ff7f856210a Math_Suite.Caller.Run_Test at aunit-test_caller.adb:96
+        0x7ff7f85664a5 aunit__assertions__TtestCFD at ???
+        0x7ff7f8566767 aunit__assertions__TtestCFD at ???
+        0x7ff7f8569679 aunit__assertions__TtestCFD at ???
+        0x7ff7f8566249 aunit__assertions__TtestCFD at ???
+        0x7ff7f85615e3 Test_Math at aunit-run.adb:88
+        0x7ff7f8561d00 Main at b__test_math.adb:399
+        0x7ff7f85613af __tmainCRTStartup at crtexe.c:321
+        0x7ff7f85614e4 mainCRTStartup at crtexe.c:202
+        [C:\WINDOWS\System32\KERNEL32.DLL]
+        0x7ffc4c7d7032
+        [C:\WINDOWS\SYSTEM32\ntdll.dll]
+        0x7ffc4df4264f
+
+
+Total Tests Run:   4
+Successful Tests:  2
+Failed Assertions: 1
+Unexpected Errors: 1
+</pre>
 
 ## <span id="liskov">`liskov`</span>
 
-*tbd*
+*wip*
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html" rel="external">make</a></b>
+"C:/opt/GNAT/2021/bin/gprbuild.exe" -p -Pharness
+Setup
+   [mkdir]        object directory for project TestLib
+   [mkdir]        object directory for project Harness
+Compile
+   [Ada]          test_liskov.adb
+   [...]
+   [Ada]          square-tests-suite_liskov.adb
+   [Ada]          shape-tests.adb
+Build Libraries
+   [gprlib]       testlib.lexch
+   [archive]      libtestlib.a
+   [index]        libtestlib.a
+Bind
+   [gprbind]      test_liskov.bexch
+   [Ada]          test_liskov.ali
+Link
+   [link]         test_liskov.adb
+&nbsp;
+<b>&gt; test_liskov.exe</b>
+
+OK Rectangle : Test width
+OK Rectangle : Test height
+OK Rectangle : Test area
+OK Square : Test width
+OK Square : Test height
+OK Square : Test area
+OK Square as Rectangle (liskov) : Test width
+OK Square as Rectangle (liskov) : Test height
+
+FAIL Square as Rectangle (liskov) : Test area
+    Wrong area returned for object rectangle
+    at rectangle-tests.adb:28
+
+Total Tests Run:   9
+Successful Tests:  8
+Failed Assertions: 1
+Unexpected Errors: 0
+</pre>
 
 ***
 
