@@ -52,7 +52,7 @@ Failed Assertions: 2
 Unexpected Errors: 0
 </pre>
 
-## <span id="failures">`failures`</span>
+## <span id="failures">`failures`</span>[**&#x25B4;**](#top)
 
 Project `failures` consists of 3 sets of files:
 - the 3 build files [`harness.gpr`](failures/harness.gpr), [`Makefile`](failures/Makefile) and [`Makefile.inc`](./Makefile.inc) (parent file).
@@ -117,7 +117,7 @@ Failed Assertions: 1
 Unexpected Errors: 1
 </pre>
 
-## <span id="liskov">`liskov`</span>
+## <span id="liskov">`liskov`</span>[**&#x25B4;**](#top)
 
 *wip*
 
@@ -165,7 +165,7 @@ Unexpected Errors: 0
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

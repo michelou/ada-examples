@@ -23,15 +23,18 @@
 
 ## <span id="books">Books</span>
 
+- [Programming in Ada 2012][book_barnes_2nd] (2<sup>nd</sup> Edition) by John Barnes, May 2022.<br/><span style="font-size:80%;">(Cambridge University Press, ISBN 978-1-0091-8134-1, 970 pages)</span>
 - [Ada for the C++ or Java Developer][book_ochem] by Quentin Ochem et al., 2021.
 - [Beginning Ada Programming][book_shvets] by Andrew Shvets, 2020.<br/><span style="font-size:80%;">(Apress, ISBN 978-1-4842-5427-1, 343 pages)</span>
 - [GNAT Reference Manual](https://gcc.gnu.org/onlinedocs/), [FSF](https://www.fsf.org/), December 2020.
 - [GNAT User's Guide](https://gcc.gnu.org/onlinedocs/), [FSF](https://www.fsf.org/), December 2020.
-- [Programming in Ada 2012][book_barnes] by John Barnes, 2012.<br/><span style="font-size:80%;">(Cambridge University Press, ISBN 978-1-1074-2481-4, 970 pages)</span>
 - [The Big Online Book of Linux Ada Programming][book_burtch] by Ken O. Burtch, May 2009.
 - [Concurrent and Real-Time Programming in Ada][book_burns] by Alain Burns and Andy Wellings, July 2007.<br/><span style="font-size:80%;">(Cambridge University Press, ISBN 978-0-5218-6697-2, 476 pages)</span>
 - [Ada Distilled][book_riehle] by Richard Riehle, July 2003.<br/><span style="font-size:80%;">(AdaWorks, 113 pages)
 - [Ada 95 Quality and Style Guide][book_adaic], October 1995.
+<!--
+ [Programming in Ada 2012][book_barnes] by John Barnes, 2012.<br/><span style="font-size:80%;">(Cambridge University Press, ISBN 978-1-1074-2481-4, 970 pages)</span>
+ -->
 
 ## <span id="community">Community</span>
 
@@ -46,7 +49,7 @@
 - [COSC 3P95: Embedded Software](https://www.cosc.brocku.ca/Offerings/3P95/), Brock University, Fall 2013.
 - [L3-PASD : Programmation avancée et structures dynamiques][course_lacrampe] by Jean-Jacques Lacrampe.
 
-## <span id="news">News</span>
+## <span id="news">News</span>[**&#x25B4;**](#top)
 
 - [Ada-Belgium](https://people.cs.kuleuven.be/~dirk.craeynest/ada-belgium/).
 - [Ada Europe](http://www.ada-europe.org/).
@@ -77,7 +80,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -88,6 +91,7 @@
 [article_chapman4]: https://www.embeddedcomputing.com/technology/software-and-os/adacore-technologies-for-cyber-security-part-4-industrial-scenario-examples
 [book_adaic]: https://www.adaic.org/resources/add_content/docs/95style/html/cover.html
 [book_barnes]: https://www.cambridge.org/gb/academic/subjects/computer-science/software-engineering-and-development/programming-ada-2012
+[book_barnes_2nd]: https://www.cambridge.org/ch/academic/subjects/computer-science/software-engineering-and-development/programming-ada-2012-preview-ada-2022-2nd-edition?format=PB
 [book_burtch]: http://www.pegasoft.ca/resources/boblap/book.html
 [book_burns]: https://www.cambridge.org/gb/academic/subjects/computer-science/programming-languages-and-applied-logic/concurrent-and-real-time-programming-ada
 [book_lrm]: https://www.ada-europe.org/resources/online/

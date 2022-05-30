@@ -84,7 +84,7 @@ Link
 > 148.20000
 > </pre>
 
-## <span id="ch03">Chapter 3: Basic Control Structures</span>
+## <span id="ch03">Chapter 3: Basic Control Structures</span>[**&#x25B4;**](#top)
 
 This example consists of 5 source files [`for_loop.adb`](./ch03/src/main/ada/for_loop.adb), [`if_statement.adb`](./ch03/src/main/ada/if_statement.adb), [`infinite_loop.adb`](./ch03/src/main/ada/infinite_loop.adb), [`switch_statement.adb`](./ch03/src/main/ada/switch_statement.adb) and [`while_loop.adb`](./ch03/src/main/ada/while_loop.adb).
 
@@ -151,7 +151,7 @@ Execute program "target\records_array.exe"
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

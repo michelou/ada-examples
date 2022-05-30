@@ -33,7 +33,7 @@ aunit_cb.pdf
 <b>&gt; <a href="https://www.gnu.org/software/make/manual/html_node/Running.html" rel="external">make</a> install INSTALL=dist</b>
 </pre>
 
-### <span id="aunit_msys2">MSYS2 environment</span>
+### <span id="aunit_msys2">MSYS2 environment</span>[**&#x25B4;**](#top)
 
 <pre style="font-size:80%;">
 <b>$ <a href="https://www.gnu.org/software/make/manual/html_node/Running.html" rel="external">make</a> all</b>
@@ -62,7 +62,7 @@ The source patch consists of replacing <code>AdaLexer()</code> by <code>AdaLexer
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
