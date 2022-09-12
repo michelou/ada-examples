@@ -9,7 +9,7 @@
   </tr>
 </table>
 
-[Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX][wix_examples] are other topics we are continuously monitoring.
+[Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX][wix_examples] are other topics we are continuously monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -28,11 +28,11 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][linux_opt] directory on Unix).
 
-For instance our development environment looks as follows (August 2022) <sup id="anchor_03">[3](#footnote_03)</sup>:
+For instance our development environment looks as follows (September 2022) <sup id="anchor_03">[3](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\adactl-1.22r16c\  <i>( 79 MB)</i>
-C:\opt\Git-2.37.2\       <i>(289 MB)</i>
+C:\opt\Git-2.37.3\       <i>(289 MB)</i>
 C:\opt\GNAT\2019\        <i>(1.1 GB)</i>
 C:\opt\GNAT\2021\        <i>(2.8 GB)</i>
 C:\opt\msys64\           <i>(2.8 GB)</i>
@@ -140,13 +140,13 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://www.adacore.com/download/more">gnat-community-2019-20190517-x86_64-windows-bin.exe</a> <i>(380 MB)</i>
 <a href="https://www.adacore.com/download">gnat-2021-20210519-x86_64-windows64-bin.exe</a>         <i>(562 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20220319.exe</a>                           <i>( 92 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.37.2-64-bit.7z.exe</a>                    <i>( 41 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.37.3-64-bit.7z.exe</a>                    <i>( 41 MB)</i>
 </pre>
 </dd></dl>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -158,10 +158,11 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [alire_downloads]: https://github.com/alire-project/alire/releases/
 [cpp_examples]: https://github.com/michelou/cpp-examples
 [deno_examples]: https://github.com/michelou/deno-examples
+[flix_examples]: https://github.com/michelou/flix-examples
 [git_docs]: https://
 [git_downloads]: https://git-scm.com/download/win
 [github_markdown]: https://github.github.com/gfm/
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.37.2.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.37.3.txt
 [gnat2019_downloads]: https://www.adacore.com/download/more
 [gnat2021_announcement]: https://blog.adacore.com/gnat-community-2021-is-here
 [gnat2021_downloads]: https://www.adacore.com/download
