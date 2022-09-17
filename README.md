@@ -21,14 +21,14 @@ This project depends on the following external software for the **Microsoft Wind
 Optionally one may also install the following software:
 
 - [AdaControl 1.22][adactl_downloads]
-- [Alire 1.2][alire_downloads] ([*changes*][alire_changes])
-- [GNAT CE 2019][gnat2019_downloads] <sup id="anchor_01">[1](#footnote_01)</sup>
-- [MSYS2 2022][msys2_downloads] <sup id="anchor_02">[2](#footnote_02)</sup>
+- [Alire 1.2][alire_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*changes*][alire_changes])
+- [GNAT CE 2019][gnat2019_downloads] <sup id="anchor_02">[2](#footnote_02)</sup>
+- [MSYS2 2022][msys2_downloads] <sup id="anchor_03">[3](#footnote_03)</sup>
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][linux_opt] directory on Unix).
 
-For instance our development environment looks as follows (September 2022) <sup id="anchor_03">[3](#footnote_03)</sup>:
+For instance our development environment looks as follows (September 2022) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\adactl-1.22r16c\  <i>( 79 MB)</i>
@@ -69,13 +69,23 @@ where
 
 ## <span id="footnotes">Footnotes</span>
 
-<span id="footnote_01">[1]</span> ***GNAT 2019*** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> ***Alire*** [↩](#anchor_01)
+
+<dl><dd>
+ <p>
+ <a href="https://alire.ada.dev/docs/">Alire</a> is a source-based package manager for the Ada and SPARK programming languages.
+ </p>
+ <p >
+ We install <a href="https://alire.ada.dev/docs/">Alire</a> from the Zip file <a href="https://github.com/alire-project/alire/releases" rel="external">alr-1.2.1-bin-x86_64-windows.zip</a> which contains two files: the executable <code>bin\alr.exe</code> and the GNU license file <code>LICENSE.txt</code>. We simply copy them to the directory <code>%GNAT_HOME%</code> (in our case <code>GNAT_HOME=C:\opt\GNAT\2021\</code>).
+</dd></dl>
+
+<span id="footnote_02">[2]</span> ***GNAT 2019*** [↩](#anchor_02)
 
 <dl><dd>
 GNAT CE 2019 is the latest version of GNAT CE that supports <a href="https://en.wikipedia.org/wiki/Ada_Semantic_Interface_Specification">ASIS</a>, which is required for running <a href="https://www.adalog.fr/en/adacontrol.html">AdaControl 1.22</a>.
 </dd></dl>
 
-<span id="footnote_02">[2]</span> ***GNAT tools in MSYS2*** [↩](#anchor_02)
+<span id="footnote_03">[3]</span> ***GNAT tools in MSYS2*** [↩](#anchor_03)
 
 <dl><dd>
 The <a href="http://repo.msys2.org/distrib/x86_64/" rel="external">MSYS64</a> software distribution also includes GNAT tools whose versions may differ from the GNAT CE distribution:
@@ -128,7 +138,7 @@ The <a href="http://repo.msys2.org/distrib/x86_64/" rel="external">MSYS64</a> so
 </pre>
 </dd></dl>
 
-<span id="footnote_03">[3]</span> ***Downloads*** [↩](#anchor_03)
+<span id="footnote_04">[4]</span> ***Downloads*** [↩](#anchor_04)
 
 <dl><dd>
 In our case we downloaded the following installation files (see <a href="#proj_deps">section 1</a>):
@@ -136,7 +146,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://www.adalog.fr/en/adacontrol.html">adactl-1.22r16c-exe_windows_ce2019.zip</a>              <i>( 26 MB)</i>
-<a href="https://github.com/alire-project/alire/releases/" rel="external">alr-1.2.0-bin-x86_64-windows.zip</a>                    <i>(  9 MB)</i>
+<a href="https://github.com/alire-project/alire/releases/" rel="external">alr-1.2.1-bin-x86_64-windows.zip</a>                    <i>(  9 MB)</i>
 <a href="https://www.adacore.com/download/more">gnat-community-2019-20190517-x86_64-windows-bin.exe</a> <i>(380 MB)</i>
 <a href="https://www.adacore.com/download">gnat-2021-20210519-x86_64-windows64-bin.exe</a>         <i>(562 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20220319.exe</a>                           <i>( 92 MB)</i>
@@ -154,7 +164,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [ada]: https://www.adacore.com/
 [adactl_downloads]: https://www.adalog.fr/en/adacontrol.html
 [akka_examples]: https://github.com/michelou/akka-examples
-[alire_changes]: https://github.com/alire-project/alire/blob/master/doc/user-changes.md#release-12-dev
+[alire_changes]: https://github.com/alire-project/alire/blob/master/doc/user-changes.md#release-12
 [alire_downloads]: https://github.com/alire-project/alire/releases/
 [cpp_examples]: https://github.com/michelou/cpp-examples
 [deno_examples]: https://github.com/michelou/deno-examples
