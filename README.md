@@ -28,7 +28,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][linux_opt] directory on Unix).
 
-For instance our development environment looks as follows (September 2022) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (October 2022) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\adactl-1.22r16c\  <i>( 79 MB)</i>
