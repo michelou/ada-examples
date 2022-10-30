@@ -17,7 +17,7 @@ Path :
 
 | `PATH` variable updates                          | Command line tool  |
 |:-------------------------------------------------|:-------------------|
-| [**`export`**](https://man7.org/linux/man-pages/man1/export.1p.html)` PATH=$PATH:/c/opt/Python-3.10.2/Scripts` | [`sphinx-build.exe`][tool_sphinx-build] |
+| [**`export`**](https://man7.org/linux/man-pages/man1/export.1p.html)` PATH=$PATH:/c/opt/Python-3.11.0/Scripts` | [`sphinx-build.exe`][tool_sphinx-build] |
 | [**`export`**](https://man7.org/linux/man-pages/man1/export.1p.html)` PATH=$PATH:/c/opt/GNAT/2021/bin`         | [`gprbuild.exe`][tool_gprbuild]     |
 | [**`export`**](https://man7.org/linux/man-pages/man1/export.1p.html)` PATH=$PATH:/c/opt/texlive/bin/win32`     | [`pdflatex.exe`][tool_pdflatex]     |
 
@@ -62,7 +62,7 @@ The source patch consists of replacing <code>AdaLexer()</code> by <code>AdaLexer
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

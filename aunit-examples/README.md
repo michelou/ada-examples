@@ -15,7 +15,7 @@ We made the following changes to the original [`AdaCore/aunit`][adacore_aunit] c
 
 ## <span id="calculator">`calculator`</span>
 
-We build this code example using the [`make`][gnu_make] build tool (project file [`Makefile`](./calculator/Makefile) depends on parent file [`Makefile.inc`](./Makefile.inc)).
+We build this code example using the [`make.exe`][gnu_make] build tool (project file [`Makefile`](./calculator/Makefile) depends on parent file [`Makefile.inc`](./Makefile.inc)).
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> make</b>
@@ -165,7 +165,7 @@ Unexpected Errors: 0
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

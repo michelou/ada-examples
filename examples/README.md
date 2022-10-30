@@ -9,6 +9,63 @@
   </tr>
 </table>
 
+We support the following build tools :
+
+| Build tool | Configuration file |
+|:-----------|:----|
+| [**`gnatmake.exe`**][gnatmake_cmd] | &ndash; |
+| [**`gprbuild.exe`**][gprbuild_cmd] | [**`build.gpr`**](./HelloWorld/build.gpr) |
+
+
+## <span id="dining_philosophers">`DiningPhilosophers`</span>
+
+<pre>
+<b>&gt; <a href="./DiningPhilosophers/build.bat">build</a> -debug run</b>
+[build] Options    : _TIMER=0 _VERBOSE=0
+[build] Subcommands:  compile run
+[build] Variables  : GNAT_HOME="C:\opt\GNAT\2021"
+[build] Variables  : _MAIN_NAME=Test_Dining_Philosophers _MAIN_ARGS=
+[build] "C:\opt\GNAT\2021\bin\gnatmake.exe" -we -d \
+   -D "G:\examples\DiningPhilosophers\target\obj" \
+   -o "G:\examples\DiningPhilosophers\target\DiningPhilosophers.exe" \
+   "G:\examples\DiningPhilosophers\src\test_dining_philosophers.adb"
+gcc -c -IG:\examples\DiningPhilosophers\src\ -I- \
+   -o G:\examples\DiningPhilosophers\target\obj\test_dining_philosophers.o \
+   G:\examples\DiningPhilosophers\src\test_dining_philosophers.adb
+completed 1 out of 1 (100%)...
+gnatbind -aOG:\examples\DiningPhilosophers\target\obj \
+   -x G:\examples\DiningPhilosophers\target\obj\test_dining_philosophers.ali
+gnatlink G:\examples\DiningPhilosophers\target\obj\test_dining_philosophers.ali \
+  - o G:\examples\DiningPhilosophers\target\DiningPhilosophers.exe
+SPINOZA is thinking
+KANT is thinking
+ARISTOTLE is thinking
+[...]
+ARISTOTLE is hungry
+ARISTOTLE is eating
+ARISTOTLE is leaving
+</pre>
+
+<pre style="font-size:80%;">
+<b>&gt; gprclean & gprbuild& target\DiningPhilosophers.exe</b>
+using project file build.gpr
+using project file build.gpr
+Compile
+   [Ada]          test_dining_philosophers.adb
+Bind
+   [gprbind]      test_dining_philosophers.bexch
+   [Ada]          test_dining_philosophers.ali
+Link
+   [link]         test_dining_philosophers.adb
+SPINOZA is thinking
+ARISTOTLE is thinking
+KANT is thinking
+[...]
+ARISTOTLE is hungry
+ARISTOTLE is eating
+ARISTOTLE is leaving
+</pre>
+
 ## <span id="hello">`HelloWorld`</span>
 
 This example contains the source file [`main.adb`](./HelloWorld/src/main/ada/main.adb), the project file [`build.gpr`](./HelloWorld/build.gpr) and the batch file [`build.bat`](./HelloWorld/build.bat).
@@ -37,7 +94,14 @@ Hello WORLD!
 
 *WIP*
 
-<pre>
+<pre style="font-size:80%;">
+<b>&gt; <a href="./Greetings/build.bat">build</a> -verbose run</b>
+Compile 3 Ada source files to directory "target\obj"
+Hello WORLD!
+Goodbye WORLD!
+</pre>
+
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/companion_tools.html#cleaning-up-with-gprclean">gprclean</a> -q &amp; <a href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/building_with_gprbuild.html#command-line">gprbuild</a> -q &amp; target\Greetings.exe</b>
 Hello WORLD!
 Goodbye WORLD!
@@ -45,10 +109,10 @@ Goodbye WORLD!
 
 ## <span id="hangman">`Hangman`</span>[**&#x25B4;**](#top)
 
-Subdirectory `hangman_1.0.0_be628ad5\` is created by command `alr get hangman` <sup id="anchor_01">[1](#footnote_01)</sup>; that command is run *only once* to obtain the `Hangman` executable project from the Alire repository.
+Subdirectory `hangman_1.0.0_be628ad5\` is created by command `alr get hangman` <sup id="anchor_01">[1](#footnote_01)</sup>; that command is run *only once* to obtain the `Hangman` executable project from the [Alire][github_alire] repository.
 
 <pre>
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir" rel="external">dir</a> /b &amp; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a> hang*</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir" rel="external">dir</a> /b &amp; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd" rel="external">cd</a> hang*</b>
 hangman_1.0.0_be628ad5
 00download.txt
 &nbsp;
@@ -200,7 +264,11 @@ Setup
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
+
+[github_alire]: https://github.com/alire-project/alire
+[gnatmake_cmd]: https://docs.adacore.com/gnat_ugn-docs/html/gnat_ugn/gnat_ugn/building_executable_programs_with_gnat.html#the-gnat-make-program-gnatmake
+[gprbuild_cmd]: https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/building_with_gprbuild.html
