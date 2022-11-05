@@ -4,18 +4,18 @@
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:25%;"><a href="https://www.adacore.com/" rel="external"><img src="docs/images/adamascot.png" width="100" alt="Ada project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://www.adacore.com/" rel="external" title="Ada">Ada</a> code examples coming from various websites and books.<br/>
-  It also includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a> for experimenting with <a href="https://www.adacore.com/" rel="external">Ada</a> on the <b>Microsoft Windows</b> platform.
+  It also includes several build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>) for experimenting with <a href="https://www.adacore.com/" rel="external">Ada</a> on the <b>Microsoft Windows</b> platform.
   </td>
   </tr>
 </table>
 
-[Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX][wix_examples] are other topics we are continuously monitoring.
+[Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other topics we are continuously monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.38][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.38][git_releases] ([*release notes*][git_relnotes])
 - [GNAT CE 2021][gnat2021_downloads] ([*announcement*][gnat2021_announcement])
 
 Optionally one may also install the following software:
@@ -38,7 +38,7 @@ C:\opt\GNAT\2021\        <i>(2.8 GB)</i>
 C:\opt\msys64\           <i>(2.8 GB)</i>
 </pre>
 
-> **:mag_right:** Git for Windows provides a BASH emulation used to run [**`git`**][git_docs] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
+> **:mag_right:** [Git for Windows][git_releases] provides a BASH emulation used to run [**`git.exe`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
 
 ## <span id="structure">Directory structure</span>[**&#x25B4;**](#top)
 
@@ -76,13 +76,13 @@ where
  <a href="https://alire.ada.dev/docs/">Alire</a> is a source-based package manager for the Ada and SPARK programming languages.
  </p>
  <p >
- We install <a href="https://alire.ada.dev/docs/">Alire</a> from the Zip file <a href="https://github.com/alire-project/alire/releases" rel="external">alr-1.2.1-bin-x86_64-windows.zip</a> which contains two files: the executable <code>bin\alr.exe</code> and the GNU license file <code>LICENSE.txt</code>. We simply copy them to the directory <code>%GNAT_HOME%</code> (in our case <code>GNAT_HOME=C:\opt\GNAT\2021\</code>).
+ We install <a href="https://alire.ada.dev/docs/">Alire</a> from the Zip file <a href="https://github.com/alire-project/alire/releases" rel="external">alr-1.2.1-bin-x86_64-windows.zip</a>; the archive contains the two files <code>bin\alr.exe</code> and <code>LICENSE.txt</code> (GNU license). We simply copy them to directory <code>%GNAT_HOME%</code> (in our case <code>GNAT_HOME=C:\opt\GNAT\2021\</code>).
 </dd></dl>
 
 <span id="footnote_02">[2]</span> ***GNAT 2019*** [↩](#anchor_02)
 
 <dl><dd>
-GNAT CE 2019 is the latest version of GNAT CE that supports <a href="https://en.wikipedia.org/wiki/Ada_Semantic_Interface_Specification">ASIS</a>, which is required for running <a href="https://www.adalog.fr/en/adacontrol.html">AdaControl 1.22</a>.
+<a href="https://www.adacore.com/download/more" rel="external">GNAT CE 2019</a> is the latest version of GNAT CE that supports <a href="https://en.wikipedia.org/wiki/Ada_Semantic_Interface_Specification">ASIS</a>, which is required for running <a href="https://www.adalog.fr/en/adacontrol.html">AdaControl 1.22</a>.
 </dd></dl>
 
 <span id="footnote_03">[3]</span> ***GNAT tools in MSYS2*** [↩](#anchor_03)
@@ -106,17 +106,17 @@ The <a href="http://repo.msys2.org/distrib/x86_64/" rel="external">MSYS64</a> so
 <a href=""><code>gnat.exe</code>/<code>gnatmake.exe</code></a>
 <pre style="font-size:80%;">
   <b>&gt; c:\opt\msys64\mingw64\bin\gnat.exe --version | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> GNAT</b>
-  GNAT 11.3.0
+  GNAT 12.2.0
 &nbsp;
   <b>&gt; c:\opt\msys64\mingw64\bin\<a href="https://gcc.gnu.org/onlinedocs/gcc-12.1.0/gnat_ugn/Running-gnatmake.html#Running-gnatmake" rel="external">gnatmake.exe</a> --version | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> GNAT</b>
-  GNATMAKE 11.3.0
+  GNATMAKE 12.2.0
 </pre>
 </dd>
 <dd>
 <a href=""><code>gcc.exe</code>/<code>make.exe</code></a>
 <pre style="font-size:80%;">
   <b>&gt; c:\opt\msys64\mingw64\bin\<a href="https://gcc.gnu.org/onlinedocs/gcc/Invoking-GCC.html" rel="external">gcc.exe</a> --version | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> gcc</b>
-  gcc.exe (Rev1, Built by MSYS2 project) 11.3.0
+  gcc.exe (Rev6, Built by MSYS2 project) 12.2.0
   &nbsp;
   <b>&gt; c:\opt\msys64\usr\bin\<a href="https://www.gnu.org/software/make/manual/make.html" rel="external">make.exe</a> --version | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> Make</b>
   GNU Make 4.3
@@ -124,11 +124,11 @@ The <a href="http://repo.msys2.org/distrib/x86_64/" rel="external">MSYS64</a> so
 </dd>
 
 <dd>
-<a href="https://wiki.archlinux.org/index.php/Pacman"><code>pacman.exe</code></a> helps us to keep our MSYS2 installation up-to-date:
+<a href="https://wiki.archlinux.org/index.php/Pacman"><code>pacman.exe</code></a> helps us to keep our MSYS2 package <code>mingw-w64-x86_64-gcc-ada</code> up-to-date:
 </dd>
 <dd>
 <pre style="font-size:80%;">
-   <b>&gt; c:\opt\msys64\usr\bin\<a href="https://www.archlinux.org/pacman/pacman.8.html" rel="external">pacman.exe</a> -Syu</b></b>
+   <b>&gt; c:\opt\msys64\usr\bin\<a href="https://www.archlinux.org/pacman/pacman.8.html" rel="external">pacman.exe</a> -Syu mingw-w64-x86_64-gcc-ada</b>
    :: Synchronizing package databases...
    [...]
    :: Running post-transaction hooks...
@@ -169,10 +169,10 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [cpp_examples]: https://github.com/michelou/cpp-examples
 [deno_examples]: https://github.com/michelou/deno-examples
 [flix_examples]: https://github.com/michelou/flix-examples
-[git_docs]: https://
-[git_downloads]: https://git-scm.com/download/win
-[github_markdown]: https://github.github.com/gfm/
+[git_cli]: https://git-scm.com/docs/git
+[git_releases]: https://git-scm.com/download/win
 [git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.38.1.txt
+[github_markdown]: https://github.github.com/gfm/
 [gnat2019_downloads]: https://www.adacore.com/download/more
 [gnat2021_announcement]: https://blog.adacore.com/gnat-community-2021-is-here
 [gnat2021_downloads]: https://www.adacore.com/download

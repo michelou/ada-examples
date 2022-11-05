@@ -48,6 +48,7 @@ if not exist "%GNAT_HOME%\bin\gnatmake.exe" (
     goto :eof
 )
 set "_GNATMAKE_CMD=%GNAT_HOME%\bin\gnatmake.exe"
+set "_GNATDOC_CMD=%GNAT_HOME%\bin\gnatdoc.exe"
 goto :eof
 
 :env_colors
@@ -141,10 +142,12 @@ goto :args_loop
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
-for %%i in ("%~dp0.") do set _PROJECT_NAME=%%~ni
 set _MAIN_NAME=gmain
 set _MAIN_ARGS=
-set _EXE_NAME=%_PROJECT_NAME%
+
+for %%i in ("%~dp0.") do set _PROJECT_NAME=%%~ni
+set "_EXE_NAME=%_PROJECT_NAME%.exe"
+set "_EXE_FILE=%_TARGET_DIR%\%_EXE_NAME%"
 
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
@@ -237,7 +240,20 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :doc
-echo %_WARNING_LABEL% Not yet implemented 1>&2
+if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%"
+if not exist "%_TARGET_DIR%\html" mkdir "%_TARGET_DIR%\html"
+
+set __GNATDOC_OPTS=--project=%_BASENAME% --output=html
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATDOC_CMD%" %__GNATDOC_OPTS% 1>&2
+) else if %_VERBOSE%==1 ( echo Generate HTML documentation 1>&2
+)
+call "%_GNATDOC_CMD%" %__GNATDOC_OPTS%
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to generate HTML documentation 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 goto :eof
 
 :run

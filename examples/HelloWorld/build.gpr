@@ -29,6 +29,7 @@ project Build is
     -- https://docs.adacore.com/live/wave/gps/html/gnatdoc-doc/gnatdoc.html#configuration
     package Documentation is
         for Documentation_Dir use TargetDir & "/docs";
+        for Create_Missing_Dirs use "True";
         -- for Image_Dir use TargetDir & "/docs/images";
     end Documentation;
 

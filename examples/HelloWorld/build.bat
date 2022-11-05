@@ -259,7 +259,11 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :doc
-set __GNATDOC_OPTS="--project=%_ROOT_DIR%build.gpr"
+if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%"
+if not exist "%_TARGET_DIR%\html" mkdir "%_TARGET_DIR%\html"
+
+@rem Options: -p=Process private part of packages
+set __GNATDOC_OPTS=-d -p "--project=%_ROOT_DIR%build.gpr"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATDOC_CMD%" %__GNATDOC_OPTS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate documentation 1>&2

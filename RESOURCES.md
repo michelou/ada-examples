@@ -62,9 +62,10 @@
 
 ## <span id="projects">Projects</span>
 
-- [codelabs.ch](https://git.codelabs.ch/) - Open-source projects.
-- [GNAT LLVM][project_gnat_llvm] - a GNAT front-end to the LLVM code generator.
-- [Zip-Ada][project_zip_ada] - a standalone, portable Ada library for Zip archives.
+- [AdaBase](https://github.com/jrmarino/AdaBase) &ndash; Thick database bindings to MySQL, PostgreSQL and SQLite for Ada.
+- [codelabs.ch](https://git.codelabs.ch/) &ndash; Open-source projects.
+- [GNAT LLVM][project_gnat_llvm] &ndash; a GNAT front-end to the LLVM code generator.
+- [Zip-Ada][project_zip_ada] &ndash; a standalone, portable Ada library for Zip archives.
 
 ## <span id="tools">Tools and Frameworks</span>
 

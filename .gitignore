@@ -1,11 +1,15 @@
+.DS_Store
+*.stderr
+*.stdout
 .idea/
 .project
 .settings/
 .vscode/
-*_LOCAL/
+obj/
 out/
 target/
+
+# project specific
+*_LOCAL/
 *_LOCAL.md
 *_LOCAL.txt
-*.stderr
-*.stdout

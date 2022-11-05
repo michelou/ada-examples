@@ -33,6 +33,10 @@ if not %_EXITCODE%==0 goto end
 call :gnat
 if not %_EXITCODE%==0 goto end
 
+@rem needed for AdaControl
+call :gnat2019
+@rem if not %_EXITCODE%==0 goto end
+
 @rem needed to build AUnit
 call :msys
 if not %_EXITCODE%==0 goto end
@@ -149,7 +153,7 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-bash%__END%       start Git bash shell instead of Windows command prompt
-echo     %__BEG_O%-debug%__END%      show commands executed by this script
+echo     %__BEG_O%-debug%__END%      display commands executed by this script
 echo     %__BEG_O%-verbose%__END%    display environment settings
 echo.
 echo   %__BEG_P%Subcommands:%__END%
@@ -188,6 +192,40 @@ if not exist "%_GNAT_HOME%\bin\gnat.exe" (
     goto :eof
 )
 set "_GNAT_PATH=;%_GNAT_HOME%\bin"
+goto :eof
+
+
+@rem output parameters: _GNAT2019_HOME
+:gnat2019
+set _GNAT2019_HOME=
+
+set __VERSION=2019
+set __GNAT_CMD=
+for /f %%f in ('where gnat.exe 2^>NUL') do set "__GNAT_CMD=%%f"
+if defined __GNAT_CMD (
+    for %%i in ("%__GNAT_CMD%") do set "__GNAT_BIN_DIR=%%~dpi"
+    for %%f in ("%__GNAT_BIN_DIR%\.") do set "_GNAT2019_HOME=%%~dpf"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of GNAT 2019 executable found in PATH 1>&2
+    goto :eof
+) else if defined GNAT2019_HOME (
+    set "_GNAT2019_HOME=%GNAT2019_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable GNAT2019_HOME 1>&2
+) else (
+    set __PATH=C:\opt\GNAT
+    for /f %%f in ('dir /ad /b "!__PATH!\%__VERSION%" 2^>NUL') do set "_GNAT_HOME=!__PATH!\%%f"
+    if not defined _GNAT2019_HOME (
+        set "__PATH=%ProgramFiles%\GNAT"
+        for /f %%f in ('dir /ad /b "!__PATH!\%__VERSION%" 2^>NUL') do set "_GNAT2019_HOME=!__PATH!\%%f"
+    )
+    if defined _GNAT2019_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default GNAT installation directory "!_GNAT_HOME!" 1>&2
+    )
+)
+if not exist "%_GNAT2019_HOME%\bin\gnat.exe" (
+    echo %_ERROR_LABEL% GNAT %__VERSION% executable not found ^("%_GNAT2019_HOME%"^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 goto :eof
 
 @rem output parameters: _GIT_HOME, _GIT_PATH
@@ -311,7 +349,10 @@ if %__VERBOSE%==1 (
     echo Environment variables: 1>&2
     if defined GIT_HOME echo    "GIT_HOME=%GIT_HOME%" 1>&2
     if defined GNAT_HOME echo    "GNAT_HOME=%GNAT_HOME%" 1>&2
+    if defined GNAT2019_HOME echo    "GNAT2019_HOME=%GNAT2019_HOME%" 1>&2
     if defined MSYS_HOME echo    "MSYS_HOME=%MSYS_HOME%" 1>&2
+    echo Path associations: 1>&2
+    for /f "delims=" %%i in ('subst') do echo    %%i 1>&2
 )
 goto :eof
 
@@ -323,8 +364,10 @@ endlocal & (
     if %_EXITCODE%==0 (
         if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
         if not defined GNAT_HOME set "GNAT_HOME=%_GNAT_HOME%"
+        if not defined GNAT2019_HOME set "GNAT2019_HOME=%_GNAT2019_HOME%"
         if not defined MSYS_HOME set "MSYS_HOME=%_MSYS_HOME%"
-        set "PATH=%PATH%%_MSYS_PATH%%_GNAT_PATH%%_GIT_PATH%;%~dp0bin"
+        @rem We prepend %_GIT_HOME%\bin to hide C:\Windows\System32\bash.exe
+        set "PATH=%_GIT_HOME%\bin;%PATH%%_MSYS_PATH%%_GNAT_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE% "%_GIT_HOME%"
         if %_BASH%==1 (
             @rem see https://conemu.github.io/en/GitForWindows.html
