@@ -117,7 +117,7 @@ Failed Assertions: 1
 Unexpected Errors: 1
 </pre>
 
-## <span id="liskov">`liskov`</span>[**&#x25B4;**](#top)
+## <span id="liskov">`liskov`</span> [**&#x25B4;**](#top)
 
 *wip*
 
@@ -165,7 +165,7 @@ Unexpected Errors: 0
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

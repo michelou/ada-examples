@@ -35,8 +35,11 @@ if not %_EXITCODE%==0 goto end
 
 @rem needed for AdaControl
 call :gnat2019
-@rem if not %_EXITCODE%==0 goto end
-
+if not %_EXITCODE%==0 (
+    @rem optional
+    set _EXITCODE=0
+    @rem goto end
+)
 @rem needed to build AUnit
 call :msys
 if not %_EXITCODE%==0 goto end

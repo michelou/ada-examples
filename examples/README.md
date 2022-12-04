@@ -107,7 +107,7 @@ Hello WORLD!
 Goodbye WORLD!
 </pre>
 
-## <span id="hangman">`Hangman`</span>[**&#x25B4;**](#top)
+## <span id="hangman">`Hangman`</span> [**&#x25B4;**](#top)
 
 Subdirectory `hangman_1.0.0_be628ad5\` is created by command `alr get hangman` <sup id="anchor_01">[1](#footnote_01)</sup>; that command is run *only once* to obtain the `Hangman` executable project from the [Alire][github_alire] repository.
 
@@ -214,7 +214,7 @@ There are no dependencies.
 </pre>
 </dd>
 <dd>
-We have to answer two questions when running command <code><b>alr run</b></code> for the first time, namely:
+We have to answer two questions when running command <code><b><a href="https://alire.ada.dev/docs/#first-steps" rel="external">alr</a> run</b></code> for the first time, namely:
 </dd>
 <dd>
 <pre>
@@ -264,11 +264,12 @@ Setup
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
 
+[alr_cli]: https://alire.ada.dev/docs/#first-steps
 [github_alire]: https://github.com/alire-project/alire
 [gnatmake_cmd]: https://docs.adacore.com/gnat_ugn-docs/html/gnat_ugn/gnat_ugn/building_executable_programs_with_gnat.html#the-gnat-make-program-gnatmake
 [gprbuild_cmd]: https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/building_with_gprbuild.html
