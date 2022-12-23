@@ -116,9 +116,9 @@ Some project file examples :
 <span id="footnote_02">[2]</span> ***GNAT Warnings*** [↩](#anchor_02)
 
 <dl><dd>
-With all GNAT warnings activated, it becomes even harder to ignore the result of a function, because unused variables will be flagged. We then have two solutions to silence this warning:
+With all <a href="https://gcc.gnu.org/onlinedocs/gnat_ugn/Warning-Message-Control.html" rel="external">GNAT warnings</a> activated, it becomes even harder to ignore the result of a function, because unused variables will be flagged. We then have two solutions to silence this warning:
 <ul>
-<li>Either we annotate the variable with <code><b>pragma</b> Unreferenced</code>, e.g.:
+<li>Either we annotate the variable with <a href="https://docs.adacore.com/gnat_rm-docs/html/gnat_rm/gnat_rm/implementation_defined_pragmas.html#pragma-unreferenced" rel="external"><code><b>pragma</b> Unreferenced</code></a>, e.g.:
 <pre style="font-size:80%;">
 B : Boolean := Read_Int (Stream, My_Int);
 <b>pragma</b> Unreferenced (B);

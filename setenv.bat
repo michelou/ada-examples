@@ -171,8 +171,8 @@ set _GNAT_PATH=
 set _GNAT_CMD=
 for /f %%f in ('where gnat.exe 2^>NUL') do set "_GNAT_CMD=%%f"
 if defined _GNAT_CMD (
-    for %%i in ("%_GNAT_CMD%") do set "_GNAT_BIN_DIR=%%~dpi"
-    for %%f in ("%_GNAT_BIN_DIR%\.") do set "_GNAT_HOME=%%~dpf"
+    for %%i in ("%_GNAT_CMD%") do set "__GNAT_BIN_DIR=%%~dpi"
+    for %%f in ("%__GNAT_BIN_DIR%\.") do set "_GNAT_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of GNAT executable found in PATH 1>&2
     goto :eof
 ) else if defined GNAT_HOME (
@@ -215,10 +215,10 @@ if defined __GNAT_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable GNAT2019_HOME 1>&2
 ) else (
     set __PATH=C:\opt\GNAT
-    for /f %%f in ('dir /ad /b "!__PATH!\%__VERSION%" 2^>NUL') do set "_GNAT_HOME=!__PATH!\%%f"
+    for /f %%f in ('dir /ad /b "!__PATH!\%__VERSION%*" 2^>NUL') do set "_GNAT2019_HOME=!__PATH!\%%f"
     if not defined _GNAT2019_HOME (
         set "__PATH=%ProgramFiles%\GNAT"
-        for /f %%f in ('dir /ad /b "!__PATH!\%__VERSION%" 2^>NUL') do set "_GNAT2019_HOME=!__PATH!\%%f"
+        for /f %%f in ('dir /ad /b "!__PATH!\%__VERSION%*" 2^>NUL') do set "_GNAT2019_HOME=!__PATH!\%%f"
     )
     if defined _GNAT2019_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default GNAT installation directory "!_GNAT_HOME!" 1>&2
