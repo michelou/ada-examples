@@ -49,7 +49,7 @@
 - [COSC 3P95: Embedded Software](https://www.cosc.brocku.ca/Offerings/3P95/), Brock University, Fall 2013.
 - [L3-PASD : Programmation avancée et structures dynamiques][course_lacrampe] by Jean-Jacques Lacrampe.
 
-## <span id="news">News</span>[**&#x25B4;**](#top)
+## <span id="news">News</span> [**&#x25B4;**](#top)
 
 - [Ada-Belgium](https://people.cs.kuleuven.be/~dirk.craeynest/ada-belgium/).
 - [Ada Europe](http://www.ada-europe.org/).
@@ -81,7 +81,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

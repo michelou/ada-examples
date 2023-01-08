@@ -261,7 +261,7 @@ if %__N%==0 (
 ) else ( set __N_FILES=%__N% Ada source files
 )
 set "__SOURCE_FILES=%_SOURCE_DIR%\Main.adb"
-@rem -we : Treat all warnings as errors
+@rem -we : Treat all warnings as errors, -d : Display progress for each source
 set __GNATMAKE_OPTS=-we -d -D "%_TARGET_OBJ_DIR%" -o "%_TARGET_DIR%\%_PROJECT_NAME%.exe"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% 1>&2
