@@ -9,7 +9,7 @@
   </tr>
 </table>
 
-[Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other topics we are continuously monitoring.
+[Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other topics we are continuously monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -167,6 +167,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [alire_changes]: https://github.com/alire-project/alire/blob/master/doc/user-changes.md#release-12
 [alire_downloads]: https://github.com/alire-project/alire/releases/
 [cpp_examples]: https://github.com/michelou/cpp-examples
+[dart_examples]: https://github.com/michelou/dart-examples
 [deno_examples]: https://github.com/michelou/deno-examples
 [flix_examples]: https://github.com/michelou/flix-examples
 [git_cli]: https://git-scm.com/docs/git

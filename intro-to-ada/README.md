@@ -26,7 +26,7 @@ We can build/execute this project as follows :
 <b>&gt; <a href="./ch03/forward_declaration/build.bat">build</a> clean run</b>
 </pre>
 
-## <span id="book">`Book`</span>[**&#x25B4;**](#top)
+## <span id="book">`Book`</span> [**&#x25B4;**](#top)
 
 Code example [`Book`](./ch04/Book/) consists of
 - the five source files [`book.ads`](./ch04/Book/src/main/ada/book.ads), [`book.adb`](./ch04/Book/src/main/ada/book.adb), [`book-additional_operations.ads`](./ch04/Book/src/main/ada/book-additional_operations.ads), [`book-additional_operations.adb`](./ch04/Book/src/main/ada/book-additional_operations.adb) and [`main.adb`](./ch04/Book/src/main/ada/main.adb).
@@ -70,7 +70,7 @@ First day of the week is Monday
 > </pre>
 > and use option `-debug` to see further build details such as the arguments passed to the executed commands.
 
-## <span id="enumeration">`Enumeration`</span>[**&#x25B4;**](#top)
+## <span id="enumeration">`Enumeration`</span> [**&#x25B4;**](#top)
 
 Code example [`Enumeration`](./ch05/Enumeration/) consists of
 - the source file [`enumeration_example.adb`](./ch05/Enumeration/src/main/ada/enumeration_example.adb),
@@ -129,7 +129,7 @@ B : Boolean := Read_Int (Stream, My_Int);
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

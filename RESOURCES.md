@@ -41,7 +41,8 @@
 - [GitHub - Simon Wright](https://github.com/simonjwright).
 - [Jacob Sparre Anderson](http://www.jacob-sparre.dk/).
 - [Dirk Craeynest](https://people.cs.kuleuven.be/~dirk.craeynest/) home page.
-- [GitHub - Fabien Chouteau](https://github.com/Fabien-Chouteau) - embedded software projects.
+- [GitHub - Fabien Chouteau](https://github.com/Fabien-Chouteau) : embedded software projects.
+- [GitHub - Gautier de Montmollin](https://github.com/zertovitch) : [HAC](https://hacadacompiler.sourceforge.io/) (compiler written in Ada for a subset of the Ada language).
 
 ## <span id="courses">Courses</span>
 
