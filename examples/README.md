@@ -19,7 +19,7 @@ We support the following build tools :
 
 ## <span id="dining_philosophers">`DiningPhilosophers`</span>
 
-<pre>
+<pre style="font-size:80%;">
 <b>&gt; <a href="./DiningPhilosophers/build.bat">build</a> -debug run</b>
 [build] Options    : _TIMER=0 _VERBOSE=0
 [build] Subcommands:  compile run
@@ -47,7 +47,7 @@ ARISTOTLE is leaving
 </pre>
 
 <pre style="font-size:80%;">
-<b>&gt; gprclean & gprbuild& target\DiningPhilosophers.exe</b>
+<b>&gt; <a href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/companion_tools.html#cleaning-up-with-gprclean" rel="external">gprclean</a>& <a href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/building_with_gprbuild.html" rel="external">gprbuild</a>& target\DiningPhilosophers.exe</b>
 using project file build.gpr
 using project file build.gpr
 Compile
@@ -77,7 +77,7 @@ Hello WORLD!
 </pre>
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="">gprclean</a>&amp; <a href="">gprbuild</a>&amp; target\HelloWorld.exe</b>
+<b>&gt; <a href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/companion_tools.html#cleaning-up-with-gprclean" rel="external">gprclean</a>&amp; <a href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/building_with_gprbuild.html" rel="external">gprbuild</a>&amp; target\HelloWorld.exe</b>
 using project file build.gpr
 using project file build.gpr
 Compile
@@ -177,7 +177,7 @@ Would you like to play again? y/n: n
 </pre>
 
 
-## <span id="footnotes">Footnotes</span>
+## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 
 <!--
 <span id="footnote_01">[1]</span> ***GNAT Project Files*** [↩](#anchor_01)

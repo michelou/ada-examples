@@ -32,7 +32,7 @@ For instance our development environment looks as follows (January 2023) <sup id
 
 <pre style="font-size:80%;">
 C:\opt\adactl-1.22r16c\  <i>( 79 MB)</i>
-C:\opt\Git-2.39.0\       <i>(314 MB)</i>
+C:\opt\Git-2.39.1\       <i>(314 MB)</i>
 C:\opt\GNAT\2019\        <i>(1.1 GB)</i>
 C:\opt\GNAT\2021\        <i>(2.8 GB)</i>
 C:\opt\msys64\           <i>(2.8 GB)</i>
@@ -76,7 +76,7 @@ where
  <a href="https://alire.ada.dev/docs/">Alire</a> is a source-based package manager for the Ada and SPARK programming languages.
  </p>
  <p >
- We install <a href="https://alire.ada.dev/docs/">Alire</a> from the Zip file <a href="https://github.com/alire-project/alire/releases" rel="external">alr-1.2.1-bin-x86_64-windows.zip</a>; the archive contains the two files <code>bin\alr.exe</code> and <code>LICENSE.txt</code> (GNU license). We simply copy them to directory <code>%GNAT_HOME%</code> (in our case <code>GNAT_HOME=C:\opt\GNAT\2021\</code>).
+ We install <a href="https://alire.ada.dev/docs/">Alire</a> from the Zip file <a href="https://github.com/alire-project/alire/releases" rel="external">alr-1.2.2-bin-x86_64-windows.zip</a>; the archive contains the two files <code>bin\alr.exe</code> and <code>LICENSE.txt</code> (GNU license). We simply copy them to directory <code>%GNAT_HOME%</code> (in our case <code>GNAT_HOME=C:\opt\GNAT\2021\</code>).
 </dd></dl>
 
 <span id="footnote_02">[2]</span> ***GNAT 2019*** [↩](#anchor_02)
@@ -146,11 +146,11 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://www.adalog.fr/en/adacontrol.html">adactl-1.22r16c-exe_windows_ce2019.zip</a>              <i>( 26 MB)</i>
-<a href="https://github.com/alire-project/alire/releases/" rel="external">alr-1.2.1-bin-x86_64-windows.zip</a>                    <i>(  9 MB)</i>
+<a href="https://github.com/alire-project/alire/releases/" rel="external">alr-1.2.2-bin-x86_64-windows.zip</a>                    <i>(  9 MB)</i>
 <a href="https://www.adacore.com/download/more">gnat-community-2019-20190517-x86_64-windows-bin.exe</a> <i>(380 MB)</i>
 <a href="https://www.adacore.com/download">gnat-2021-20210519-x86_64-windows64-bin.exe</a>         <i>(562 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20220319.exe</a>                           <i>( 92 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.39.0-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.39.1-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
 </pre>
 </dd></dl>
 
@@ -172,7 +172,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [flix_examples]: https://github.com/michelou/flix-examples
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.39.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.39.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [gnat2019_downloads]: https://www.adacore.com/download/more
 [gnat2021_announcement]: https://blog.adacore.com/gnat-community-2021-is-here
