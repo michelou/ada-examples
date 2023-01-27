@@ -4,12 +4,12 @@
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:25%;"><a href="https://www.adacore.com/" rel="external"><img src="docs/images/adamascot.png" width="100" alt="Ada project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://www.adacore.com/" rel="external" title="Ada">Ada</a> code examples coming from various websites and books.<br/>
-  It also includes several build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>) for experimenting with <a href="https://www.adacore.com/" rel="external">Ada</a> on the <b>Microsoft Windows</b> platform.
+  It also includes several build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>) for experimenting with <a href="https://www.adacore.com/" rel="external">Ada</a> on the Windows platform.
   </td>
   </tr>
 </table>
 
-[Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other topics we are continuously monitoring.
+[Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other topics we are continuously monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -23,6 +23,7 @@ Optionally one may also install the following software:
 - [AdaControl 1.22][adactl_downloads]
 - [Alire 1.2][alire_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*changes*][alire_changes])
 - [GNAT CE 2019][gnat2019_downloads] <sup id="anchor_02">[2](#footnote_02)</sup>
+- [GWindows][gwindows_downloads] ([*release notes*][gwindows_relnotes])
 - [MSYS2 2022][msys2_downloads] <sup id="anchor_03">[3](#footnote_03)</sup>
 
 > **&#9755;** ***Installation policy***<br/>
@@ -47,6 +48,7 @@ This project is organized as follows:
 <a href="docs/">docs\</a>
 <a href="aunit-examples/">aunit-examples\</a>{<a href="aunit-examples/README.md">README.md</a>, <a href="aunit-examples/calculator/">calculator</a>, etc.}
 <a href="examples/">examples\</a>{<a href="examples/README.md">README.md</a>, <a href="examples/Greetings">Greetings</a>, etc.}
+<a href="gwindows-examples/">gwindows-examples\</a>{<a href="gwindows-examples/README.md">README.md</a>, <a href="gwindows-examples/tutorial1">tutorial1</a>, etc.}
 <a href="intro-to-ada/">intro-to-ada\</a>{<a href="intro-to-ada/README.md">README.md</a>, <a href="intro-to-ada/Greet/">Greet</a>, <a href="intro-to-ada/Week/">Week</a>, etc.}
 <a href="shvets-examples/">shvets-examples\</a>{<a href="shvets-examples/README.md">README.md</a>, <a href="shvets-examples/ch02">ch02</a>, <a href="shvets-examples/ch03">ch03</a>, etc.}
 README.md
@@ -60,12 +62,40 @@ where
 - directory [**`docs\`**](docs/) contains [Ada] related documents.
 - directory [**`aunit-examples\`**](aunit-examples/) contains [Ada] code examples from GitHub project [`AdaCore/aunit`](https://github.com/AdaCore/aunit).
 - directory [**`examples\`**](examples/) contains [Ada] code examples grabbed from various websites.
+- directory [**`gwindows-examples\`**](./gwindows-examples/) contains [GNAVI] code examples (see [`README.md`](./gwindows-examples/README.md))
 - directory [**`intro-to-ada\`**](intro-to-ada/) contains [Ada] code examples from AdaCore's course <a href="https://learn.adacore.com/courses/intro-to-ada" rel="external">*Introduction to Ada*</a>.
 - directory [**`shvets-examples`**](./shvets-examples/) contains [Ada] code examples from Shvets's book <a href="https://www.apress.com/9781484254271" rel="external">*Beginning Ada Programming*</a>.
 - file [**`README.md`**](README.md) is the [Markdown][github_markdown] document for this page.
 - file [**`RESOURCES.md`**](RESOURCES.md) gathers [Ada] related informations.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 - file [**`SETUP.md`**](SETUP.md) gathers environment setup informations.
+
+
+We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"][windows_limitation] from Microsoft Support).
+> **:mag_right:** We use the Windows external command [**`subst`**][windows_subst] to create virtual drives; for instance:
+>
+> <pre style="font-size:80%;">
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst">subst</a> W: <a href="https://docs.microsoft.com/en-us/windows/deployment/usmt/usmt-recognized-environment-variables#bkmk-2">%USERPROFILE%</a>\workspace\ada-examples</b>
+> </pre>
+
+In the next section we give a brief description of the [batch files][windows_batch_file] present in this project.
+
+## <span id="commands">Batch commands</span>
+
+### **`setenv.bat`**
+
+Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`git.exe`**][git_cli] and [**`make.exe`**][make_cli] directly available from the command prompt.
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="setenv.bat">setenv</a></b>
+Tool versions:
+   gcc 10.3.1, gnat Community 2021, make 4.4,
+   git 2.39.1.windows.1, diff 3.8, bash 5.2.12(1)-release
+
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> git make</b>
+C:\opt\Git-2.39.1\bin\git.exe
+C:\opt\msys64\usr\bin\make.exe
+</pre>
 
 ## <span id="footnotes">Footnotes</span>
 
@@ -145,10 +175,11 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://www.adalog.fr/en/adacontrol.html">adactl-1.22r16c-exe_windows_ce2019.zip</a>              <i>( 26 MB)</i>
+<a href="https://www.adalog.fr/en/adacontrol.html" rel="external">adactl-1.22r16c-exe_windows_ce2019.zip</a>              <i>( 26 MB)</i>
 <a href="https://github.com/alire-project/alire/releases/" rel="external">alr-1.2.2-bin-x86_64-windows.zip</a>                    <i>(  9 MB)</i>
 <a href="https://www.adacore.com/download/more">gnat-community-2019-20190517-x86_64-windows-bin.exe</a> <i>(380 MB)</i>
-<a href="https://www.adacore.com/download">gnat-2021-20210519-x86_64-windows64-bin.exe</a>         <i>(562 MB)</i>
+<a href="https://www.adacore.com/download" rel="external">gnat-2021-20210519-x86_64-windows64-bin.exe</a>         <i>(562 MB)</i>
+<a href="https://sourceforge.net/projects/gnavi/files/">GWindows Archive 13-Nov-2022.zip</a>                    <i>(  4 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20220319.exe</a>                           <i>( 92 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.39.1-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
 </pre>
@@ -177,12 +208,17 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [gnat2019_downloads]: https://www.adacore.com/download/more
 [gnat2021_announcement]: https://blog.adacore.com/gnat-community-2021-is-here
 [gnat2021_downloads]: https://www.adacore.com/download
+[gnavi]: https://sourceforge.net/projects/gnavi/
 [golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
+[gwindows_downloads]: https://sourceforge.net/projects/gnavi/files/
+[gwindows_relnotes]: https://sourceforge.net/p/gnavi/news/2022/11/gwindows-release-13-nov-2022-revision-459/
 [haskell_examples]: https://github.com/michelou/haskell-examples
+[kafka_examples]: https://github.com/michelou/kafka-examples
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
 [linux_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [llvm_examples]: https://github.com/michelou/llvm-examples
+[make_cli]: https://www.gnu.org/software/make/manual/html_node/Options-Summary.html
 [man1_awk]: https://www.linux.org/docs/man1/awk.html
 [man1_diff]: https://www.linux.org/docs/man1/diff.html
 [man1_file]: https://www.linux.org/docs/man1/file.html

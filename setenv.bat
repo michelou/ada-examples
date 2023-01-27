@@ -27,19 +27,24 @@ set _GIT_PATH=
 set _GNAT_PATH=
 set _MSYS_PATH=
 
+call :adactl
+if not %_EXITCODE%==0 (
+    @rem optional
+    set _EXITCODE=0
+) else (
+    @rem needed for AdaControl
+    call :gnat2019
+    if not !_EXITCODE!==0 goto end
+)
 call :git
 if not %_EXITCODE%==0 goto end
 
 call :gnat
 if not %_EXITCODE%==0 goto end
 
-@rem needed for AdaControl
-call :gnat2019
-if not %_EXITCODE%==0 (
-    @rem optional
-    set _EXITCODE=0
-    @rem goto end
-)
+call :gwindows
+if not %_EXITCODE%==0 goto end
+
 @rem needed to build AUnit
 call :msys
 if not %_EXITCODE%==0 goto end
@@ -52,6 +57,8 @@ goto end
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
 :env
 set _BASENAME=%~n0
+set _DRIVE_NAME=W
+set "_ROOT_DIR=%~dp0"
 
 call :env_colors
 set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
@@ -138,11 +145,55 @@ if "%__ARG:~0,1%"=="-" (
 shift
 goto args_loop
 :args_done
+call :subst %_DRIVE_NAME% "%_ROOT_DIR%"
+if not %_EXITCODE%==0 goto :eof
+if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% Options  : _HELP=%_HELP% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Variables: _DRIVE_NAME=%_DRIVE_NAME% 1>&2
+)
+goto :eof
+
+@rem input parameter(s): %1: drive letter, %2: path to be substituted
+:subst
+set __DRIVE_NAME=%~1
+set "__GIVEN_PATH=%~2"
+
+if not "%__DRIVE_NAME:~-1%"==":" set __DRIVE_NAME=%__DRIVE_NAME%:
+if /i "%__DRIVE_NAME%"=="%__GIVEN_PATH:~0,2%" goto :eof
+
+if "%__GIVEN_PATH:~-1%"=="\" set "__GIVEN_PATH=%__GIVEN_PATH:~0,-1%"
+if not exist "%__GIVEN_PATH%" (
+    echo %_ERROR_LABEL% Provided path does not exist ^(%__GIVEN_PATH%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+for /f "tokens=1,2,*" %%f in ('subst ^| findstr /b "%__DRIVE_NAME%" 2^>NUL') do (
+    set "__SUBST_PATH=%%h"
+    if "!__SUBST_PATH!"=="!__GIVEN_PATH!" (
+        set __MESSAGE=
+        for /f %%i in ('subst ^| findstr /b "%__DRIVE_NAME%\"') do "set __MESSAGE=%%i"
+        if defined __MESSAGE (
+            if %_DEBUG%==1 ( echo %_DEBUG_LABEL% !__MESSAGE! 1>&2
+            ) else if %_VERBOSE%==1 ( echo !__MESSAGE! 1>&2
+            )
+        )
+        goto :eof
+    )
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% subst "%__DRIVE_NAME%" "%__GIVEN_PATH%" 1>&2
+) else if %_VERBOSE%==1 ( echo Assign path %__GIVEN_PATH% to drive %__DRIVE_NAME% 1>&2
+)
+subst "%__DRIVE_NAME%" "%__GIVEN_PATH%"
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to assigned drive %__DRIVE_NAME% to path 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 goto :eof
 
 :help
 if %_VERBOSE%==1 (
-    set __BEG_P=%_STRONG_FG_CYAN%%_UNDERSCORE%
+    set __BEG_P=%_STRONG_FG_CYAN%
     set __BEG_O=%_STRONG_FG_GREEN%
     set __BEG_N=%_NORMAL_FG_YELLOW%
     set __END=%_RESET%
@@ -161,6 +212,24 @@ echo     %__BEG_O%-verbose%__END%    display environment settings
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%help%__END%        display this help message
+goto :eof
+
+:adactl
+set _ADACTL_HOME=
+
+if defined ADACTL_HOME (
+    set "_ADACTL_HOME=%ADACTL_HOME%"
+) else (
+    set __PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!__PATH!\adactl*" 2^>NUL') do set "_ADACTL_HOME=!__PATH!\%%f"
+    if not defined _ADACTL_HOME (
+        set "__PATH=%ProgramFiles%"
+        for /f %%f in ('dir /ad /b "!__PATH!\adactl-*" 2^>NUL') do set "_ADACTL_HOME=!__PATH!\%%f"
+    )
+    if defined _ADACTL_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default AdaControl installation directory "!_ADACTL_HOME!" 1>&2
+    )
+)
 goto :eof
 
 @rem output parameters: _GNAT_HOME, _GNAT_PATH
@@ -273,6 +342,37 @@ if not exist "%_GIT_HOME%\bin\git.exe" (
 set "_GIT_PATH=;%_GIT_HOME%\bin;%_GIT_HOME%\mingw64\bin;%_GIT_HOME%\usr\bin"
 goto :eof
 
+@rem output parameter: _GWINDOWS_HOME
+:gwindows
+set _GWINDOWS_HOME=
+
+if defined GWINDOWS_HOME (
+    set "_GWINDOWS_HOME=%GWINDOWS_HOME%"
+) else (
+    set __PATH=C:\opt
+    if exist "!__PATH!\GWindows\" ( set "_GWINDOWS_HOME=!__PATH!\GWindows"
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\GWindows-*" 2^>NUL') do set "_GWINDOWS_HOME=!__PATH!\%%f"
+        if not defined _GWINDOWS_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f %%f in ('dir /ad /b "!__PATH!\GWindows-*" 2^>NUL') do set "_GWINDOWS_HOME=!__PATH!\%%f"
+        )
+    )
+    if defined _GWINDOWS_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default GWindows installation directory "!_GWINDOWS_HOME!" 1>&2
+    )
+)
+set __RESEDIT_CMD=
+for /f "delims=" %%f in ('dir /b /s "%_GWINDOWS_HOME%\*.exe" 2^>NUL') do (
+    set "__RESEDIT_CMD=%%f*
+)
+if not exist "%__RESEDIT_CMD%" (
+    echo %_ERROR_LABEL% ResEdit executable not found ^("%_GWINDOWS_HOME%"^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
 @rem output parameters: _MSYS_HOME, _MSYS_PATH
 :msys
 set _MSYS_HOME=
@@ -309,7 +409,6 @@ goto :eof
 
 :print_env
 set __VERBOSE=%1
-set __GIT_HOME=%~2
 set __VERSIONS_LINE1=
 set __VERSIONS_LINE2=
 set __WHERE_ARGS=
@@ -320,7 +419,7 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%GNAT_HOME%\bin:gnat.exe"
 if %ERRORLEVEL%==0 (
-   for /f "tokens=1,2,3,*" %%i in ('"%GNAT_HOME%\bin\gnat.exe" --version ^| findstr GNAT') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% gnat %%j %%k,"
+   for /f "tokens=1-3,*" %%i in ('"%GNAT_HOME%\bin\gnat.exe" --version ^| findstr GNAT') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% gnat %%j %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%GNAT_HOME%\bin:gnat.exe"
 )
 where /q "%MSYS_HOME%\usr\bin:make.exe"
@@ -350,9 +449,11 @@ if %__VERBOSE%==1 (
     echo Tool paths: 1>&2
     for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do echo    %%p 1>&2
     echo Environment variables: 1>&2
+    if defined ADACTL_HOME echo    "ADACTL_HOME=%ADACTL_HOME%" 1>&2
     if defined GIT_HOME echo    "GIT_HOME=%GIT_HOME%" 1>&2
     if defined GNAT_HOME echo    "GNAT_HOME=%GNAT_HOME%" 1>&2
     if defined GNAT2019_HOME echo    "GNAT2019_HOME=%GNAT2019_HOME%" 1>&2
+    if defined GWINDOWS_HOME echo    "GWINDOWS_HOME=%GWINDOWS_HOME%" 1>&2
     if defined MSYS_HOME echo    "MSYS_HOME=%MSYS_HOME%" 1>&2
     echo Path associations: 1>&2
     for /f "delims=" %%i in ('subst') do echo    %%i 1>&2
@@ -365,13 +466,19 @@ goto :eof
 :end
 endlocal & (
     if %_EXITCODE%==0 (
+        if not defined ADACTL_HOME set "ADACTL_HOME=%_ADACTL_HOME%"
         if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
         if not defined GNAT_HOME set "GNAT_HOME=%_GNAT_HOME%"
         if not defined GNAT2019_HOME set "GNAT2019_HOME=%_GNAT2019_HOME%"
+        if not defined GWINDOWS_HOME set "GWINDOWS_HOME=%_GWINDOWS_HOME%"
         if not defined MSYS_HOME set "MSYS_HOME=%_MSYS_HOME%"
         @rem We prepend %_GIT_HOME%\bin to hide C:\Windows\System32\bash.exe
         set "PATH=%_GIT_HOME%\bin;%PATH%%_MSYS_PATH%%_GNAT_PATH%%_GIT_PATH%;%~dp0bin"
-        call :print_env %_VERBOSE% "%_GIT_HOME%"
+        call :print_env %_VERBOSE%
+        if not "%CD:~0,2%"=="%_DRIVE_NAME%:" (
+            if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME%: 1>&2
+            cd /d %_DRIVE_NAME%:
+        )
         if %_BASH%==1 (
             @rem see https://conemu.github.io/en/GitForWindows.html
             if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_HOME%\usr\bin\bash.exe --login 1>&2

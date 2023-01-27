@@ -49,6 +49,7 @@
 - [Comp6310: Systems Networks and Concurrency](https://cs.anu.edu.au/courses/comp6310/), Australian National University, 2020.
 - [COSC 3P95: Embedded Software](https://www.cosc.brocku.ca/Offerings/3P95/), Brock University, Fall 2013.
 - [L3-PASD : Programmation avancée et structures dynamiques][course_lacrampe] by Jean-Jacques Lacrampe.
+- [LEARN.ADACORE.COM](https://learn.adacore.com/) (including free PDF books).
 
 ## <span id="news">News</span> [**&#x25B4;**](#top)
 

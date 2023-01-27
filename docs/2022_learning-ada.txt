@@ -1,0 +1,2 @@
+Source: https://learn.adacore.com/
+File: https://learn.adacore.com/pdf_books/learning-ada.pdf

@@ -272,7 +272,7 @@ echo     %__BEG_O%compile%__END%     compile Ada source files
 echo     %__BEG_O%doc%__END%         generate HTML documentation
 echo     %__BEG_O%help%__END%        display this help message
 echo     %__BEG_O%lint%__END%        analyze Ada source files with %__BEG_N%AdaControl%__END%
-echo     %__BEG_O%run%__END%         execute main program %__BEG_O%%_MAIN_NAME%%__END%
+echo     %__BEG_O%run%__END%         execute main program "%__BEG_O%%_MAIN_NAME%%__END%"
 echo     %__BEG_O%test%__END%        execute unit tests
 goto :eof
 
