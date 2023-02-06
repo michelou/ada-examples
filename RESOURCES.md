@@ -75,15 +75,19 @@
 - [Language Support for Ada](https://marketplace.visualstudio.com/items?itemName=AdaCore.ada) &ndash; a Language Server providing Ada and SPARK support in Visual Studio Code.
 - [LEA][tool_lea] &ndash; a Lightweight Editor for Ada.
 - [SweetAda](https://www.sweetada.org/) &ndash; a lightweight development framework to inplement Ada-based software systems.
+- [Win32Ada](https://github.com/AdaCore/win32ada) &ndash; an Ada API to the Windows library.
 
 ## <span id="others">Other resources</span>
 
 - [Awesome Ada](https://github.com/ohenley/awesome-ada) - a curated list of awesome resources related to Ada.
 - [Free Tools and Libraries](https://www.adaic.org/ada-resources/tools-libraries/)
+- UNC paths
+  - [File path formats on Windows systems](https://learn.microsoft.com/en-us/dotnet/standard/io/file-path-formats)
+  - [Microsoft Windows Topics](hhttps://docs.adacore.com/gnat_ugn-docs/html/gnat_ugn/gnat_ugn/platform_specific_information.html#using-a-network-installation-of-gnats)
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

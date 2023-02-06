@@ -67,7 +67,8 @@ set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 
 set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_TARGET_DIR=%_ROOT_DIR%target"
-set "_OBJ_DIR=%_TARGET_DIR%\obj"
+set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
+set "_TARGET_OBJ_DIR=%_TARGET_DIR%\obj"
 
 if not exist "%GNAT_HOME%\bin\gnatmake.exe" (
     echo %_ERROR_LABEL% GNAT installation not found 1>&2
@@ -253,7 +254,7 @@ goto :eof
 
 :help
 if %_VERBOSE%==1 (
-    set __BEG_P=%_STRONG_FG_CYAN%%_UNDERSCORE%
+    set __BEG_P=%_STRONG_FG_CYAN%
     set __BEG_O=%_STRONG_FG_GREEN%
     set __BEG_N=%_NORMAL_FG_YELLOW%
     set __END=%_RESET%
@@ -331,7 +332,7 @@ set "PATH=%__PATH%"
 goto :eof
 
 :compile
-if not exist "%_OBJ_DIR%" mkdir "%_OBJ_DIR%" 1>NUL
+if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%" 1>NUL
 
 call :action_required "%_EXE_FILE%" "%_SOURCE_DIR%\*.ada" "%_SOURCE_DIR%\*.adb" "%_SOURCE_DIR%\*.ads"
 if %_ACTION_REQUIRED%==0 goto :eof
@@ -340,7 +341,9 @@ set "__GNATCOM_DIR=%GWINDOWS_HOME%\gnatcom\framework"
 set "__GWINDOWS_DIR=%GWINDOWS_HOME%\gwindows\framework"
 
 @rem -we : Treat all warnings as errors
-set __GNATMAKE_OPTS=-gnat2022 -we -aI"%__GNATCOM_DIR%" -aI"%__GWINDOWS_DIR%" -D "%_OBJ_DIR%" -o "%_EXE_FILE%"
+set __GNATMAKE_OPTS=-gnat2022 -we -aI"%__GNATCOM_DIR%" -aI"%__GWINDOWS_DIR%" -D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%"
+set /a __PRINT=%_DEBUG%+%_VERBOSE%
+if %__PRINT%==0 set __GNATMAKE_OPTS=-q %__GNATMAKE_OPTS%
 
 set __SOURCE_FILES=
 set __N=0
@@ -352,7 +355,7 @@ if %__N% gtr 1 ( set __N_FILES=%__N% Ada source files
 ) else ( set __N_FILES=%__N% Ada source file
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
@@ -418,17 +421,20 @@ if %__DATE1% gtr %__DATE2% ( set _NEWER=1
 goto :eof
 
 :doc
-if not exist "%_OBJ_DIR%" mkdir "%_OBJ_DIR%"
+if exist "%_TARGET_DOCS_DIR%\index.html" goto :eof
+
+if not exist "%_TARGET_DOCS_DIR%" mkdir "%_TARGET_DOCS_DIR%"
+if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%"
 
 @rem https://docs.adacore.com/live/wave/gps/html/gnatdoc-doc/gnatdoc.html
 set __GNATDOC_OPTS=--project=%_PROJECT_NAME% --output=html
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATDOC_CMD%" %__GNATDOC_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate HTML documentation 1>&2
+) else if %_VERBOSE%==1 ( echo Generate HTML documentation to directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_GNATDOC_CMD%" %__GNATDOC_OPTS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Generation of HTML documentation failed 1>&2
+    echo %_ERROR_LABEL% Failed to generate HTML documentation to directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -440,9 +446,12 @@ if not exist "%_EXE_FILE%" (
     set _EXITCODE=1
     goto :eof
 )
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_EXE_FILE%" %_MAIN_ARGS% 1>&2
+) else if %_VERBOSE%==1 ( echo Execute Ada program "!_EXE_FILE:%_ROOT_DIR%=!" 1>&2
+)
 call "%_EXE_FILE%" %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Program execution failed ^(%_PROJECT_NAME%^) 1>&2
+    echo %_ERROR_LABEL% Failed to execute Ada program "%_EXE_FILE%" 1>&2
     set _EXITCODE=1
     goto :eof
 )

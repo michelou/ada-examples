@@ -1,10 +1,16 @@
-with "c:/opt/GWindows-20221112/gnatcom/framework/gnatcom.ads";
-with "c:/opt/GWindows-20221112/gwindows/framework/gwindows.ads";
-
 project Tutorial1 is
+
    for Source_Dirs use ("src");
-   for Object_Dir use "target\obj";
+   for Main use ("Tutorial1.adb");
+
+   for Object_Dir use "target/obj";
    for Exec_Dir use "target";
    for Create_Missing_Dirs use "True";
-   for Main use ("Tutorial1.adb");
+
+    -- https://docs.adacore.com/live/wave/gps/html/gnatdoc-doc/gnatdoc.html#configuration
+    package Documentation is
+        for Documentation_Dir use "target/docs";
+        -- for Image_Dir use "target/docs/images";
+    end Documentation;
+
 end Tutorial1;

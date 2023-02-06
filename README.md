@@ -179,6 +179,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://github.com/alire-project/alire/releases/" rel="external">alr-1.2.2-bin-x86_64-windows.zip</a>                    <i>(  9 MB)</i>
 <a href="https://www.adacore.com/download/more">gnat-community-2019-20190517-x86_64-windows-bin.exe</a> <i>(380 MB)</i>
 <a href="https://www.adacore.com/download" rel="external">gnat-2021-20210519-x86_64-windows64-bin.exe</a>         <i>(562 MB)</i>
+<a href="https://www.adacore.com/download/more">gtkada-2021-x86_64-windows64-bin.exe</a>                <i>( 59 MB)</i>
 <a href="https://sourceforge.net/projects/gnavi/files/">GWindows Archive 13-Nov-2022.zip</a>                    <i>(  4 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20220319.exe</a>                           <i>( 92 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.39.1-64-bit.7z.exe</a>                    <i>( 46 MB)</i>

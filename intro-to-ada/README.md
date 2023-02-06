@@ -1,6 +1,6 @@
 # <span id="top"><i>Introduction to Ada</i> Tutorial</span> <span style="size:25%;"><a href="../README.md">↩</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:100px;"><a href="https://www.adacore.com/" rel="external"><img style="border:0;" src="../docs/images/adamascot.png" width="100" alt="Ada project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">
@@ -13,7 +13,7 @@ Code examples presented in this document can be built in two ways :
 - the batch file [`build.bat`](./Week/build.bat) calls the [`GNATmake`](gnu_gnatmake) build tool (try option `-help` to display other features)
 - the [GPR tools][gpr_tools] &ndash; e.g. [**`gprclean`**][gprclean_cli] and [**`gprbuild`**][gprbuild_cli] &ndash; get their build information from the project file [`main.gpr`](./Week/main.gpr) <sup id="anchor_01">[1](#footnote_01)</sup>.
 
-## <span id="forward_declaration">`forward_declaration`</span>
+## <span id="forward_declaration">`forward_declaration` Example</span>
 
 Code example [`forward_declaration`](./ch03/forward_declaration/) consists of
 - the source file [`mutually_recursive_subprograms.adb`](./ch03/forward_declaration/src/main/ada/mutually_recursive_subprograms.adb)
@@ -26,7 +26,7 @@ We can build/execute this project as follows :
 <b>&gt; <a href="./ch03/forward_declaration/build.bat">build</a> clean run</b>
 </pre>
 
-## <span id="book">`Book`</span> [**&#x25B4;**](#top)
+## <span id="book">`Book` Example</span> [**&#x25B4;**](#top)
 
 Code example [`Book`](./ch04/Book/) consists of
 - the five source files [`book.ads`](./ch04/Book/src/main/ada/book.ads), [`book.adb`](./ch04/Book/src/main/ada/book.adb), [`book-additional_operations.ads`](./ch04/Book/src/main/ada/book-additional_operations.ads), [`book-additional_operations.adb`](./ch04/Book/src/main/ada/book-additional_operations.adb) and [`main.adb`](./ch04/Book/src/main/ada/main.adb).
@@ -43,7 +43,7 @@ Book Title: Visible for my children
 Book Author: Author not visible for my children
 </pre>
 
-## <span id="week">`Week`</span>
+## <span id="week">`Week` Example</span>
 
 Code example [`Week`](./ch04/Week/) consists of
 - the two source files [`Week.ads`](./ch04/Week/src/Week.ads) and [`Main.adb`](./ch04/Week/src/Main.adb),
@@ -70,14 +70,14 @@ First day of the week is Monday
 > </pre>
 > and use option `-debug` to see further build details such as the arguments passed to the executed commands.
 
-## <span id="enumeration">`Enumeration`</span> [**&#x25B4;**](#top)
+## <span id="enumeration">`Enumeration` Example</span> [**&#x25B4;**](#top)
 
 Code example [`Enumeration`](./ch05/Enumeration/) consists of
 - the source file [`enumeration_example.adb`](./ch05/Enumeration/src/main/ada/enumeration_example.adb),
 - the project file [`build.gpr`](./ch05/Enumeration/build.gpr) and
 - the batch file [`build.bat`](./ch05/Enumeration/build.bat).
 
-## <span id="greet">`Greet`</span>
+## <span id="greet">`Greet` Example</span>
 
 We can build/execute this code example as follows (source file [`Greet.adb`](./ch07/Greet/src/main/ada/Greet.adb), project file [`build.gpr`](./ch07/Greet/build.gpr)) :
 
@@ -100,7 +100,9 @@ Link
  2 3 5 7 11
 </pre>
 
-## <span id="footnotes">Footnotes</span>
+<!--========================================================================-->
+
+## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 
 <span id="footnote_01">[1]</span> ***GNAT Project Files*** [↩](#anchor_01)
 
@@ -129,7 +131,7 @@ B : Boolean := Read_Int (Stream, My_Int);
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
