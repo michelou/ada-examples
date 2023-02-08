@@ -1,6 +1,6 @@
 # <span id="top">Ada Resources</span> <span style="size:25%;"><a href="README.md">↩</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:100px;"><a href="https://www.adacore.com/" rel="external"><img style="border:0;" src="./docs/images/adamascot.png" width="100" alt="Ada project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This document gathers <a href="https://www.adacore.com/" rel="external">Ada</a> related resources that caught our attention.
@@ -36,7 +36,7 @@
  [Programming in Ada 2012][book_barnes] by John Barnes, 2012.<br/><span style="font-size:80%;">(Cambridge University Press, ISBN 978-1-1074-2481-4, 970 pages)</span>
  -->
 
-## <span id="community">Community</span>
+## <span id="community">Community</span> [**&#x25B4;**](#top)
 
 - [GitHub - Simon Wright](https://github.com/simonjwright).
 - [Jacob Sparre Anderson](http://www.jacob-sparre.dk/).
@@ -44,14 +44,7 @@
 - [GitHub - Fabien Chouteau](https://github.com/Fabien-Chouteau) : embedded software projects.
 - [GitHub - Gautier de Montmollin](https://github.com/zertovitch) : [HAC](https://hacadacompiler.sourceforge.io/) (compiler written in Ada for a subset of the Ada language).
 
-## <span id="courses">Courses</span>
-
-- [Comp6310: Systems Networks and Concurrency](https://cs.anu.edu.au/courses/comp6310/), Australian National University, 2020.
-- [COSC 3P95: Embedded Software](https://www.cosc.brocku.ca/Offerings/3P95/), Brock University, Fall 2013.
-- [L3-PASD : Programmation avancée et structures dynamiques][course_lacrampe] by Jean-Jacques Lacrampe.
-- [LEARN.ADACORE.COM](https://learn.adacore.com/) (including free PDF books).
-
-## <span id="news">News</span> [**&#x25B4;**](#top)
+## <span id="news">News</span>
 
 - [Ada-Belgium](https://people.cs.kuleuven.be/~dirk.craeynest/ada-belgium/).
 - [Ada Europe](http://www.ada-europe.org/).
@@ -62,16 +55,24 @@
 - [AdaCore News](https://www.eejournal.com/?s=AdaCore) ([Electronic Engineering Journal](https://www.eejournal.com/)).
 - **reddit** - [r/ada](https://www.reddit.com/r/ada/).
 
-## <span id="projects">Projects</span>
+## <span id="projects">Projects</span> [**&#x25B4;**](#top)
 
 - [AdaBase](https://github.com/jrmarino/AdaBase) &ndash; Thick database bindings to MySQL, PostgreSQL and SQLite for Ada.
 - [codelabs.ch](https://git.codelabs.ch/) &ndash; Open-source projects.
 - [GNAT LLVM][project_gnat_llvm] &ndash; a GNAT front-end to the LLVM code generator.
 - [Zip-Ada][project_zip_ada] &ndash; a standalone, portable Ada library for Zip archives.
 
+## <span id="teaching">Teaching</span>
+
+- [Comp6310: Systems Networks and Concurrency](https://cs.anu.edu.au/courses/comp6310/), Australian National University, 2020.
+- [COSC 3P95: Embedded Software](https://www.cosc.brocku.ca/Offerings/3P95/), Brock University, Fall 2013.
+- [L3-PASD : Programmation avancée et structures dynamiques][course_lacrampe] by Jean-Jacques Lacrampe.
+- [LEARN.ADACORE.COM](https://learn.adacore.com/) (including free PDF books).
+
 ## <span id="tools">Tools and Frameworks</span>
 
 - [alr][tool_alire] &ndash; a command-line tool  to obtain, build, and incorporate Ada libraries into a project (similar role to Rust's [cargo](https://doc.rust-lang.org/cargo/commands/cargo.html)).
+- [Ada Web Application](https://github.com/stcarrez/ada-awa) &ndash; a framework to build a web application in Ada 2012.
 - [Language Support for Ada](https://marketplace.visualstudio.com/items?itemName=AdaCore.ada) &ndash; a Language Server providing Ada and SPARK support in Visual Studio Code.
 - [LEA][tool_lea] &ndash; a Lightweight Editor for Ada.
 - [SweetAda](https://www.sweetada.org/) &ndash; a lightweight development framework to inplement Ada-based software systems.

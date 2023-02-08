@@ -17,7 +17,7 @@ We support the following build tools :
 | [**`gprbuild.exe`**][gprbuild_cmd] | [**`build.gpr`**](./HelloWorld/build.gpr) |
 
 
-## <span id="dining_philosophers">`DiningPhilosophers`</span>
+## <span id="dining_philosophers">`DiningPhilosophers` Example</span>
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./DiningPhilosophers/build.bat">build</a> -debug run</b>
@@ -66,7 +66,7 @@ ARISTOTLE is eating
 ARISTOTLE is leaving
 </pre>
 
-## <span id="hello">`HelloWorld`</span>
+## <span id="hello">`HelloWorld` Example</span>
 
 This example contains the source file [`main.adb`](./HelloWorld/src/main/ada/main.adb), the project file [`build.gpr`](./HelloWorld/build.gpr) and the batch file [`build.bat`](./HelloWorld/build.bat).
 
@@ -90,7 +90,7 @@ Link
 Hello WORLD!
 </pre>
 
-## <span id="greetings">`Greetings`</span>
+## <span id="greetings">`Greetings` Example</span>
 
 *WIP*
 
@@ -107,7 +107,7 @@ Hello WORLD!
 Goodbye WORLD!
 </pre>
 
-## <span id="hangman">`Hangman`</span> [**&#x25B4;**](#top)
+## <span id="hangman">`Hangman` Example</span> [**&#x25B4;**](#top)
 
 Subdirectory `hangman_1.0.0_be628ad5\` is created by command `alr get hangman` <sup id="anchor_01">[1](#footnote_01)</sup>; that command is run *only once* to obtain the `Hangman` executable project from the [Alire][github_alire] repository.
 
@@ -264,7 +264,7 @@ Setup
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
