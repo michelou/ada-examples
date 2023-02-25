@@ -32,9 +32,12 @@ if not %_EXITCODE%==0 (
     @rem optional
     set _EXITCODE=0
 ) else (
-    @rem needed for AdaControl
+    @rem needed to run AdaControl
     call :gnat2019
-    if not !_EXITCODE!==0 goto end
+    if not !_EXITCODE!==0 (
+        @rem optional
+        set _EXITCODE=0
+    )
 )
 call :git
 if not %_EXITCODE%==0 goto end
@@ -113,7 +116,7 @@ set _STRONG_BG_BLUE=[104m
 goto :eof
 
 @rem input parameter: %*
-@rem output parameter: _HELP, _VERBOSE
+@rem output parameters: _HELP, _VERBOSE
 :args
 set _HELP=0
 set _BASH=0
@@ -153,7 +156,7 @@ if %_DEBUG%==1 (
 )
 goto :eof
 
-@rem input parameter(s): %1: drive letter, %2: path to be substituted
+@rem input parameters: %1: drive letter, %2: path to be substituted
 :subst
 set __DRIVE_NAME=%~1
 set "__GIVEN_PATH=%~2"
@@ -266,7 +269,7 @@ if not exist "%_GNAT_HOME%\bin\gnat.exe" (
 set "_GNAT_PATH=;%_GNAT_HOME%\bin"
 goto :eof
 
-
+@rem required to run AdaControl
 @rem output parameters: _GNAT2019_HOME
 :gnat2019
 set _GNAT2019_HOME=
@@ -294,7 +297,7 @@ if defined __GNAT_CMD (
     )
 )
 if not exist "%_GNAT2019_HOME%\bin\gnat.exe" (
-    echo %_ERROR_LABEL% GNAT %__VERSION% executable not found ^("%_GNAT2019_HOME%"^) 1>&2
+    @rem echo %_ERROR_LABEL% GNAT %__VERSION% executable not found ^("%_GNAT2019_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
