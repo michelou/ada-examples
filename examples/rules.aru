@@ -1,1 +1,8 @@
+ -- Allow only Ada.Text_IO:
+check dependencies (others, Ada.Text_IO);
+
+check header_comments (minimum, 10);
+-- Don't declare subprograms or packages inside a block:
+check declarations (block procedure, block function, block package);
+
 check improper_initialization (out_parameter);

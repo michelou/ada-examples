@@ -17,9 +17,15 @@
 
 ## <span id="blogs">Blogs</span>
 
+- [Gautier's Blog](https://gautiersblog.blogspot.com/search/label/Ada) :
+  - [Cleaning up HAC sources with AdaControl](https://gautiersblog.blogspot.com/2021/04/cleaning-up-hac-sources-with-adacontrol.html), April 2021.
 - [Ada 202x support in GNAT](https://blog.adacore.com/ada-202x-support-in-gnat) by Arnaud Charlet, October 2020.
 - [Declaring subtypes of private types](https://ada.tips/declaring-subtypes-of-private-types.html) by Jacob Sparre Andersen, September 2017.
 - [Self-referencing Objects](https://ada.tips/self-referencing-objects.html) by Jacob Sparre Andersen, August 2014.
+- [Ada Tips](https://ada.tips/) by Tero Koskinen :
+  - [Declaring subtypes of private types](https://ada.tips/declaring-subtypes-of-private-types.html), September 2017.
+  - [Checking file header with Adacontrol](https://ada.tips/checking-file-header-with-adacontrol.html), March 2014.
+  - [Checking "out" parameters with Adacontrol](https://ada.tips/checking-out-parameters-with-adacontrol.html), March 2014.
 
 ## <span id="books">Books</span>
 
@@ -71,6 +77,7 @@
 
 ## <span id="tools">Tools and Frameworks</span>
 
+- [`ada-util`](https://github.com/stcarrez/ada-util) &ndash; an Ada utility library for composing streams, processes, logs, serialization, encoders and more.
 - [alr][tool_alire] &ndash; a command-line tool  to obtain, build, and incorporate Ada libraries into a project (similar role to Rust's [cargo](https://doc.rust-lang.org/cargo/commands/cargo.html)).
 - [Ada Web Application](https://github.com/stcarrez/ada-awa) &ndash; a framework to build a web application in Ada 2012.
 - [Language Support for Ada](https://marketplace.visualstudio.com/items?itemName=AdaCore.ada) &ndash; a Language Server providing Ada and SPARK support in Visual Studio Code.
