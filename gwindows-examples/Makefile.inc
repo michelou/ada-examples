@@ -1,16 +1,16 @@
 ifndef GWINDOWS_HOME
-$(error Variable GWINDOWS_HOME i
+$(error Variable GWINDOWS_HOME is not set)
 endif
 
 ifeq ($(OS),Windows_NT)
 ifndef GNAT_HOME
-$(error Variable GNAT_HOME i
+$(error Variable GNAT_HOME is not set)
 endif
 ifndef MSYS_HOME
 $(error Variable MSYS_HOME is not set)
 endif
 
-EXE_EXT     = .exe
+TARGET_EXT  = .exe
 PSEP        = ;
 CP          = $(subst \,/,$(MSYS_HOME))/usr/bin/cp.exe
 ECHO        = $(subst \,/,$(MSYS_HOME))/usr/bin/echo.exe
@@ -22,11 +22,12 @@ TOUCH       = $(subst \,/,$(MSYS_HOME))/usr/bin/touch.exe
 
 GNATDOC      = $(subst \,/,$(GNAT_HOME))/bin/gnatdoc.exe
 GNATMAKE     = $(subst \,/,$(GNAT_HOME))/bin/gnatmake.exe
+WINDRES      = $(subst \,/,$(GNAT_HOME))/bin/windres.exe
 
 GNATCOM_DIR  = $(GWINDOWS_HOME)\gnatcom\framework
 GWINDOWS_DIR = $(GWINDOWS_HOME)\gwindows\framework
 else
-EXE_EXT     =
+TARGET_EXT  =
 PSEP        = :
 CP          = cp
 ECHO        = echo
@@ -38,6 +39,7 @@ TOUCH       = touch
 
 GNATDOC      = gnatdoc
 GNATMAKE     = gnatmake
+WINDRES      = windres
 
 GNATCOM_DIR  = $(GWINDOWS_HOME)/gnatcom/framework
 GWINDOWS_DIR = $(GWINDOWS_HOME)/gwindows/framework

@@ -13,7 +13,7 @@ TARGET_DOCS_DIR = $(TARGET_DIR)/docs
 ## main rules
 
 SOURCES = $(wildcard $(SOURCE_DIR)/*.adb)
-TARGET  = $(TARGET_DIR)/$(PROJECT_NAME)$(EXE_EXT)
+TARGET  = $(TARGET_DIR)/$(PROJECT_NAME)$(TARGET_EXT)
 
 QUIET := $(if $(DEBUG) -eq 0,-q,)
 ## -we : Treat all warnings as errors

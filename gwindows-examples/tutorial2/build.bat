@@ -143,7 +143,7 @@ goto :eof
 @rem output parameters: _MAIN_CLASS_DEFAULT, _MAIN_ARGS_DEFAULT
 @rem                    _PROJECT_NAME, _PROJECT_URL, _PROJECT_VERSION
 :props
-set _MAIN_NAME_DEFAULT=Tutorial1
+set _MAIN_NAME_DEFAULT=Tutorial2
 set _MAIN_ARGS_DEFAULT=
 
 for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
