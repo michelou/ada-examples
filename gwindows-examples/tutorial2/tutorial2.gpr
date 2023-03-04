@@ -1,16 +1,23 @@
+with "../GWindows/gwindows/gwindows.gpr";
+
 project Tutorial2 is
 
    for Source_Dirs use ("src");
    for Main use ("Tutorial2.adb");
-
-   for Object_Dir use "target/obj";
-   for Exec_Dir use "target";
+   
+   TargetDir := "target";
+   for Exec_Dir use TargetDir;
+   for Object_Dir use TargetDir & "/obj";
    for Create_Missing_Dirs use "True";
 
-    -- https://docs.adacore.com/live/wave/gps/html/gnatdoc-doc/gnatdoc.html#configuration
-    package Documentation is
-        for Documentation_Dir use "target/docs";
-        -- for Image_Dir use "target/docs/images";
-    end Documentation;
+   package Builder is
+      for Executable ("Tutorial2.adb") use "Tutorial2";
+   end Builder;
+
+   -- https://docs.adacore.com/live/wave/gps/html/gnatdoc-doc/gnatdoc.html#configuration
+   package Documentation is
+      for Documentation_Dir use "target/docs";
+      -- for Image_Dir use "target/docs/images";
+   end Documentation;
 
 end Tutorial2;

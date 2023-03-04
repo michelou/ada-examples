@@ -1,7 +1,7 @@
 
 # <span id="top">Book <i>Beginning Ada Programming</i></span> <span style="size:25%;"><a href="../README.md">↩</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:100px;"><a href="https://www.adacore.com/" rel="external"><img style="border:0;" src="../docs/images/adamascot.png" width="100" alt="Ada project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">
@@ -151,7 +151,7 @@ Execute program "target\records_array.exe"
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

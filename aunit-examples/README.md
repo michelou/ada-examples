@@ -1,6 +1,6 @@
 # <span id="top">AUnit examples</span> <span style="size:25%;"><a href="../README.md">↩</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:100px;"><a href="https://www.adacore.com/" rel="external"><img style="border:0;" src="../docs/images/adamascot.png" width="100" alt="Ada project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">
@@ -13,7 +13,7 @@ We made the following changes to the original [`AdaCore/aunit`][adacore_aunit] c
 - We introduce a parent project file [`Makefile.inc`](./Makefile.inc) which gathers all tool definitions and takes care of different settings for 3 environments: MSYS2, Windows and Unix.
 - We require the two environment variables `GNAT_HOME` and `MSYS_HOME` to be defined when working in the MSYS2 and Windows environments (behavior is unchanged under Unix).
 
-## <span id="calculator">`calculator`</span>
+## <span id="calculator">`calculator` Example</span>
 
 We build this code example using the [`make.exe`][gnu_make] build tool (project file [`Makefile`](./calculator/Makefile) depends on parent file [`Makefile.inc`](./Makefile.inc)).
 
@@ -52,9 +52,9 @@ Failed Assertions: 2
 Unexpected Errors: 0
 </pre>
 
-## <span id="failures">`failures`</span>[**&#x25B4;**](#top)
+## <span id="failures">`failures` Example</span>[**&#x25B4;**](#top)
 
-Project `failures` consists of 3 sets of files:
+Project [`failures`](./failures/) consists of 3 sets of files:
 - the 3 build files [`harness.gpr`](failures/harness.gpr), [`Makefile`](failures/Makefile) and [`Makefile.inc`](./Makefile.inc) (parent file).
 - the 2 library source files [`math.adb`](failures/tested_lib/src/math.adb) and [`math.ads`](failures/tested_lib/src/math.ads).
 - the 5 test source files [`math-test.adb`](failures/tests/math-test.adb), [`math-test.ads`](failures/tests/math-test.ads), [`math_suite.adb`](failures/tests/math_suite.adb), [`math_suite.ads`](failures/tests/math_suite.ads), [`test_math.adb`](failures/tests/test_math.adb).
@@ -117,7 +117,7 @@ Failed Assertions: 1
 Unexpected Errors: 1
 </pre>
 
-## <span id="liskov">`liskov`</span> [**&#x25B4;**](#top)
+## <span id="liskov">`liskov` Example</span> [**&#x25B4;**](#top)
 
 *wip*
 
@@ -165,7 +165,7 @@ Unexpected Errors: 0
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
