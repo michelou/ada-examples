@@ -12,9 +12,6 @@ set _EXITCODE=0
 call :env
 if not %_EXITCODE%==0 goto end
 
-call :props
-if not %_EXITCODE%==0 goto end
-
 call :args %*
 if not %_EXITCODE%==0 goto end
 
@@ -134,37 +131,6 @@ set _STRONG_BG_YELLOW=[103m
 set _STRONG_BG_BLUE=[104m
 goto :eof
 
-@rem output parameters: _MAIN_CLASS_DEFAULT, _MAIN_ARGS_DEFAULT
-@rem                    _PROJECT_NAME, _PROJECT_URL, _PROJECT_VERSION
-:props
-set _MAIN_NAME_DEFAULT=Main
-set _MAIN_ARGS_DEFAULT=
-
-for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
-set _PROJECT_URL=github.com/%USERNAME%/ada-examples
-set _PROJECT_VERSION=0.1-SNAPSHOT
-
-set "__PROPS_FILE=%_ROOT_DIR%project\build.properties"
-if exist "%__PROPS_FILE%" (
-    for /f "tokens=1,* delims==" %%i in (%__PROPS_FILE%) do (
-        set __NAME=
-        set __VALUE=
-        for /f "delims= " %%n in ("%%i") do set __NAME=%%n
-        @rem line comments start with "#"
-        if defined __NAME if not "!__NAME:~0,1!"=="#" (
-            @rem trim value
-            for /f "tokens=*" %%v in ("%%~j") do set __VALUE=%%v
-            set "_!__NAME:.=_!=!__VALUE!"
-        )
-    )
-    if defined _main_name set _MAIN_NAME_DEFAULT=!_main_name!
-    if defined _main_args set _MAIN_ARGS_DEFAULT=!_main_args!
-    if defined _project_name set _PROJECT_NAME=!_project_name!
-    if defined _project_url set _PROJECT_URL=!_project_url!
-    if defined _project_version set _PROJECT_VERSION=!_project_version!
-)
-goto :eof
-
 @rem input parameter: %*
 :args
 set _CLEAN=0
@@ -172,8 +138,6 @@ set _COMPILE=0
 set _DOC=0
 set _HELP=0
 set _LINT=0
-set _MAIN_NAME=%_MAIN_NAME_DEFAULT%
-set _MAIN_ARGS=%_MAIN_ARGS_DEFAULT%
 set _RUN=0
 set _TEST=0
 set _TIMER=0
@@ -218,6 +182,11 @@ goto args_loop
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
+for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
+set "_EXE_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
+
+set _MAIN_NAME=main
+set _MAIN_ARGS=
 if %_LINT%==1 (
     if not exist "%GNAT2019_HOME%\bin\gnat.exe" (
         echo %_WARNING_LABEL% GNAT 2019 is required to execute AdaControl 1>&2
@@ -231,11 +200,7 @@ if %_LINT%==1 (
         )
     )
 )
-set "_EXE_NAME=%_PROJECT_NAME%.exe"
-set "_EXE_FILE=%_TARGET_DIR%\%_EXE_NAME%"
-
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% Properties : _PROJECT_NAME=%_PROJECT_NAME% _PROJECT_VERSION=%_PROJECT_VERSION% 1>&2
     echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _LINT=%_LINT% _RUN=%_RUN% _TEST=%_TEST% 1>&2
     echo %_DEBUG_LABEL% Variables  : "ADACTL_HOME=%ADACTL_HOME%" 1>&2
@@ -243,6 +208,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Variables  : "GNAT_HOME=%GNAT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "GNAT2019_HOME=%GNAT2019_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : _MAIN_NAME=%_MAIN_NAME% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
+    echo %_DEBUG_LABEL% Variables  : _PROJECT_NAME=%_PROJECT_NAME% 1>&2
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
@@ -262,7 +228,7 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%      show commands executed by this script
+echo     %__BEG_O%-debug%__END%      display commands executed by this script
 echo     %__BEG_O%-timer%__END%      display total elapsed time
 echo     %__BEG_O%-verbose%__END%    display progress messages
 echo.
@@ -273,7 +239,7 @@ echo     %__BEG_O%doc%__END%         generate HTML documentation
 echo     %__BEG_O%help%__END%        display this help message
 echo     %__BEG_O%lint%__END%        analyze Ada source files with %__BEG_N%AdaControl%__END%
 echo     %__BEG_O%run%__END%         execute main program "%__BEG_O%%_MAIN_NAME%%__END%"
-echo     %__BEG_O%test%__END%        execute unit tests
+echo     %__BEG_O%test%__END%        execute unit tests with %__BEG_N%AUnit%__END%
 goto :eof
 
 :clean
@@ -289,6 +255,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
 )
 rmdir /s /q "%__DIR%"
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -332,8 +299,6 @@ if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%" 1>NUL
 call :action_required "%_EXE_FILE%" "%_SOURCE_DIR%\*.ada" "%_SOURCE_DIR%\*.adb" "%_SOURCE_DIR%\*.ads"
 if %_ACTION_REQUIRED%==0 goto :eof
 
-set __GNATMAKE_OPTS=-D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%"
-
 set __SOURCE_FILES=
 set __N=0
 for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.ad?" ^| findstr /r [abs]$ 2^>NUL') do (
@@ -346,6 +311,9 @@ if %__N%==0 (
 ) else if %__N%==1 ( set __N_FILES=%__N% Ada source file
 ) else ( set __N_FILES=%__N% Ada source files
 )
+@rem -we : Treat all warnings as errors
+set __GNATMAKE_OPTS=-we -D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%"
+
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
 )
@@ -416,6 +384,7 @@ goto :eof
 if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%"
 if not exist "%_TARGET_DIR%\html" mkdir "%_TARGET_DIR%\html"
 
+@rem Options: -p=Process private part of packages
 set __GNATDOC_OPTS=--project=%_PROJECT_NAME% --output=html
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATDOC_CMD%" %__GNATDOC_OPTS% 1>&2
@@ -431,13 +400,16 @@ goto :eof
 
 :run
 if not exist "%_EXE_FILE%" (
-    echo %_ERROR_LABEL% Main program '%_EXE_NAME%' not found ^(%_EXE_FILE%^) 1>&2
+    echo %_ERROR_LABEL% Main program '%_PROJECT_NAME%' not found ^(%_EXE_FILE%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_EXE_FILE%" %_MAIN_ARGS% 1>&2
+) else if %_VERBOSE%==1 ( echo Execute program "!_EXE_FILE:%_TARGET_DIR%\=!" 1>&2
+)
 call "%_EXE_FILE%" %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Program execution failed ^(%_EXE_NAME%^) 1>&2
+    echo %_ERROR_LABEL% Failed to execute program "!_EXE_FILE:%_TARGET_DIR%\=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -448,7 +420,7 @@ echo %_WARNING_LABEL% Not yet implemented 1>&2
 goto :eof
 
 :test
-echo %_WARNING_LABEL% Not yet implemented 1>&2
+echo %_WARNING_LABEL% Subcommand 'test' is not yet implemented 1>&2
 goto :eof
 
 @rem output parameter: _DURATION

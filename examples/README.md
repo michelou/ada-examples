@@ -19,6 +19,8 @@ We support the following build tools :
 
 ## <span id="dining_philosophers">`DiningPhilosophers` Example</span>
 
+This example contains the source file [`test_dining_philosophers.adb`](./DiningPhilosophers/src/test_dining_philosophers.adb), the project file [`build.gpr`](./DiningPhilosophers/build.gpr) and the batch file [`build.bat`](./DiningPhilosophers/build.bat).
+
 <pre style="font-size:80%;">
 <b>&gt; <a href="./DiningPhilosophers/build.bat">build</a> -debug run</b>
 [build] Options    : _TIMER=0 _VERBOSE=0
@@ -92,7 +94,7 @@ Hello WORLD!
 
 ## <span id="greetings">`Greetings` Example</span>
 
-*WIP*
+This example contains the source file [`gmain.adb`](./Greetings/src/gmain.adb), the project files [`build.gpr`](./Greetings/build.gpr) and the batch file [`build.bat`](./Greetings/build.bat).
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./Greetings/build.bat">build</a> -verbose run</b>
@@ -176,6 +178,19 @@ The correct word was grandchildren
 Would you like to play again? y/n: n
 </pre>
 
+## <span id="">`TimingFibonacci` Example</span>
+
+This example contains the source file [`main.adb`](./TimingFibonacci/src/main/ada/main.adb), the project file [`build.gpr`](./TimingFibonacci/build.gpr) and the batch file [`build.bat`](./TimingFibonacci/build.bat).
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./TimingFibonacci/build.baT">build</a> -verbose clean run</b>
+Compile 1 Ada source file to directory "target\obj"
+Execute program "TimingFibonacci.exe"
+Fibonacci number:
+23
+Result:  28657
+Execution time =  0.552800000 milliseconds.
+</pre>
 
 ## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 

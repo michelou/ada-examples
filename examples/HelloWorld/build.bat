@@ -157,10 +157,23 @@ set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
 for %%i in ("%~dp0.") do set _PROJECT_NAME=%%~ni
+set "_EXE_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
+
 set _MAIN_NAME=main
 set _MAIN_ARGS=
-set _EXE_NAME=%_PROJECT_NAME%
-
+if not "!_COMMANDS:lint=!"=="%_COMMANDS%" (
+    if not exist "%GNAT2019_HOME%\bin\gnat.exe" (
+        echo %_WARNING_LABEL% GNAT 2019 is required to execute AdaControl 1>&2
+        set "_COMMANDS=!_COMMANDS:lint=!"
+    ) else (
+        for %%f in ("%_ROOT_DIR%.") do set "__PARENT_DIR=%%~dpf"
+        for %%f in ("!__PARENT_DIR!*.aru") do set "_ARU_FILE=%%f"
+        if not exist "!_ARU_FILE!" (
+            echo %_WARNING_LABEL% ARU file not found 1>&2
+            set "_COMMANDS=!_COMMANDS:lint=!"
+        )
+    )
+)
 if not "!_COMMANDS:compile=!"=="%_COMMANDS%" if defined _MSYS if not defined _MSYS_GNATMAKE_CMD (
     echo %_WARNING_LABEL% MSYS GNAT Make not found; use standard GNAT Make instead 1>&2
     set _MSYS=0
@@ -168,9 +181,12 @@ if not "!_COMMANDS:compile=!"=="%_COMMANDS%" if defined _MSYS if not defined _MS
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: %_COMMANDS% 1>&2
+    echo %_DEBUG_LABEL% Variables  : "ADACTL_HOME=%ADACTL_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "GNAT_HOME=%GNAT_HOME%" 1>&2
     if defined MSYS_HOME echo %_DEBUG_LABEL% Variables  : "MSYS_HOME=%MSYS_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : _MAIN_NAME=%_MAIN_NAME% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
+    echo %_DEBUG_LABEL% Variables  : _PROJECT_NAME=%_PROJECT_NAME% 1>&2
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
@@ -200,9 +216,9 @@ echo     %__BEG_O%clean%__END%       delete generated class files
 echo     %__BEG_O%compile%__END%     compile Ada source files
 echo     %__BEG_O%doc%__END%         generate HTML documentation
 echo     %__BEG_O%help%__END%        display this help message
-echo     %__BEG_O%lint%__END%        analyze Ada source files
+echo     %__BEG_O%lint%__END%        analyze Ada source files with %__BEG_N%AdaControl%__END%
 echo     %__BEG_O%run%__END%         execute main program "%__BEG_O%%_MAIN_NAME%%__END%"
-echo     %__BEG_O%test%__END%        execute unit tests
+echo     %__BEG_O%test%__END%        execute unit tests with %__BEG_N%AUnit%__END%
 goto :eof
 
 :clean
@@ -218,6 +234,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
 )
 rmdir /s /q "%__DIR%"
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -246,7 +263,7 @@ if %_MSYS%==1 ( set "__GNATMAKE_CMD=%_MSYS_GNATMAKE_CMD%"
 ) else ( set "__GNATMAKE_CMD=%_GNATMAKE_CMD%"
 )
 @rem -we : Treat all warnings as errors
-set __GNATMAKE_OPTS=-we -D "%_TARGET_OBJ_DIR%" -o "%_TARGET_DIR%\%_EXE_NAME%.exe"
+set __GNATMAKE_OPTS=-we -D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__GNATMAKE_CMD%" %__GNATMAKE_OPTS% "%_SOURCE_MAIN_DIR%\%_MAIN_NAME%.adb" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
@@ -267,33 +284,39 @@ if not exist "%_TARGET_DIR%\html" mkdir "%_TARGET_DIR%\html"
 set __GNATDOC_OPTS=-d -p "--project=%_ROOT_DIR%build.gpr"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATDOC_CMD%" %__GNATDOC_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate documentation 1>&2
+) else if %_VERBOSE%==1 ( echo Generate HTML documentation 1>&2
 )
 call "%_GNATDOC_CMD%" %__GNATDOC_OPTS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to generate documentation 1>&2
+    echo %_ERROR_LABEL% Failed to generate HTML documentation 1>&2
     set _EXITCODE=1
     goto :eof
 )
 goto :eof
 
 :run
-set "__EXE_FILE=%_TARGET_DIR%\%_EXE_NAME%.exe"
-if not exist "%__EXE_FILE%" (
-    echo %_ERROR_LABEL% Main executable '%_EXE_NAME%' not found ^(%__EXE_FILE%^) 1>&2
+if not exist "%_EXE_FILE%" (
+    echo %_ERROR_LABEL% Main program '%_PROJECT_NAME%' not found ^(%_EXE_FILE%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-call "%__EXE_FILE%" %_MAIN_ARGS%
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_EXE_FILE%" %_MAIN_ARGS% 1>&2
+) else if %_VERBOSE%==1 ( echo Execute program "!_EXE_FILE:%_TARGET_DIR%\=!" 1>&2
+)
+call "%_EXE_FILE%" %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Program execution failed ^(%_EXE_NAME%^) 1>&2
+    echo %_ERROR_LABEL% Failed to execute program "!_EXE_FILE:%_TARGET_DIR%\=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
 goto :eof
 
-:test
+:compile_test
 echo %_WARNING_LABEL% Not yet implemented 1>&2
+goto :eof
+
+:test
+echo %_WARNING_LABEL% Subcommand 'test' is not yet implemented 1>&2
 goto :eof
 
 @rem output parameter: _DURATION
