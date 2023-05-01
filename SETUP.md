@@ -11,7 +11,7 @@
 
 ## <span id="aunit">`aunit` Library</span>
 
-We download the archive [`aunit-22.0.0.zip`](https://github.com/AdaCore/aunit/releases/tag/v22.0.0) and extract the source directory `aunit-22.0.0` (which contains the project file `Makefile`).
+We download the archive [`aunit-22.0.0.zip`](https://github.com/AdaCore/aunit/releases/tag/v22.0.0) (November 2021) and extract the source directory `aunit-22.0.0` (which contains the project file `Makefile`).
 
 Path :
 
@@ -62,7 +62,7 @@ The source patch consists of replacing <code>AdaLexer()</code> by <code>AdaLexer
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

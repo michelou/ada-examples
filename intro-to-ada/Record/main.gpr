@@ -1,7 +1,7 @@
-
+--- @summary Record program
 project Main is
 
-   for Main use ("record_selection");
+   for Main use ("record_selection.adb");
 
    for Languages use ("Ada");
 

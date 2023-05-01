@@ -42,20 +42,23 @@ set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_TARGET_OBJ_DIR=%_TARGET_DIR%\obj"
 
+if not exist "%_ROOT_DIR%build.gpr" (
+    echo %_ERROR_LABEL% GNAT Ada project file not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 if not exist "%GNAT_HOME%\bin\gnatmake.exe" (
     echo %_ERROR_LABEL% GNAT installation not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
 set "_GNATMAKE_CMD=%GNAT_HOME%\bin\gnatmake.exe"
-
-if not exist "%GNAT_HOME%\bin\gnatdoc.exe" (
-    echo %_ERROR_LABEL% GNAT installation not found 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
 set "_GNATDOC_CMD=%GNAT_HOME%\bin\gnatdoc.exe"
 
+set _MSYS_GNATMAKE_CMD=
+if exist "%MSYS_HOME%\mingw64\bin\gnatmake.exe" (
+    set "_MSYS_GNATMAKE_CMD=%MSYS_HOME%\mingw64\bin\gnatmake.exe"
+)
 set "_ADACTL_CMD=
 if exist "%ADACTL_HOME%\adactl.exe" (
     set "_ADACTL_CMD=%ADACTL_HOME%\adactl.exe"
@@ -115,6 +118,7 @@ goto :eof
 @rem input parameter: %*
 :args
 set _COMMANDS=
+set _MSYS=0
 set _TIMER=0
 set _VERBOSE=0
 set __N=0
@@ -128,6 +132,7 @@ if "%__ARG:~0,1%"=="-" (
     @rem option
     if "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if "%__ARG%"=="-help" ( set _COMMANDS=help
+    ) else if "%__ARG%"=="-msys" ( set _MSYS=1
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
@@ -160,6 +165,10 @@ if %_DEBUG%==1 set _STDERR_REDIRECT=
 for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
 set "_EXE_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
 
+if %_MSYS%==1 if not defined _MSYS_GNATMAKE_CMD (
+    echo %_WARNING_LABEL% MSYS GNAT Make not found; use standard GNAT Make instead 1>&2
+    set _MSYS=0
+)
 set _MAIN_NAME=gmain
 set _MAIN_ARGS=
 if not "!_COMMANDS:lint=!"=="%_COMMANDS%" (
@@ -175,6 +184,10 @@ if not "!_COMMANDS:lint=!"=="%_COMMANDS%" (
         )
     )
 )
+if not "!_COMMANDS:compile=!"=="%_COMMANDS%" if defined _MSYS if not defined _MSYS_GNATMAKE_CMD (
+    echo %_WARNING_LABEL% MSYS GNAT Make not found; use standard GNAT Make instead 1>&2
+    set _MSYS=0
+)
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: %_COMMANDS% 1>&2
@@ -182,6 +195,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "GNAT_HOME=%GNAT_HOME%" 1>&2
 	echo %_DEBUG_LABEL% Variables  : "GNAT2019_HOME=%GNAT2019_HOME%" 1>&2
+    if defined MSYS_HOME echo %_DEBUG_LABEL% Variables  : "MSYS_HOME=%MSYS_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : _MAIN_NAME=%_MAIN_NAME% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
     echo %_DEBUG_LABEL% Variables  : _PROJECT_NAME=%_PROJECT_NAME% 1>&2
 )
@@ -204,6 +218,7 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-debug%__END%      display commands executed by this script
+echo     %__BEG_O%-msys%__END%       use MSYS GNAT Make if available
 echo     %__BEG_O%-timer%__END%      display total elapsed time
 echo     %__BEG_O%-verbose%__END%    display progress messages
 echo.
@@ -273,24 +288,28 @@ if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%" 1>NUL
 
 set __SOURCE_FILES=
 set __N=0
-for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.adb" "%_SOURCE_DIR%\*.ads" 2^>NUL') do (
+for /f "delims=" %%f in ('dir /b /s "%_SOURCE_DIR%\*.ad?" 2^>NUL') do (
     set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
     set /a __N+=1
 )
-if %__N%==0 ( 
+if %__N%==0 (
     echo %_WARNING_LABEL% No Ada source file found 1>&2
     goto :eof
 ) else if %__N%==1 ( set __N_FILES=%__N% Ada source file
 ) else ( set __N_FILES=%__N% Ada source files
 )
+if %_MSYS%==1 ( set "__GNATMAKE_CMD=%_MSYS_GNATMAKE_CMD%"
+) else ( set "__GNATMAKE_CMD=%_GNATMAKE_CMD%"
+)
 set "__SOURCE_FILES=%_SOURCE_DIR%\%_MAIN_NAME%.adb"
 @rem -we : Treat all warnings as errors
-set __GNATMAKE_OPTS=-we -D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%"
+set __GNATMAKE_OPTS=-gnat2022 -we -D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%"
+if %_DEBUG%==1 set __GNATMAKE_OPTS=-d %__GNATMAKE_OPTS%
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
 )
-call "%_GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% %_STDERR_REDIRECT%
+call "%__GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
@@ -303,7 +322,8 @@ if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%"
 if not exist "%_TARGET_DIR%\html" mkdir "%_TARGET_DIR%\html"
 
 @rem https://docs.adacore.com/live/wave/gps/html/gnatdoc-doc/gnatdoc.html
-set __GNATDOC_OPTS=--project=%_PROJECT_NAME% --output=html
+@rem Options: -p=Process private part of packages
+set __GNATDOC_OPTS=-d -p "--project=%_ROOT_DIR%build.gpr" --output=html
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATDOC_CMD%" %__GNATDOC_OPTS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate HTML documentation 1>&2
@@ -318,16 +338,16 @@ goto :eof
 
 :run
 if not exist "%_EXE_FILE%" (
-    echo %_ERROR_LABEL% Main program '%_PROJECT_NAME%' not found ^(%_EXE_FILE%^) 1>&2
+    echo %_ERROR_LABEL% Main program "%_PROJECT_NAME%" not found ^(%_EXE_FILE%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_EXE_FILE%" %_MAIN_ARGS% 1>&2
-) else if %_VERBOSE%==1 ( echo Execute program "!_EXE_FILE:%_TARGET_DIR%\=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Execute program "!_EXE_FILE:%_ROOT_DIR%=!" 1>&2
 )
 call "%_EXE_FILE%" %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to execute program "!_EXE_FILE:%_TARGET_DIR%\=!" 1>&2
+    echo %_ERROR_LABEL% Failed to execute program "!_EXE_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )

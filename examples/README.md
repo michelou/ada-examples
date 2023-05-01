@@ -113,7 +113,7 @@ Goodbye WORLD!
 
 Subdirectory `hangman_1.0.0_be628ad5\` is created by command `alr get hangman` <sup id="anchor_01">[1](#footnote_01)</sup>; that command is run *only once* to obtain the `Hangman` executable project from the [Alire][github_alire] repository.
 
-<pre>
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir" rel="external">dir</a> /b &amp; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd" rel="external">cd</a> hang*</b>
 hangman_1.0.0_be628ad5
 00download.txt
@@ -212,7 +212,7 @@ Some project file examples :
 We obtain the <code>Hangman</code> executable example with command <code><b>alr get</b></code>:
 </dd>
 <dd>
-<pre>
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://alire.ada.dev/docs/#first-steps">alr</a> get hangman</b>
 Cloning into '%USERPROFILE%\.config\alire\indexes\community\repo'...
 remote: Enumerating objects: 6559, done.
@@ -232,7 +232,7 @@ There are no dependencies.
 We have to answer two questions when running command <code><b><a href="https://alire.ada.dev/docs/#first-steps" rel="external">alr</a> run</b></code> for the first time, namely:
 </dd>
 <dd>
-<pre>
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://alire.ada.dev/docs/#first-steps">alr</a> run</b>
 Welcome to the toolchain selection assistant
 &nbsp;
@@ -279,7 +279,7 @@ Setup
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

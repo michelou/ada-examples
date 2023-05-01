@@ -23,17 +23,17 @@ Optionally one may also install the following software:
 - [AdaControl 1.22][adactl_downloads]
 - [Alire 1.2][alire_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*changes*][alire_changes])
 - [GNAT CE 2019][gnat2019_downloads] <sup id="anchor_02">[2](#footnote_02)</sup>
-- [GWindows][gwindows_downloads] ([*release notes*][gwindows_relnotes])
+- [GWindows 2022][gwindows_downloads] ([*release notes*][gwindows_relnotes])
 - [MSYS2 2022][msys2_downloads] <sup id="anchor_03">[3](#footnote_03)</sup>
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][linux_opt] directory on Unix).
 
-For instance our development environment looks as follows (*April 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (*May 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\adactl-1.22r16c\  <i>( 79 MB)</i>
-C:\opt\Git-2.40.0\       <i>(314 MB)</i>
+C:\opt\Git-2.40.1\       <i>(314 MB)</i>
 C:\opt\GNAT\2019\        <i>(1.1 GB)</i>
 C:\opt\GNAT\2021\        <i>(2.8 GB)</i>
 C:\opt\msys64\           <i>(2.8 GB)</i>
@@ -90,11 +90,11 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    gcc 10.3.1, gnat Community 2021, make 4.4,
-   git 2.40.0.windows.1, diff 3.9, bash 5.2.12(1)-release
+   git 2.40.1.windows.1, diff 3.9, bash 5.2.12(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> diff git make</b>
-C:\opt\Git-2.40.0\usr\bin\diff.exe
-C:\opt\Git-2.40.0\bin\git.exe
+C:\opt\Git-2.40.1\usr\bin\diff.exe
+C:\opt\Git-2.40.1\bin\git.exe
 C:\opt\msys64\usr\bin\make.exe
 </pre>
 
@@ -183,7 +183,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://www.adacore.com/download/more">gtkada-2021-x86_64-windows64-bin.exe</a>                <i>( 59 MB)</i>
 <a href="https://sourceforge.net/projects/gnavi/files/">GWindows Archive 13-Nov-2022.zip</a>                    <i>(  4 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20220319.exe</a>                           <i>( 92 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.40.0-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.40.1-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
 </pre>
 </dd></dl>
 
@@ -226,7 +226,7 @@ Concretely, <code>setenv.bat</code> in our GitHub projects which depend on Visua
 [flix_examples]: https://github.com/michelou/flix-examples
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.40.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.40.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [gnat2019_downloads]: https://www.adacore.com/download/more
 [gnat2021_announcement]: https://blog.adacore.com/gnat-community-2021-is-here

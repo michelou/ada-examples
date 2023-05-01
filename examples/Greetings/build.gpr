@@ -1,4 +1,4 @@
---- @summary Hello world program
+--- @summary Greetings program
 project Build is
 
     type Mode_Type is ("debug", "release");

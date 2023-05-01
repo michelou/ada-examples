@@ -28,7 +28,7 @@ goto end
 @rem ## Subroutines
 
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
-@rem                    _CLASSES_DIR, _TARGET_DIR, _TARGET_DOCS_DIR, _TASTY_CLASSES_DIR
+@rem                    _CLASSES_DIR, _TARGET_DIR, _TARGET_OBJ_DIR
 :env
 set _BASENAME=%~n0
 set "_ROOT_DIR=%~dp0"
@@ -156,10 +156,13 @@ if "%__ARG:~0,1%"=="-" (
     set /a __N+=1
 )
 shift
-goto :args_loop
+goto args_loop
 :args_done
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
+
+for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
+set "_EXE_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
 
 set _MAIN_ARGS=
 
@@ -197,18 +200,18 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%        show commands executed by this script
+echo     %__BEG_O%-debug%__END%      show commands executed by this script
 echo     %__BEG_O%-main:^<name^>%__END%  set main program ^(default: %__BEG_O%%_MAIN_NAME_DEFAULT%%__END%^)
-echo     %__BEG_O%-msys%__END%         use MSYS GNAT Make if available
-echo     %__BEG_O%-verbose%__END%      display progress messages
+echo     %__BEG_O%-msys%__END%       use MSYS GNAT Make if available
+echo     %__BEG_O%-verbose%__END%    display progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
-echo     %__BEG_O%clean%__END%         delete generated class files
-echo     %__BEG_O%compile%__END%       compile Ada source files
-echo     %__BEG_O%doc%__END%           generate HTML documentation
-echo     %__BEG_O%help%__END%          display this help message
-echo     %__BEG_O%lint%__END%          analyze Ada source files
-echo     %__BEG_O%test%__END%          execute unit tests
+echo     %__BEG_O%clean%__END%       delete generated files
+echo     %__BEG_O%compile%__END%     compile Ada source files
+echo     %__BEG_O%doc%__END%         generate HTML documentation
+echo     %__BEG_O%help%__END%        display this help message
+echo     %__BEG_O%lint%__END%        analyze Ada source files
+echo     %__BEG_O%test%__END%        execute unit tests
 echo.
 set __MAIN_NAMES=
 for /f %%f in ('dir /b "%_SOURCE_MAIN_DIR%\*.adb"') do (
@@ -234,6 +237,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
 )
 rmdir /s /q "%__DIR%"
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -248,7 +252,7 @@ if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%" 1>NUL
 
 set __SOURCE_FILES=
 set __N=0
-for /f %%f in ('dir /s /b "%_SOURCE_MAIN_DIR%\*.ad?" 2^>NUL') do (
+for /f "delims=" %%f in ('dir /b /s "%_SOURCE_MAIN_DIR%\*.ad?" 2^>NUL') do (
     set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
     set /a __N+=1
 )
@@ -262,7 +266,8 @@ if %_MSYS%==1 ( set "__GNATMAKE_CMD=%_MSYS_GNATMAKE_CMD%"
 ) else ( set "__GNATMAKE_CMD=%_GNATMAKE_CMD%"
 )
 @rem -we : Treat all warnings as errors
-set __GNATMAKE_OPTS=-gnat2022 -we -D "%_TARGET_OBJ_DIR%" -o "%_TARGET_DIR%\%_MAIN_NAME%.exe"
+set __GNATMAKE_OPTS=-gnat2022 -we -D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%"
+if %_DEBUG%==1 set __GNATMAKE_OPTS=-g %__GNATMAKE_OPTS%
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__GNATMAKE_CMD%" %__GNATMAKE_OPTS% "%_SOURCE_MAIN_DIR%\%_MAIN_NAME%.adb" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
@@ -290,18 +295,17 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :run
-set "__EXE_FILE=%_TARGET_DIR%\%_MAIN_NAME%.exe"
-if not exist "%__EXE_FILE%" (
-    echo %_ERROR_LABEL% Main executable '%_MAIN_NAME%' not found ^(%__EXE_FILE%^) 1>&2
+if not exist "%_EXE_FILE%" (
+    echo %_ERROR_LABEL% Main executable "%_MAIN_NAME%" not found ^(%_EXE_FILE%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__EXE_FILE%" %_MAIN_ARGS% 1>&2
-) else if %_VERBOSE%==1 ( echo Execute program "!__EXE_FILE:%_ROOT_DIR%=!" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_EXE_FILE%" %_MAIN_ARGS% 1>&2
+) else if %_VERBOSE%==1 ( echo Execute program "!_EXE_FILE:%_ROOT_DIR%=!" 1>&2
 )
-call "%__EXE_FILE%" %_MAIN_ARGS%
+call "%_EXE_FILE%" %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to execute program "!__EXE_FILE:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to execute program "!_EXE_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
