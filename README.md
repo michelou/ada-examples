@@ -15,7 +15,7 @@
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.40][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.41][git_releases] ([*release notes*][git_relnotes])
 - [GNAT CE 2021][gnat2021_downloads] ([*announcement*][gnat2021_announcement])
 
 Optionally one may also install the following software:
@@ -23,7 +23,7 @@ Optionally one may also install the following software:
 - [AdaControl 1.22][adactl_downloads]
 - [Alire 1.2][alire_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*changes*][alire_changes])
 - [GNAT CE 2019][gnat2019_downloads] <sup id="anchor_02">[2](#footnote_02)</sup>
-- [GWindows 2022][gwindows_downloads] ([*release notes*][gwindows_relnotes])
+- [GWindows 2023][gwindows_downloads] ([*release notes*][gwindows_relnotes])
 - [MSYS2 2022][msys2_downloads] <sup id="anchor_03">[3](#footnote_03)</sup>
 
 > **&#9755;** ***Installation policy***<br/>
@@ -33,9 +33,10 @@ For instance our development environment looks as follows (*June 2023*) <sup id=
 
 <pre style="font-size:80%;">
 C:\opt\adactl-1.22r16c\  <i>( 79 MB)</i>
-C:\opt\Git-2.40.1\       <i>(314 MB)</i>
+C:\opt\Git-2.41.0\       <i>(314 MB)</i>
 C:\opt\GNAT\2019\        <i>(1.1 GB)</i>
 C:\opt\GNAT\2021\        <i>(2.8 GB)</i>
+C:\opt\GWindows\         <i>(  4 MB)</i>
 C:\opt\msys64\           <i>(2.8 GB)</i>
 </pre>
 
@@ -51,6 +52,7 @@ This project is organized as follows:
 <a href="gwindows-examples/">gwindows-examples\</a>{<a href="gwindows-examples/README.md">README.md</a>, <a href="gwindows-examples/tutorial1">tutorial1</a>, etc.}
 <a href="intro-to-ada/">intro-to-ada\</a>{<a href="intro-to-ada/README.md">README.md</a>, <a href="intro-to-ada/Greet/">Greet</a>, <a href="intro-to-ada/Week/">Week</a>, etc.}
 <a href="shvets-examples/">shvets-examples\</a>{<a href="shvets-examples/README.md">README.md</a>, <a href="shvets-examples/ch02">ch02</a>, <a href="shvets-examples/ch03">ch03</a>, etc.}
+<a href="QUICKREF.md">QUICKREF.md</a>
 README.md
 <a href="RESOURCES.md">RESOURCES.md</a>
 <a href="setenv.bat">setenv.bat</a>
@@ -65,6 +67,7 @@ where
 - directory [**`gwindows-examples\`**](./gwindows-examples/) contains [GNAVI] code examples (see [`README.md`](./gwindows-examples/README.md))
 - directory [**`intro-to-ada\`**](intro-to-ada/) contains [Ada] code examples from AdaCore's course <a href="https://learn.adacore.com/courses/intro-to-ada" rel="external">*Introduction to Ada*</a>.
 - directory [**`shvets-examples`**](./shvets-examples/) contains [Ada] code examples from Shvets's book <a href="https://www.apress.com/9781484254271" rel="external">*Beginning Ada Programming*</a>.
+- file [**`QUICKREF.md`**](QUICKREF.md) gathers [Ada] hints and tips.
 - file [**`README.md`**](README.md) is the [Markdown][github_markdown] document for this page.
 - file [**`RESOURCES.md`**](RESOURCES.md) gathers [Ada] related informations.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
@@ -90,11 +93,11 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    gcc 10.3.1, gnat Community 2021, make 4.4,
-   git 2.40.1.windows.1, diff 3.9, bash 5.2.12(1)-release
+   git 2.41.0.windows.1, diff 3.9, bash 5.2.12(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> diff git make</b>
-C:\opt\Git-2.40.1\usr\bin\diff.exe
-C:\opt\Git-2.40.1\bin\git.exe
+C:\opt\Git-2.41.0\usr\bin\diff.exe
+C:\opt\Git-2.41.0\bin\git.exe
 C:\opt\msys64\usr\bin\make.exe
 </pre>
 
@@ -181,9 +184,9 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://www.adacore.com/download/more">gnat-community-2019-20190517-x86_64-windows-bin.exe</a> <i>(380 MB)</i>
 <a href="https://www.adacore.com/download" rel="external">gnat-2021-20210519-x86_64-windows64-bin.exe</a>         <i>(562 MB)</i>
 <a href="https://www.adacore.com/download/more">gtkada-2021-x86_64-windows64-bin.exe</a>                <i>( 59 MB)</i>
-<a href="https://sourceforge.net/projects/gnavi/files/">GWindows Archive 13-Nov-2022.zip</a>                    <i>(  4 MB)</i>
+<a href="https://sourceforge.net/projects/gnavi/files/">GWindows Archive 29-May-2023.zip</a>                    <i>(  4 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20220319.exe</a>                           <i>( 92 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.40.1-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.41.0-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
 </pre>
 </dd></dl>
 
@@ -205,7 +208,7 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\vsde
 </pre>
 </dd>
 <dd>
-Concretely, <code>setenv.bat</code> in our GitHub projects which depend on Visual Studio (e.g. <a href="https://github.com/michelou/cpp-examples"><code>michelou/cpp-examples</code></a>) do invoke <code>VsDevCmd.bat</code> (resp. <code>vcvarall.bat</code> for older Visual Studio versions) to setup the Visual Studio tools on the command prompt. 
+Concretely, <code><b>setenv.bat</b></code> in our GitHub projects which depend on Visual Studio (e.g. <a href="https://github.com/michelou/cpp-examples"><code>michelou/cpp-examples</code></a>) do invoke <code><b>VsDevCmd.bat</b></code> (resp. <code><b>vcvarall.bat</b></code> for older Visual Studio versions) to setup the Visual Studio tools on the command prompt. 
 </dd></dl>
 
 ***
@@ -226,7 +229,7 @@ Concretely, <code>setenv.bat</code> in our GitHub projects which depend on Visua
 [flix_examples]: https://github.com/michelou/flix-examples
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.40.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.41.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [gnat2019_downloads]: https://www.adacore.com/download/more
 [gnat2021_announcement]: https://blog.adacore.com/gnat-community-2021-is-here
@@ -235,7 +238,11 @@ Concretely, <code>setenv.bat</code> in our GitHub projects which depend on Visua
 [golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [gwindows_downloads]: https://sourceforge.net/projects/gnavi/files/
-[gwindows_relnotes]: https://sourceforge.net/p/gnavi/news/2022/11/gwindows-release-13-nov-2022-revision-459/
+<!--
+https://sourceforge.net/p/gnavi/news/2022/11/gwindows-release-13-nov-2022-revision-459/
+https://sourceforge.net/p/gnavi/news/2023/05/gwindows-release-29-may-2023-revision-480/
+-->
+[gwindows_relnotes]: https://sourceforge.net/p/gnavi/news/2023/05/gwindows-release-29-may-2023-revision-480/
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [kafka_examples]: https://github.com/michelou/kafka-examples
 [kotlin_examples]: https://github.com/michelou/kotlin-examples

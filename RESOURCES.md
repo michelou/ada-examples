@@ -63,7 +63,9 @@
 
 ## <span id="projects">Projects</span> [**&#x25B4;**](#top)
 
+- [ada-toml](https://github.com/pmderodat/ada-toml) &ndash; a TOML parser for [Ada].
 - [AdaBase](https://github.com/jrmarino/AdaBase) &ndash; Thick database bindings to MySQL, PostgreSQL and SQLite for Ada.
+- [AZip](https://github.com/zertovitch/azip) &ndash; a free, portable Zip Archive Manager.
 - [codelabs.ch](https://git.codelabs.ch/) &ndash; Open-source projects.
 - [GNAT LLVM][project_gnat_llvm] &ndash; a GNAT front-end to the LLVM code generator.
 - [Zip-Ada][project_zip_ada] &ndash; a standalone, portable Ada library for Zip archives.

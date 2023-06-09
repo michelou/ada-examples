@@ -180,7 +180,7 @@ Would you like to play again? y/n: n
 
 ## <span id="">`TimingFibonacci` Example</span>
 
-This example contains the source file [`main.adb`](./TimingFibonacci/src/main/ada/main.adb), the project file [`build.gpr`](./TimingFibonacci/build.gpr) and the batch file [`build.bat`](./TimingFibonacci/build.bat).
+This example contains the source file [`main.adb`](./TimingFibonacci/src/main/ada/main.adb), the project file [`build.gpr`](./TimingFibonacci/build.gpr) and the batch file [**`build.bat`**](./TimingFibonacci/build.bat).
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./TimingFibonacci/build.baT">build</a> -verbose clean run</b>
