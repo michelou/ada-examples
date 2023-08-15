@@ -24,9 +24,10 @@ project Harness is
    end Binder;
 
    package Compiler is
-      for Default_Switches ("ada") use
-        ("-g", "-gnatQ", "-O1", "-gnatf", "-gnato",
-         "-gnatwa.Xe", "-gnaty", "-gnat05");
+      for Default_Switches ("ada") use (
+         "-g", "-gnatQ", "-O1", "-gnatf", "-gnato",
+         "-gnatwa.Xe", "-gnaty", "-gnat12"
+      );
    end Compiler;
 
 end Harness;

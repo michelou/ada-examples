@@ -43,6 +43,7 @@ set "_SOURCE_MAIN_DIR=%_SOURCE_DIR%\main\ada"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_TARGET_OBJ_DIR=%_TARGET_DIR%\obj"
 
+@rem required for gnatdoc
 if not exist "%_ROOT_DIR%build.gpr" (
     echo %_ERROR_LABEL% GNAT Ada project file not found 1>&2
     set _EXITCODE=1
@@ -220,7 +221,7 @@ echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-debug%__END%      display commands executed by this script
 echo     %__BEG_O%-msys%__END%       use MSYS GNAT Make if available
-echo     %__BEG_O%-timer%__END%      display total elapsed time
+echo     %__BEG_O%-timer%__END%      display total execution time
 echo     %__BEG_O%-verbose%__END%    display progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%

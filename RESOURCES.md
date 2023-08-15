@@ -15,7 +15,7 @@
 - [AdaCore Technologies for cyber security, part 2: The challenge of secure software][article_chapman2] by Roderick Chapman, June 2018.
 - [AdaCore Technologies for cyber security, part 1][article_chapman1] by Roderick Chapman, May 2018.
 
-## <span id="blogs">Blogs</span>
+## <span id="blogs">Blogs</span> [**&#x25B4;**](#top)
 
 - [Gautier's Blog](https://gautiersblog.blogspot.com/search/label/Ada) :
   - [Cleaning up HAC sources with AdaControl](https://gautiersblog.blogspot.com/2021/04/cleaning-up-hac-sources-with-adacontrol.html), April 2021.
@@ -82,6 +82,8 @@
 - [`ada-util`](https://github.com/stcarrez/ada-util) &ndash; an Ada utility library for composing streams, processes, logs, serialization, encoders and more.
 - [alr][tool_alire] &ndash; a command-line tool  to obtain, build, and incorporate Ada libraries into a project (similar role to Rust's [cargo](https://doc.rust-lang.org/cargo/commands/cargo.html)).
 - [Ada Web Application](https://github.com/stcarrez/ada-awa) &ndash; a framework to build a web application in Ada 2012.
+- [Aflex](https://github.com/Ada-France/aflex) &ndash; an Ada fast lexical analyser generator.
+- [Ayacc](https://github.com/Ada-France/ayacc#ayacc) &ndash; an Ada LALR(1) parser generator.
 - [Language Support for Ada](https://marketplace.visualstudio.com/items?itemName=AdaCore.ada) &ndash; a Language Server providing Ada and SPARK support in Visual Studio Code.
 - [LEA][tool_lea] &ndash; a Lightweight Editor for Ada.
 - [SweetAda](https://www.sweetada.org/) &ndash; a lightweight development framework to inplement Ada-based software systems.

@@ -8,7 +8,6 @@
   </tr>
 </table>
 
-
 ## <span id="aunit">`aunit` Library</span>
 
 We download the archive [`aunit-22.0.0.zip`](https://github.com/AdaCore/aunit/releases/tag/v22.0.0) (November 2021) and extract the source directory `aunit-22.0.0` (which contains the project file `Makefile`).
@@ -59,6 +58,23 @@ The source patch consists of replacing <code>AdaLexer()</code> by <code>AdaLexer
 100:     app.add_lexer('gpr', ada_pygments.GNATProjectLexer())
 </pre>
 </dd></dl>
+
+<!--
+<pre style="font-size:80%;">
+&gt; pacman -S make
+
+&gt; pacman -S mingw-w64-x86_64-gcc-ada
+resolving dependencies...
+looking for conflicting packages...
+
+Packages (16) [...] mingw-w64-x86_64-gcc-ada-13.2.0-1
+
+Total Download Size:    69.62 MiB
+Total Installed Size:  538.08 MiB
+
+[...]
+</pre>
+-->
 
 ***
 

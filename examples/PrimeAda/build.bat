@@ -64,6 +64,7 @@ set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
 set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 
 set "_SOURCE_DIR=%_ROOT_DIR%src"
+set "_SOURCE_MAIN_DIR=%_SOURCE_DIR%\main\ada"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_TARGET_OBJ_DIR=%_TARGET_DIR%\obj"
 
@@ -296,12 +297,12 @@ goto :eof
 :compile
 if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%" 1>NUL
 
-call :action_required "%_EXE_FILE%" "%_SOURCE_DIR%\*.ada" "%_SOURCE_DIR%\*.adb" "%_SOURCE_DIR%\*.ads"
+call :action_required "%_EXE_FILE%" "%_SOURCE_MAIN_DIR%\*.ada" "%_SOURCE_MAIN_DIR%\*.adb" "%_SOURCE_MAIN_DIR%\*.ads"
 if %_ACTION_REQUIRED%==0 goto :eof
 
 set __SOURCE_FILES=
 set __N=0
-for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.ad?" ^| findstr /r [abs]$ 2^>NUL') do (
+for /f "delims=" %%f in ('dir /s /b "%_SOURCE_MAIN_DIR%\*.ad?" ^| findstr /r [abs]$ 2^>NUL') do (
     set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
     set /a __N+=1
 )
@@ -400,7 +401,7 @@ goto :eof
 
 :run
 if not exist "%_EXE_FILE%" (
-    echo %_ERROR_LABEL% Main program '%_PROJECT_NAME%' not found ^(%_EXE_FILE%^) 1>&2
+    echo %_ERROR_LABEL% Main program "%_PROJECT_NAME%" not found ^(%_EXE_FILE%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )

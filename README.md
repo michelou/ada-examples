@@ -24,7 +24,7 @@ Optionally one may also install the following software:
 - [Alire 1.2][alire_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*changes*][alire_changes])
 - [GNAT CE 2019][gnat2019_downloads] <sup id="anchor_02">[2](#footnote_02)</sup>
 - [GWindows 2023][gwindows_downloads] ([*release notes*][gwindows_relnotes])
-- [MSYS2 2022][msys2_downloads] <sup id="anchor_03">[3](#footnote_03)</sup>
+- [MSYS2 2023][msys2_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][msys2_changelog])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][linux_opt] directory on Unix).
@@ -140,20 +140,20 @@ The <a href="http://repo.msys2.org/distrib/x86_64/" rel="external">MSYS64</a> so
 <a href=""><code>gnat.exe</code>/<code>gnatmake.exe</code></a>
 <pre style="font-size:80%;">
   <b>&gt; c:\opt\msys64\mingw64\bin\gnat.exe --version | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> GNAT</b>
-  GNAT 12.2.0
+  GNAT 13.2.0
 &nbsp;
   <b>&gt; c:\opt\msys64\mingw64\bin\<a href="https://gcc.gnu.org/onlinedocs/gcc-12.1.0/gnat_ugn/Running-gnatmake.html#Running-gnatmake" rel="external">gnatmake.exe</a> --version | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> GNAT</b>
-  GNATMAKE 12.2.0
+  GNATMAKE 13.2.0
 </pre>
 </dd>
 <dd>
 <a href=""><code>gcc.exe</code>/<code>make.exe</code></a>
 <pre style="font-size:80%;">
   <b>&gt; c:\opt\msys64\mingw64\bin\<a href="https://gcc.gnu.org/onlinedocs/gcc/Invoking-GCC.html" rel="external">gcc.exe</a> --version | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> gcc</b>
-  gcc.exe (Rev6, Built by MSYS2 project) 12.2.0
+  gcc.exe (Rev6, Built by MSYS2 project) 13.2.0
   &nbsp;
   <b>&gt; c:\opt\msys64\usr\bin\<a href="https://www.gnu.org/software/make/manual/make.html" rel="external">make.exe</a> --version | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> Make</b>
-  GNU Make 4.4
+  GNU Make 4.4.1
 </pre>
 </dd>
 
@@ -185,7 +185,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://www.adacore.com/download" rel="external">gnat-2021-20210519-x86_64-windows64-bin.exe</a>         <i>(562 MB)</i>
 <a href="https://www.adacore.com/download/more">gtkada-2021-x86_64-windows64-bin.exe</a>                <i>( 59 MB)</i>
 <a href="https://sourceforge.net/projects/gnavi/files/">GWindows Archive 29-May-2023.zip</a>                    <i>(  4 MB)</i>
-<a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20230718.exe</a>                           <i>( 92 MB)</i>
+<a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20230718.exe</a>                           <i>( 83 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.41.0-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
 </pre>
 </dd></dl>
@@ -259,6 +259,7 @@ https://sourceforge.net/p/gnavi/news/2023/05/gwindows-release-29-may-2023-revisi
 [man1_rmdir]: https://www.linux.org/docs/man1/rmdir.html
 [man1_sed]: https://www.linux.org/docs/man1/sed.html
 [man1_wc]: https://www.linux.org/docs/man1/wc.html
+[msys2_changelog]: https://github.com/msys2/setup-msys2/blob/main/CHANGELOG.md
 [msys2_downloads]: http://repo.msys2.org/distrib/x86_64/
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
 [rust_examples]: https://github.com/michelou/rust-examples
