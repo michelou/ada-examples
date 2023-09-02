@@ -5,6 +5,7 @@
 # to native line endings on checkout.
 *.ada text linguist-language=Ada
 *.adb text linguist-language=Ada
+*.adc text linguist-language=Ada
 *.ads text linguist-language=Ada
 *.awk text linguist-vendored=false
 *.c text linguist-language=C
@@ -22,6 +23,8 @@
 *.js text linguist-language=JavaScript
 *.json text linguist-language=JSON
 *.jsx text linguist-language=JavaScript
+*.kt text linguist-vendored=Kotlin
+*.kts text linguist-vendored=Kotlin
 *.md text linguist-documentation=true
 *.properties text linguist-language=INI
 *.py text linguist-language=Python

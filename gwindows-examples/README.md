@@ -11,16 +11,15 @@
 
 We support the following build tools :
 
-| Build tool | Configuration file |
-|:-----------|:----|
-| [**`gnatmake.exe`**][gnatmake_cmd] | &ndash; |
+| Build tool | Build file |
+|:-----------|:-----------|
+| [**`gnatmake.exe`**][gnatmake_cmd] <sup id="anchor_01">[1](#footnote_01)</sup> | &ndash; |
 | [**`gprbuild.exe`**][gprbuild_cmd] | [**`build.gpr`**](./HelloWorld/build.gpr) |
 
 
 ## <span id="tutorial1">`tutorial1` Example</span>
 
-Command [**`build.bat`**](./tutorial1/build.bat) <sup id="anchor_01">[1](#footnote_01)
-</sup> relies on [**`gnatmake.exe`**][gnatmake_cmd] to generate the executable `target\tutorial1.exe` from the Ada source file [`tutorial1.adb`](./tutorial1/src/tutorial1.adb) :
+Command [**`build.bat`**](./tutorial1/build.bat) <sup id="anchor_02">[2](#footnote_02)</sup> relies on [**`gnatmake.exe`**][gnatmake_cmd] to generate the executable `target\tutorial1.exe` from the Ada source file [`tutorial1.adb`](./tutorial1/src/tutorial1.adb) :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./tutorial1/build.bat">build</a> -verbose run</b>
@@ -73,7 +72,37 @@ Link
 
 ## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 
-<span id="footnote_01">[1]</span> **`Tutorial1` *output with* `-debug` *option*** [↩](#anchor_01)
+
+<span id="footnote_01">[1]</span> ***Gnatmake*** [↩](#anchor_01)
+
+<dl><dd>
+GNU tools such as <a href="https://gcc.gnu.org/onlinedocs/gcc/Invoking-GCC.html" reé?"extermal"><code><b>gcc</b></code></a>, <a href="https://docs.adacore.com/gnat_ugn-docs/html/gnat_ugn/gnat_ugn/building_executable_programs_with_gnat.html#the-gnat-make-program-gnatmake" rel="external"><code><b>gnatmake</b></code></a>, <a href="https://sourceware.org/binutils/docs/binutils/objdump.html" rel="external"><code><b>objdump</b></code></a> and <a href="https://sourceware.org/binutils/docs/binutils/windres.html" rel="external"><code><b>windres</b></code></a> are available both in the MSYS installation and in the GNAT 2021 installation; we use the tools from the MSYS installation which have <i>newer versions</i>.
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> gcc gnatmake windres</b>
+C:\opt\msys64\usr\bin\gcc.exe
+C:\opt\msys64\mingw64\bin\gcc.exe
+C:\opt\GNAT\2021\bin\gcc.exe
+C:\opt\msys64\mingw64\bin\gnatmake.exe
+C:\opt\GNAT\2021\bin\gnatmake.exe
+C:\opt\msys64\usr\bin\windres.exe
+C:\opt\msys64\mingw64\bin\windres.exe
+C:\opt\GNAT\2021\bin\windres.exe
+&nbsp;
+<b>&gt; C:\opt\msys64\mingw64\bin\gnatmake.exe --version</b>
+GNATMAKE 13.2.0
+Copyright (C) 1995-2023, Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+&nbsp;
+<b>&gt; C:\opt\GNAT\2021\bin\gnatmake.exe --version</b>
+GNATMAKE Community 2021 (20210519-103)
+Copyright (C) 1995-2021, Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+</pre>
+</dd></dl>
+
+<span id="footnote_02">[2]</span> **`Tutorial1` *output with* `-debug` *option*** [↩](#anchor_02)
 
 <dl><dd>
 
@@ -83,7 +112,7 @@ Link
 [build] Options    : _TIMER=0 _VERBOSE=0
 [build] Subcommands: _CLEAN=1 _COMPILE=1 _DOC=0 _LINT=0 _RUN=1 _TEST=0
 [build] Variables  : "ADACTL_HOME=C:\opt\adactl-1.22r16c"
-[build] Variables  : "GIT_HOME=C:\opt\Git-2.41.0"
+[build] Variables  : "GIT_HOME=C:\opt\Git"
 [build] Variables  : "GNAT_HOME=C:\opt\GNAT\2021"
 [build] Variables  : "GNAT2019_HOME=C:\opt\GNAT\2019"
 [build] Variables  : _MAIN_NAME=Tutorial1 _MAIN_ARGS=

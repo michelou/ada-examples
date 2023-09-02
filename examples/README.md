@@ -11,9 +11,9 @@
 
 We support the following build tools :
 
-| Build tool | Configuration file |
-|:-----------|:----|
-| [**`gnatmake.exe`**][gnatmake_cmd] | &ndash; |
+| Build tool | Build file |
+|:-----------|:-----------|
+| [**`gnatmake.exe`**][gnatmake_cmd] <sup id="anchor_01">[1](#footnote_01)</sup> | &ndash; |
 | [**`gprbuild.exe`**][gprbuild_cmd] | [**`build.gpr`**](./HelloWorld/build.gpr) |
 
 
@@ -25,7 +25,10 @@ This example contains the source file [`test_dining_philosophers.adb`](./DiningP
 <b>&gt; <a href="./DiningPhilosophers/build.bat">build</a> -debug run</b>
 [build] Options    : _TIMER=0 _VERBOSE=0
 [build] Subcommands:  compile run
-[build] Variables  : GNAT_HOME="C:\opt\GNAT\2021"
+[build] Variables  : "ADACTL_HOME=C:\opt\adactl-1.22r16c"
+[build] Variables  : "GIT_HOME=C:\opt\Git"
+[build] Variables  : "GNAT_HOME="C:\opt\GNAT\2021"
+[build] Variables  : "GNAT2019_HOME=C:\opt\GNAT\2019"
 [build] Variables  : _MAIN_NAME=Test_Dining_Philosophers _MAIN_ARGS=
 [build] "C:\opt\GNAT\2021\bin\gnatmake.exe" -we -d \
    -D "G:\examples\DiningPhilosophers\target\obj" \
@@ -68,7 +71,7 @@ ARISTOTLE is eating
 ARISTOTLE is leaving
 </pre>
 
-## <span id="hello">`HelloWorld` Example</span>
+## <span id="hello">`HelloWorld` Example</span> [**&#x25B4;**](#top)
 
 This example contains the source file [`main.adb`](./HelloWorld/src/main/ada/main.adb), the project file [`build.gpr`](./HelloWorld/build.gpr) and the batch file [`build.bat`](./HelloWorld/build.bat).
 
@@ -92,7 +95,7 @@ Link
 Hello WORLD!
 </pre>
 
-## <span id="greetings">`Greetings` Example</span>
+## <span id="greetings">`Greetings` Example</span> [**&#x25B4;**](#top)
 
 This example contains the source file [`gmain.adb`](./Greetings/src/gmain.adb), the project files [`build.gpr`](./Greetings/build.gpr) and the batch file [`build.bat`](./Greetings/build.bat).
 
@@ -111,7 +114,7 @@ Goodbye WORLD!
 
 ## <span id="hangman">`Hangman` Example</span> [**&#x25B4;**](#top)
 
-Subdirectory `hangman_1.0.0_be628ad5\` is created by command `alr get hangman` <sup id="anchor_01">[1](#footnote_01)</sup>; that command is run *only once* to obtain the `Hangman` executable project from the [Alire][github_alire] repository.
+Subdirectory `hangman_1.0.0_be628ad5\` is created by command [`alr`](https://alire.ada.dev/docs/#first-steps)` get hangman` <sup id="anchor_02">[2](#footnote_02)</sup>; that command is run *only once* to obtain the `Hangman` executable project from the [Alire][github_alire] repository.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir" rel="external">dir</a> /b &amp; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd" rel="external">cd</a> hang*</b>
@@ -206,10 +209,39 @@ Some project file examples :
 </ul>
 </dd></dl>
 -->
-<span id="footnote_01">[1]</span> ***Alire*** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> ***Gnatmake*** [↩](#anchor_01)
 
 <dl><dd>
-We obtain the <code>Hangman</code> executable example with command <code><b>alr get</b></code>:
+GNU tools such as <a href="https://gcc.gnu.org/onlinedocs/gcc/Invoking-GCC.html" reé?"extermal"><code><b>gcc</b></code></a>, <a href="https://docs.adacore.com/gnat_ugn-docs/html/gnat_ugn/gnat_ugn/building_executable_programs_with_gnat.html#the-gnat-make-program-gnatmake" rel="external"><code><b>gnatmake</b></code></a>, <a href="https://sourceware.org/binutils/docs/binutils/objdump.html" rel="external"><code><b>objdump</b></code></a> and <a href="https://sourceware.org/binutils/docs/binutils/windres.html" rel="external"><code><b>windres</b></code></a> are available both in the MSYS installation and in the GNAT 2021 installation; we use the tools from the MSYS installation which have <i>newer versions</i>.
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> gcc gnatmake windres</b>
+C:\opt\msys64\usr\bin\gcc.exe
+C:\opt\msys64\mingw64\bin\gcc.exe
+C:\opt\GNAT\2021\bin\gcc.exe
+C:\opt\msys64\mingw64\bin\gnatmake.exe
+C:\opt\GNAT\2021\bin\gnatmake.exe
+C:\opt\msys64\usr\bin\windres.exe
+C:\opt\msys64\mingw64\bin\windres.exe
+C:\opt\GNAT\2021\bin\windres.exe
+&nbsp;
+<b>&gt; C:\opt\msys64\mingw64\bin\gnatmake.exe --version</b>
+GNATMAKE 13.2.0
+Copyright (C) 1995-2023, Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+&nbsp;
+<b>&gt; C:\opt\GNAT\2021\bin\gnatmake.exe --version</b>
+GNATMAKE Community 2021 (20210519-103)
+Copyright (C) 1995-2021, Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+</pre>
+</dd></dl>
+
+<span id="footnote_02">[2]</span> ***Alire*** [↩](#anchor_02)
+
+<dl><dd>
+We obtain the <code>Hangman</code> executable example with command <code><b><a href="https://alire.ada.dev/docs/#first-steps" rel="external">alr</a> get</b></code>:
 </dd>
 <dd>
 <pre style="font-size:80%;">
@@ -286,5 +318,9 @@ Setup
 
 [alr_cli]: https://alire.ada.dev/docs/#first-steps
 [github_alire]: https://github.com/alire-project/alire
+<!--
+[gnatmake_cmd]: https://gcc.gnu.org/onlinedocs/gcc-13.2.0/gnat_ugn/Running-gnatmake.html
+-->
 [gnatmake_cmd]: https://docs.adacore.com/gnat_ugn-docs/html/gnat_ugn/gnat_ugn/building_executable_programs_with_gnat.html#the-gnat-make-program-gnatmake
 [gprbuild_cmd]: https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/building_with_gprbuild.html
+[windres_cmd]: https://man7.org/linux/man-pages/man1/windres.1.html

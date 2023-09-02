@@ -7,7 +7,7 @@
 
 include ../Makefile.inc
 
-PROJ_NAME      = Greetings
+PROJ_NAME      = TimingFibonacci
 
 SOURCE_DIR     = src
 TARGET_DIR     = target
@@ -16,7 +16,7 @@ TARGET_OBJ_DIR = $(TARGET_DIR)/obj
 ##############################################################################
 ## main rules
 
-SOURCES = $(wildcard $(SOURCE_DIR)/*main*.adb)
+SOURCES = $(wildcard $(SOURCE_DIR)/main/ada/*.adb)
 TARGET  = $(TARGET_DIR)/$(PROJ_NAME)$(TARGET_EXT)
 
 ## adactl expects absolute path arguments

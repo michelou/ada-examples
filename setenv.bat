@@ -132,7 +132,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-help" ( set _HELP=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown option "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -140,7 +140,7 @@ if "%__ARG:~0,1%"=="-" (
     @rem subcommand
     if "%__ARG%"=="help" ( set _HELP=1
     ) else (
-        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown subcommand "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -203,11 +203,11 @@ set "_DRIVE_NAME=!__DRIVE_NAMES:~0,2!"
 if /i "%_DRIVE_NAME%"=="%__GIVEN_PATH:~0,2%" goto :eof
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% subst "%_DRIVE_NAME%" "%__GIVEN_PATH%" 1>&2
-) else if %_VERBOSE%==1 ( echo Assign drive %_DRIVE_NAME% to path "%__GIVEN_PATH%" 1>&2
+) else if %_VERBOSE%==1 ( echo Assign drive %_DRIVE_NAME% to path "!__GIVEN_PATH:%USERPROFILE%=%%USERPROFILE%%!" 1>&2
 )
 subst "%_DRIVE_NAME%" "%__GIVEN_PATH%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to assign drive %_DRIVE_NAME% to path "%__GIVEN_PATH%" 1>&2
+    echo %_ERROR_LABEL% Failed to assign drive %_DRIVE_NAME% to path "!__GIVEN_PATH:%USERPROFILE%=%%USERPROFILE%%!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -272,6 +272,7 @@ if defined _GNAT_CMD (
     for %%i in ("%_GNAT_CMD%") do set "__GNAT_BIN_DIR=%%~dpi"
     for %%f in ("%__GNAT_BIN_DIR%\.") do set "_GNAT_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of GNAT executable found in PATH 1>&2
+    @rem keep _GNAT_PATH undefined since executable already in path
     goto :eof
 ) else if defined GNAT_HOME (
     set "_GNAT_HOME=%GNAT_HOME%"
@@ -410,9 +411,9 @@ set _MSYS_PATH=
 set __MAKE_CMD=
 for /f "delims=" %%f in ('where make.exe 2^>NUL') do set "__MAKE_CMD=%%f"
 if defined __MAKE_CMD (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of GNU Make executable found in PATH 1>&2
     for /f "delims=" %%i in ("%__MAKE_CMD%") do set "__MAKE_BIN_DIR=%%~dpi"
     for %%f in ("!__MAKE_BIN_DIR!\.") do set "_MSYS_HOME=%%~dpf"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of GNU Make executable found in PATH 1>&2
     @rem keep _MSYS_PATH undefined since executable already in path
     goto :eof
 ) else if defined MSYS_HOME (
@@ -485,7 +486,11 @@ if %__VERBOSE%==1 (
     if defined GWINDOWS_HOME echo    "GWINDOWS_HOME=%GWINDOWS_HOME%" 1>&2
     if defined MSYS_HOME echo    "MSYS_HOME=%MSYS_HOME%" 1>&2
     echo Path associations: 1>&2
-    for /f "delims=" %%i in ('subst') do echo    %%i 1>&2
+    for /f "delims=" %%i in ('subst') do (
+        set "__LINE=%%i"
+        setlocal enabledelayedexpansion
+        echo    !__LINE:%USERPROFILE%=%%USERPROFILE%%! 1>&2
+    )
 )
 goto :eof
 
@@ -510,7 +515,7 @@ endlocal & (
         )
         if %_BASH%==1 (
             @rem see https://conemu.github.io/en/GitForWindows.html
-            if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_HOME%\usr\bin\bash.exe --login 1>&2
+            if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_GIT_HOME%\usr\bin\bash.exe" --login 1>&2
             cmd.exe /c "%_GIT_HOME%\usr\bin\bash.exe --login"
         )
     )

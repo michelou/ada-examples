@@ -15,7 +15,7 @@
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.41][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.42][git_releases] ([*release notes*][git_relnotes])
 - [GNAT CE 2021][gnat2021_downloads] ([*announcement*][gnat2021_announcement])
 
 Optionally one may also install the following software:
@@ -33,7 +33,7 @@ For instance our development environment looks as follows (*August 2023*) <sup i
 
 <pre style="font-size:80%;">
 C:\opt\adactl-1.22r16c\  <i>( 79 MB)</i>
-C:\opt\Git-2.41.0\       <i>(314 MB)</i>
+C:\opt\Git\              <i>(367 MB)</i>
 C:\opt\GNAT\2019\        <i>(1.1 GB)</i>
 C:\opt\GNAT\2021\        <i>(2.8 GB)</i>
 C:\opt\GWindows\         <i>(  4 MB)</i>
@@ -92,12 +92,12 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   gcc 10.3.1, gnat Community 2021, make 4.4,
-   git 2.41.0.windows.1, diff 3.9, bash 5.2.12(1)-release
+   gcc 10.3.1, gnat Community 2021, make 4.4.1,
+   git 2.42.0.windows.1, diff 3.10, bash 5.2.12(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> diff git make</b>
-C:\opt\Git-2.41.0\usr\bin\diff.exe
-C:\opt\Git-2.41.0\bin\git.exe
+C:\opt\Git\usr\bin\diff.exe
+C:\opt\Git\bin\git.exe
 C:\opt\msys64\usr\bin\make.exe
 </pre>
 
@@ -186,14 +186,14 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://www.adacore.com/download/more">gtkada-2021-x86_64-windows64-bin.exe</a>                <i>( 59 MB)</i>
 <a href="https://sourceforge.net/projects/gnavi/files/">GWindows Archive 29-May-2023.zip</a>                    <i>(  4 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20230718.exe</a>                           <i>( 83 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.41.0-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.42.0-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
 </pre>
 </dd></dl>
 
 <span id="footnote_05">[5]</span> **`setenv.bat` *usage*** [↩](#anchor_05)
 
 <dl><dd>
-<a href=./setenv.bat><code><b>setenv.bat</b></code></a> has specific environment variables set that enable us to use command-line developer tools more easily.
+Batch file <a href=./setenv.bat><code><b>setenv.bat</b></code></a> has specific environment variables set that enable us to use command-line developer tools more easily.
 </dd>
 <dd>It is similar to the setup scripts described on the page <a href="https://learn.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell" rel="external">"Visual Studio Developer Command Prompt and Developer PowerShell"</a> of the <a href="https://learn.microsoft.com/en-us/visualstudio/windows" rel="external">Visual Studio</a> online documentation.
 </dd>
@@ -208,7 +208,7 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\vsde
 </pre>
 </dd>
 <dd>
-Concretely, <code><b>setenv.bat</b></code> in our GitHub projects which depend on Visual Studio (e.g. <a href="https://github.com/michelou/cpp-examples"><code>michelou/cpp-examples</code></a>) do invoke <code><b>VsDevCmd.bat</b></code> (resp. <code><b>vcvarall.bat</b></code> for older Visual Studio versions) to setup the Visual Studio tools on the command prompt. 
+Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="https://github.com/michelou/cpp-examples"><code>michelou/cpp-examples</code></a>), <a href="./setenv.bat"><code><b>setenv.bat</b></code></a> do invoke <code><b>VsDevCmd.bat</b></code> (resp. <code><b>vcvarall.bat</b></code> for older Visual Studio versions) to setup the Visual Studio tools on the command prompt. 
 </dd></dl>
 
 ***
@@ -230,7 +230,7 @@ Concretely, <code><b>setenv.bat</b></code> in our GitHub projects which depend o
 [flix_examples]: https://github.com/michelou/flix-examples
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.41.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.42.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [gnat2019_downloads]: https://www.adacore.com/download/more
 [gnat2021_announcement]: https://blog.adacore.com/gnat-community-2021-is-here

@@ -19,10 +19,13 @@ TARGET_OBJ_DIR = $(TARGET_DIR)/obj
 SOURCES = $(wildcard $(SOURCE_DIR)/main/ada/*.adb)
 TARGET  = $(TARGET_DIR)/$(PROJ_NAME)$(TARGET_EXT)
 
-XXX_OPTS =
+## adactl expects absolute path arguments
+ARU_FILE = $(realpath ../rules.aru)
+LOG_FILE = $(realpath $(TARGET_DIR))/adactl_log.txt
 
 lint:
-	export XXX_OPTS=-gnatc
+	cd $(TARGET_DIR); \
+	"$(ADACTL)" -v -f "$(ARU_FILE)" -o "$(LOG_FILE)" -w "$(realpath $(SOURCE_DIR))/*.adb"
  
 all: build run
 
@@ -55,4 +58,4 @@ help:
 .PHONY: all build clean help run
 
 .SUFFIXES:
-.SUFFIXES: .adb .ads .o .obj .exe
+.SUFFIXES: .adb .adc .ads .o .obj .exe

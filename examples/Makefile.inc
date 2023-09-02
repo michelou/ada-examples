@@ -28,6 +28,12 @@ GREP         = $(MSYS_PATH)/usr/bin/grep.exe
 MKDIR        = $(MSYS_PATH)/usr/bin/mkdir.exe
 RM           = $(MSYS_PATH)/usr/bin/rm.exe
 #
+ifndef ADACTL_HOME
+    $(error Variable ADACTL_HOME is not set)
+endif
+#
+ADACTL       = $(subst \,/,$(ADACTL_HOME))/adactl.exe
+#
 TAR          = /$(subst :,,$(MSYS_PATH))/usr/bin/tar.exe
 endif
 #

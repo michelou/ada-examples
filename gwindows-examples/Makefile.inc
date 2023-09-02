@@ -21,7 +21,9 @@ TEST        = $(subst \,/,$(MSYS_HOME))/usr/bin/test.exe
 TOUCH       = $(subst \,/,$(MSYS_HOME))/usr/bin/touch.exe
 
 GNATDOC      = $(subst \,/,$(GNAT_HOME))/bin/gnatdoc.exe
-GNATMAKE     = $(subst \,/,$(GNAT_HOME))/bin/gnatmake.exe
+## Gnatmake from MSYS installation has a newer version
+## GNATMAKE     = $(subst \,/,$(GNAT_HOME))/bin/gnatmake.exe
+GNATMAKE     = $(subst \,/,$(MSYS_HOME))/mingw64/bin/gnatmake.exe
 WINDRES      = $(subst \,/,$(GNAT_HOME))/bin/windres.exe
 
 GNATCOM_DIR  = $(GWINDOWS_HOME)\gnatcom\framework
