@@ -26,6 +26,7 @@ if %_HELP%==1 (
 set _GIT_PATH=
 set _GNAT_PATH=
 set _MSYS_PATH=
+set _VSCODE_PATH=
 
 call :adactl
 if not %_EXITCODE%==0 (
@@ -52,6 +53,12 @@ if not %_EXITCODE%==0 goto end
 call :msys
 if not %_EXITCODE%==0 goto end
 
+call :vscode
+if not %_EXITCODE%==0 (
+    @rem optional
+    echo %_WARNING_LABEL% VS Code installation not found 1>&2
+    set _EXITCODE=0
+)
 goto end
 
 @rem #########################################################################
@@ -437,6 +444,42 @@ if not exist "%_MSYS_HOME%\usr\bin\make.exe" (
 set "_MSYS_PATH=;%_MSYS_HOME%\usr\bin;%_MSYS_HOME%\mingw64\bin"
 goto :eof
 
+@rem output parameters: _VSCODE_HOME, _VSCODE_PATH
+:vscode
+set _VSCODE_HOME=
+set _VSCODE_PATH=
+
+set __CODE_CMD=
+for /f "delims=" %%f in ('where code.exe 2^>NUL') do set "__CODE_CMD=%%f"
+if defined __CODE_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of VSCode executable found in PATH 1>&2
+    @rem keep _VSCODE_PATH undefined since executable already in path
+    goto :eof
+) else if defined VSCODE_HOME (
+    set "_VSCODE_HOME=%VSCODE_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable VSCODE_HOME 1>&2
+) else (
+    set __PATH=C:\opt
+    if exist "!__PATH!\VSCode\" ( set "_VSCODE_HOME=!__PATH!\VSCode"
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
+        if not defined _VSCODE_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
+        )
+    )
+)
+if not exist "%_VSCODE_HOME%\code.exe" (
+    echo %_ERROR_LABEL% VSCode executable not found ^("%_VSCODE_HOME%"^) 1>&2
+    if exist "%_VSCODE_HOME%\Code - Insiders.exe" (
+        echo %_WARNING_LABEL% It looks like you've installed an Insider version of VSCode 1>&2
+    )
+    set _EXITCODE=1
+    goto :eof
+)
+set "_VSCODE_PATH=;%_VSCODE_HOME%"
+goto :eof
+
 :print_env
 set __VERBOSE=%1
 set __VERSIONS_LINE1=
@@ -485,6 +528,7 @@ if %__VERBOSE%==1 (
     if defined GNAT2019_HOME echo    "GNAT2019_HOME=%GNAT2019_HOME%" 1>&2
     if defined GWINDOWS_HOME echo    "GWINDOWS_HOME=%GWINDOWS_HOME%" 1>&2
     if defined MSYS_HOME echo    "MSYS_HOME=%MSYS_HOME%" 1>&2
+    if defined VSCODE_HOME echo    "VSCODE_HOME=%VSCODE_HOME%" 1>&2
     echo Path associations: 1>&2
     for /f "delims=" %%i in ('subst') do (
         set "__LINE=%%i"
@@ -506,8 +550,9 @@ endlocal & (
         if not defined GNAT2019_HOME set "GNAT2019_HOME=%_GNAT2019_HOME%"
         if not defined GWINDOWS_HOME set "GWINDOWS_HOME=%_GWINDOWS_HOME%"
         if not defined MSYS_HOME set "MSYS_HOME=%_MSYS_HOME%"
+        if not defined VSCODE_HOME set "VSCODE_HOME=%VSCODE_HOME%"
         @rem We prepend %_GIT_HOME%\bin to hide C:\Windows\System32\bash.exe
-        set "PATH=%_GIT_HOME%\bin;%PATH%%_MSYS_PATH%%_GNAT_PATH%%_GIT_PATH%;%~dp0bin"
+        set "PATH=%_GIT_HOME%\bin;%PATH%%_MSYS_PATH%%_GNAT_PATH%%_GIT_PATH%%_VSCODE_PATH%;%~dp0bin"
         call :print_env %_VERBOSE%
         if not "%CD:~0,2%"=="%_DRIVE_NAME%" (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME% 1>&2
