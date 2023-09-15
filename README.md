@@ -29,7 +29,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][linux_opt] directory on Unix).
 
-For instance our development environment looks as follows (*August 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (*September 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\adactl-1.22r16c\  <i>( 79 MB)</i>
@@ -208,12 +208,12 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\vsde
 </pre>
 </dd>
 <dd>
-Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="https://github.com/michelou/cpp-examples"><code>michelou/cpp-examples</code></a>), <a href="./setenv.bat"><code><b>setenv.bat</b></code></a> do invoke <code><b>VsDevCmd.bat</b></code> (resp. <code><b>vcvarall.bat</b></code> for older Visual Studio versions) to setup the Visual Studio tools on the command prompt. 
+Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="https://github.com/michelou/cpp-examples"><code>michelou/cpp-examples</code></a>), <a href="./setenv.bat"><code><b>setenv.bat</b></code></a> does invoke <code><b>VsDevCmd.bat</b></code> (resp. <code><b>vcvarall.bat</b></code> for older Visual Studio versions) to setup the Visual Studio tools on the command prompt. 
 </dd></dl>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

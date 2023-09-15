@@ -8,7 +8,7 @@
   </tr>
 </table>
 
-## <span id="characteristics">Language Characteristics</span>
+## <span id="features">Language Features</span>
 
 - Ada is a case-insensitive programming language.
 
@@ -60,7 +60,7 @@ using project file greetings.gpr
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

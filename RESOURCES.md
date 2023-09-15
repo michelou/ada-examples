@@ -27,7 +27,7 @@
   - [Checking file header with Adacontrol](https://ada.tips/checking-file-header-with-adacontrol.html), March 2014.
   - [Checking "out" parameters with Adacontrol](https://ada.tips/checking-out-parameters-with-adacontrol.html), March 2014.
 
-## <span id="books">Books</span>
+## <span id="books">Books</span> [**&#x25B4;**](#top)
 
 - [Programming in Ada 2012][book_barnes_2nd] (2<sup>nd</sup> Edition) by John Barnes, May 2022.<br/><span style="font-size:80%;">(Cambridge University Press, ISBN 978-1-0091-8134-1, 970 pages)</span>
 - [Ada for the C++ or Java Developer][book_ochem] by Quentin Ochem et al., 2021.
@@ -77,7 +77,7 @@
 - [L3-PASD : Programmation avancée et structures dynamiques][course_lacrampe] by Jean-Jacques Lacrampe.
 - [LEARN.ADACORE.COM](https://learn.adacore.com/) (including free PDF books).
 
-## <span id="tools">Tools and Frameworks</span>
+## <span id="tools">Tools and Frameworks</span> [**&#x25B4;**](#top)
 
 - [`ada-util`](https://github.com/stcarrez/ada-util) &ndash; an Ada utility library for composing streams, processes, logs, serialization, encoders and more.
 - [alr][tool_alire] &ndash; a command-line tool  to obtain, build, and incorporate Ada libraries into a project (similar role to Rust's [cargo](https://doc.rust-lang.org/cargo/commands/cargo.html)).
@@ -99,7 +99,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
