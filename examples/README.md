@@ -11,8 +11,8 @@
 
 We support the following build tools :
 
-| Build&nbsp;tool | Build file |
-|:----------------|:-----------|
+| Build&nbsp;tool | Build&nbsp;file |
+|:----------------|:----------------|
 | [**`gnatmake.exe`**][gnatmake_cmd] <sup id="anchor_01">[1](#footnote_01)</sup> | &ndash; |
 | [**`gprbuild.exe`**][gprbuild_cmd] | [**`build.gpr`**](./HelloWorld/build.gpr) |
 
@@ -224,13 +224,13 @@ C:\opt\msys64\usr\bin\windres.exe
 C:\opt\msys64\mingw64\bin\windres.exe
 C:\opt\GNAT\2021\bin\windres.exe
 &nbsp;
-<b>&gt; C:\opt\msys64\mingw64\bin\gnatmake.exe --version</b>
+<b>&gt; C:\opt\msys64\mingw64\bin\<a href="https://gcc.gnu.org/onlinedocs/gnat_ugn/Switches-for-gnatmake.html">gnatmake.exe</a> --version</b>
 GNATMAKE 13.2.0
 Copyright (C) 1995-2023, Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.
 There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 &nbsp;
-<b>&gt; C:\opt\GNAT\2021\bin\gnatmake.exe --version</b>
+<b>&gt; C:\opt\GNAT\2021\bin\<a href="https://gcc.gnu.org/onlinedocs/gnat_ugn/Switches-for-gnatmake.html">gnatmake.exe</a> --version</b>
 GNATMAKE Community 2021 (20210519-103)
 Copyright (C) 1995-2021, Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.
@@ -311,7 +311,7 @@ Setup
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -10,7 +10,7 @@
 
 ## <span id="aunit">`aunit` Library</span>
 
-We download the archive [`aunit-22.0.0.zip`](https://github.com/AdaCore/aunit/releases/tag/v22.0.0) (November 2021) and extract the source directory `aunit-22.0.0` (which contains the project file `Makefile`).
+We download the archive [`aunit-22.0.0.zip`](https://github.com/AdaCore/aunit/releases/) (November 2021) and extract the source directory `aunit-22.0.0` (which contains the project file `Makefile`).
 
 Path :
 
@@ -78,7 +78,7 @@ Total Installed Size:  538.08 MiB
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

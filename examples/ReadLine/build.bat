@@ -140,7 +140,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown option "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -154,7 +154,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="run" ( set _COMMANDS=!_COMMANDS! compile run
     ) else if "%__ARG%"=="test" ( set _COMMANDS=!_COMMANDS! compile test
     ) else (
-        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown subcommand "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -221,16 +221,16 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%      display commands executed by this script
+echo     %__BEG_O%-debug%__END%      print commands executed by this script
 echo     %__BEG_O%-msys%__END%       use MSYS GNAT Make if available
-echo     %__BEG_O%-timer%__END%      display total elapsed time
-echo     %__BEG_O%-verbose%__END%    display progress messages
+echo     %__BEG_O%-timer%__END%      print total execution time
+echo     %__BEG_O%-verbose%__END%    print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%       delete generated files
 echo     %__BEG_O%compile%__END%     compile Ada source files
 echo     %__BEG_O%doc%__END%         generate HTML documentation
-echo     %__BEG_O%help%__END%        display this help message
+echo     %__BEG_O%help%__END%        print this help message
 echo     %__BEG_O%lint%__END%        analyze Ada source files with %__BEG_N%AdaControl%__END%
 echo     %__BEG_O%run%__END%         execute main program "%__BEG_O%%_MAIN_NAME%%__END%"
 echo     %__BEG_O%test%__END%        execute unit tests with %__BEG_N%AUnit%__END%
@@ -292,7 +292,7 @@ if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%" 1>NUL
 
 set __SOURCE_FILES=
 set __N=0
-for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.ad?" ^| findstr /r [abs]$ 2^>NUL') do (
+for /f "delims=" %%f in ('dir /s /b "%_SOURCE_DIR%\*.ad?" ^| findstr /r [abs]$ 2^>NUL') do (
     set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
     set /a __N+=1
 )

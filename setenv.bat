@@ -243,11 +243,11 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-bash%__END%       start Git bash shell instead of Windows command prompt
-echo     %__BEG_O%-debug%__END%      display commands executed by this script
-echo     %__BEG_O%-verbose%__END%    display progress messages
+echo     %__BEG_O%-debug%__END%      print commands executed by this script
+echo     %__BEG_O%-verbose%__END%    print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
-echo     %__BEG_O%help%__END%        display this help message
+echo     %__BEG_O%help%__END%        print this help message
 goto :eof
 
 :adactl
@@ -276,8 +276,8 @@ set _GNAT_PATH=
 set _GNAT_CMD=
 for /f "delims=" %%f in ('where gnat.exe 2^>NUL') do set "_GNAT_CMD=%%f"
 if defined _GNAT_CMD (
-    for %%i in ("%_GNAT_CMD%") do set "__GNAT_BIN_DIR=%%~dpi"
-    for %%f in ("%__GNAT_BIN_DIR%\.") do set "_GNAT_HOME=%%~dpf"
+    for /f "delims=" %%i in ("%_GNAT_CMD%") do set "__GNAT_BIN_DIR=%%~dpi"
+    for /f "delims=" %%f in ("%__GNAT_BIN_DIR%\.") do set "_GNAT_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of GNAT executable found in PATH 1>&2
     @rem keep _GNAT_PATH undefined since executable already in path
     goto :eof
@@ -312,8 +312,8 @@ set __VERSION=2019
 set __GNAT_CMD=
 for /f "delims=" %%f in ('where gnat.exe 2^>NUL') do set "__GNAT_CMD=%%f"
 if defined __GNAT_CMD (
-    for %%i in ("%__GNAT_CMD%") do set "__GNAT_BIN_DIR=%%~dpi"
-    for %%f in ("%__GNAT_BIN_DIR%\.") do set "_GNAT2019_HOME=%%~dpf"
+    for /f "delims=" %%i in ("%__GNAT_CMD%") do set "__GNAT_BIN_DIR=%%~dpi"
+    for /f "delims=" %%f in ("%__GNAT_BIN_DIR%\.") do set "_GNAT2019_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of GNAT 2019 executable found in PATH 1>&2
     goto :eof
 ) else if defined GNAT2019_HOME (
@@ -345,13 +345,13 @@ set _GIT_PATH=
 set __GIT_CMD=
 for /f "delims=" %%f in ('where git.exe 2^>NUL') do set "__GIT_CMD=%%f"
 if defined __GIT_CMD (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Git executable found in PATH 1>&2
-    for %%i in ("%__GIT_CMD%") do set "__GIT_BIN_DIR=%%~dpi"
-    for %%f in ("!__GIT_BIN_DIR!..") do set "_GIT_HOME=%%f"
+    for /f "delims=" %%i in ("%__GIT_CMD%") do set "__GIT_BIN_DIR=%%~dpi"
+    for /f "delims=" %%f in ("!__GIT_BIN_DIR!..") do set "_GIT_HOME=%%f"
     @rem Executable git.exe is present both in bin\ and \mingw64\bin\
     if not "!_GIT_HOME:mingw=!"=="!_GIT_HOME!" (
         for %%f in ("!_GIT_HOME!\..") do set "_GIT_HOME=%%f"
     )
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Git executable found in PATH 1>&2
     @rem keep _GIT_PATH undefined since executable already in path
     goto :eof
 ) else if defined GIT_HOME (
@@ -419,7 +419,7 @@ set __MAKE_CMD=
 for /f "delims=" %%f in ('where make.exe 2^>NUL') do set "__MAKE_CMD=%%f"
 if defined __MAKE_CMD (
     for /f "delims=" %%i in ("%__MAKE_CMD%") do set "__MAKE_BIN_DIR=%%~dpi"
-    for %%f in ("!__MAKE_BIN_DIR!\.") do set "_MSYS_HOME=%%~dpf"
+    for /f "delims=" %%f in ("!__MAKE_BIN_DIR!\.") do set "_MSYS_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of GNU Make executable found in PATH 1>&2
     @rem keep _MSYS_PATH undefined since executable already in path
     goto :eof
