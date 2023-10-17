@@ -72,6 +72,7 @@
 
 ## <span id="teaching">Teaching</span>
 
+- [Ada Quality and Style Guide](https://en.wikibooks.org/wiki/Ada_Style_Guide).
 - [Comp6310: Systems Networks and Concurrency](https://cs.anu.edu.au/courses/comp6310/), Australian National University, 2020.
 - [COSC 3P95: Embedded Software](https://www.cosc.brocku.ca/Offerings/3P95/), Brock University, Fall 2013.
 - [L3-PASD : Programmation avancée et structures dynamiques][course_lacrampe] by Jean-Jacques Lacrampe.
@@ -91,6 +92,7 @@
 
 ## <span id="others">Other resources</span>
 
+- [AdaControl User Guide](https://www.adalog.fr/compo/adacontrol_ug.html).
 - [Awesome Ada](https://github.com/ohenley/awesome-ada) - a curated list of awesome resources related to Ada.
 - [Free Tools and Libraries](https://www.adaic.org/ada-resources/tools-libraries/)
 - UNC paths
@@ -99,7 +101,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
