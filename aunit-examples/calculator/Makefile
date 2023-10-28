@@ -1,4 +1,14 @@
+##
+## Copyright (c) 2018-2023 Stéphane Micheloud
+##
+## Licensed under the MIT License.
+##
+##############################################################################
+
 include ../Makefile.inc
+
+##############################################################################
+## main rules
 
 all: aunit
 	"$(GPRBUILD)" -p -f -Pharness
@@ -18,4 +28,10 @@ clean:
 	"$(RM)" -rf tested_lib/obj
 	"$(RM)" -rf tested_lib/lib
 
+##############################################################################
+## phony
+
 .PHONY: all aunit coverage clean
+
+.SUFFIXES:
+.SUFFIXES: .adb .ads .ali .exe .o

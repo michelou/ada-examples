@@ -1,7 +1,11 @@
- -- Allow only Ada.Text_IO:
+-- Allow only Ada.Text_IO:
 check dependencies (others, Ada.Text_IO);
 
+-- End record must be named if the declaration is more than 10 lines
+check comments (unnamed_end_record, 10);
+
 check header_comments (minimum, 10);
+
 -- Don't declare subprograms or packages inside a block:
 check declarations (block procedure, block function, block package);
 

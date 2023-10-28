@@ -250,21 +250,36 @@ echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%help%__END%        print this help message
 goto :eof
 
+@rem output parameter: _ADACTL_HOME
 :adactl
 set _ADACTL_HOME=
 
-if defined ADACTL_HOME (
+set __ADACTL_CMD=
+for /f "delims=" %%f in ('where adactl.exe 2^>NUL') do set "__ADACTL_CMD=%%f"
+if defined __ADACTK_CMD (
+    for /f "delims=" %%i in ("%__ADACTL_CMD%") do set "_ADACTL_HOME=%%f"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of AdaControl executable found in PATH 1>&2
+) else if defined ADACTL_HOME (
     set "_ADACTL_HOME=%ADACTL_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable ADACTL_HOME 1>&2
 ) else (
     set __PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!__PATH!\adactl*" 2^>NUL') do set "_ADACTL_HOME=!__PATH!\%%f"
-    if not defined _ADACTL_HOME (
-        set "__PATH=%ProgramFiles%"
-        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\adactl-*" 2^>NUL') do set "_ADACTL_HOME=!__PATH!\%%f"
+    if exist "!__PATH!\adactl\" ( set "_ADACTL_HOME=!__PATH!\adactl"
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\adactl*" 2^>NUL') do set "_ADACTL_HOME=!__PATH!\%%f"
+        if not defined _ADACTL_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\adactl-*" 2^>NUL') do set "_ADACTL_HOME=!__PATH!\%%f"
+        )
     )
     if defined _ADACTL_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default AdaControl installation directory "!_ADACTL_HOME!" 1>&2
     )
+)
+if not exist "%_ADACTL_HOME%\adactl.exe" (
+    echo %_ERROR_LABEL% AdaControl executable not found ^("%_ADACTL_HOME%"^) 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 goto :eof
 
@@ -315,7 +330,6 @@ if defined __GNAT_CMD (
     for /f "delims=" %%i in ("%__GNAT_CMD%") do set "__GNAT_BIN_DIR=%%~dpi"
     for /f "delims=" %%f in ("%__GNAT_BIN_DIR%\.") do set "_GNAT2019_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of GNAT 2019 executable found in PATH 1>&2
-    goto :eof
 ) else if defined GNAT2019_HOME (
     set "_GNAT2019_HOME=%GNAT2019_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable GNAT2019_HOME 1>&2
@@ -345,13 +359,13 @@ set _GIT_PATH=
 set __GIT_CMD=
 for /f "delims=" %%f in ('where git.exe 2^>NUL') do set "__GIT_CMD=%%f"
 if defined __GIT_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Git executable found in PATH 1>&2
     for /f "delims=" %%i in ("%__GIT_CMD%") do set "__GIT_BIN_DIR=%%~dpi"
     for /f "delims=" %%f in ("!__GIT_BIN_DIR!..") do set "_GIT_HOME=%%f"
     @rem Executable git.exe is present both in bin\ and \mingw64\bin\
     if not "!_GIT_HOME:mingw=!"=="!_GIT_HOME!" (
         for %%f in ("!_GIT_HOME!\..") do set "_GIT_HOME=%%f"
     )
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Git executable found in PATH 1>&2
     @rem keep _GIT_PATH undefined since executable already in path
     goto :eof
 ) else if defined GIT_HOME (
@@ -427,11 +441,11 @@ if defined __MAKE_CMD (
     set "_MSYS_HOME=%MSYS_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MSYS_HOME 1>&2
 ) else (
-    set "__PATH=%ProgramFiles%"
-    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\msys*" 2^>NUL') do set "_MSYS_HOME=!__PATH!\%%f"
+    set __PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!__PATH!\msys*" 2^>NUL') do set "_MSYS_HOME=!__PATH!\%%f"
     if not defined _MSYS_HOME (
-        set __PATH=C:\opt
-        for /f %%f in ('dir /ad /b "!__PATH!\msys*" 2^>NUL') do set "_MSYS_HOME=!__PATH!\%%f"
+        set "__PATH=ProgramFiles%"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\msys*" 2^>NUL') do set "_MSYS_HOME=!__PATH!\%%f"
     )
 )
 if not exist "%_MSYS_HOME%\usr\bin\make.exe" (
@@ -485,14 +499,19 @@ set __VERBOSE=%1
 set __VERSIONS_LINE1=
 set __VERSIONS_LINE2=
 set __WHERE_ARGS=
+where /q "%ADACTL_HOME%:adactl.exe"
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1,2,3,*" %%i in ('"%ADACTL_HOME%\adactl.exe" -h version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% adactl %%k,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%ADACTL_HOME%:adactl.exe"
+)
 where /q "%GNAT_HOME%\bin:gcc.exe"
 if %ERRORLEVEL%==0 (
-   for /f "tokens=1,2,3,*" %%i in ('"%GNAT_HOME%\bin\gcc.exe" --version ^| findstr GCC') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% gcc %%k,"
+    for /f "tokens=1,2,3,*" %%i in ('"%GNAT_HOME%\bin\gcc.exe" --version ^| findstr GCC') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% gcc %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%GNAT_HOME%\bin:gcc.exe"
 )
 where /q "%GNAT_HOME%\bin:gnat.exe"
 if %ERRORLEVEL%==0 (
-   for /f "tokens=1-3,*" %%i in ('"%GNAT_HOME%\bin\gnat.exe" --version ^| findstr GNAT') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% gnat %%j %%k,"
+    for /f "tokens=1-3,*" %%i in ('"%GNAT_HOME%\bin\gnat.exe" --version ^| findstr GNAT') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% gnat %%j %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%GNAT_HOME%\bin:gnat.exe"
 )
 where /q "%MSYS_HOME%\usr\bin:make.exe"
@@ -507,7 +526,7 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%GIT_HOME%\usr\bin:diff.exe"
 if %ERRORLEVEL%==0 (
-   for /f "tokens=1-3,*" %%i in ('"%GIT_HOME%\usr\bin\diff.exe" --version ^| findstr diff') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% diff %%l,"
+    for /f "tokens=1-3,*" %%i in ('"%GIT_HOME%\usr\bin\diff.exe" --version ^| findstr diff') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% diff %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\usr\bin:diff.exe"
 )
 where /q "%GIT_HOME%\bin:bash.exe"

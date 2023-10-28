@@ -111,7 +111,7 @@ There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR P
 [build] Properties : _PROJECT_NAME=tutorial1 _PROJECT_VERSION=0.1-SNAPSHOT
 [build] Options    : _TIMER=0 _VERBOSE=0
 [build] Subcommands: _CLEAN=1 _COMPILE=1 _DOC=0 _LINT=0 _RUN=1 _TEST=0
-[build] Variables  : "ADACTL_HOME=C:\opt\adactl-1.22r16c"
+[build] Variables  : "ADACTL_HOME=C:\opt\adactl"
 [build] Variables  : "GIT_HOME=C:\opt\Git"
 [build] Variables  : "GNAT_HOME=C:\opt\GNAT\2021"
 [build] Variables  : "GNAT2019_HOME=C:\opt\GNAT\2019"
@@ -131,7 +131,7 @@ gnatlink W:\gwindows-examples\tutorial1\target\obj\tutorial1.ali -o W:\gwindows-
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

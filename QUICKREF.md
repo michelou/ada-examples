@@ -1,4 +1,4 @@
-# <span id="top">Ada Quick Reference</span> <span style="size:25%;"><a href="README.md">↩</a></span>
+# <span id="top">Ada Quick Reference</span> <span style="size:25%;"><a href="README.md#top">↩</a></span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
@@ -11,6 +11,8 @@
 ## <span id="features">Language Features</span>
 
 - Ada is a case-insensitive programming language.
+- Ada type system uses name equivalence between types.
+- Ada 2012 and newer supports [contract-based programming][feature_cohen].
 
 ## <span id="gnat_commands">GNAT Commands</span>
 
@@ -18,7 +20,7 @@
 
 [`gnatelim`](https://www.cs.fsu.edu/~baker/ada/gnat/html/gnat_ugn_8.html#SEC98) tracks unused subprograms in an Ada program.
 
-## <span id="subcommands">GPR Commands</span>
+## <span id="subcommands">GPR Commands</span> [**&#x25B4;**](#top)
 
 ### <span id="gprbuild">**`gprbuild`**</span>
 
@@ -46,22 +48,23 @@ using project file greetings.gpr
 &lt;project_dir&gt;\target\obj\b__gmain.*
 </pre>
 
-### <span id="grpinstall">GPRinstall</span>
+### <span id="grpinstall">**`GPRinstall`**</span>
 
 [`GPRinstall`](https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/companion_tools.html#installing-with-gprinstall) ...
 
-### <span id="gprls">GRPls</span>
+### <span id="gprls">**`GRPls`**</span>
 
 [`GPRls`](https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/companion_tools.html#the-library-browser-gprls) ..
 
-### <span id="gprname">GPRname</span>
+### <span id="gprname">**`GPRname`**</span>
 
 [`GPRname`](https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/companion_tools.html#specifying-a-naming-scheme-with-gprname) ..
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
 
+[feature_cohen]: https://blog.adacore.com/the-case-for-contracts
