@@ -11,8 +11,8 @@
 
 We support the following build tools :
 
-| Build&nbsp;tool | Build file |
-|:----------------|:-----------|
+| Build&nbsp;tool | Build&nbsp;file |
+|:----------------|:----------------|
 | [**`gnatmake.exe`**][gnatmake_cmd] <sup id="anchor_01">[1](#footnote_01)</sup> | &ndash; |
 | [**`gprbuild.exe`**][gprbuild_cmd] | [**`build.gpr`**](./HelloWorld/build.gpr) |
 
@@ -311,7 +311,7 @@ Setup
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
