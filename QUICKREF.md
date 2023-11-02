@@ -22,9 +22,11 @@
 
 ## <span id="subcommands">GPR Commands</span> [**&#x25B4;**](#top)
 
-### <span id="gprbuild">**`gprbuild`**</span>
+### <span id="gprbuild">**`GPRbuild`**</span>
 
-[`GPRbuild`](https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/companion_tools.html) ...
+[`GPRbuild`][gprbuild] is a multi-language build tool that manages the compilation, binding and linking phases.
+
+GPRbuild requires a project file to be specified through the `-P` switch or to be looked for in the current directory.
 
 ### <span id="gprclean">**`GRPclean`**</span>
 
@@ -68,3 +70,4 @@ using project file greetings.gpr
 <!-- link refs -->
 
 [feature_cohen]: https://blog.adacore.com/the-case-for-contracts
+[gprbuild]: https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/building_with_gprbuild.html

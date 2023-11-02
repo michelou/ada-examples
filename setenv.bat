@@ -359,12 +359,12 @@ set _GIT_PATH=
 set __GIT_CMD=
 for /f "delims=" %%f in ('where git.exe 2^>NUL') do set "__GIT_CMD=%%f"
 if defined __GIT_CMD (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Git executable found in PATH 1>&2
     for /f "delims=" %%i in ("%__GIT_CMD%") do set "__GIT_BIN_DIR=%%~dpi"
     for /f "delims=" %%f in ("!__GIT_BIN_DIR!..") do set "_GIT_HOME=%%f"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Git executable found in PATH 1>&2
     @rem Executable git.exe is present both in bin\ and \mingw64\bin\
     if not "!_GIT_HOME:mingw=!"=="!_GIT_HOME!" (
-        for %%f in ("!_GIT_HOME!\..") do set "_GIT_HOME=%%f"
+        for /f "delims=" %%f in ("!_GIT_HOME!\..") do set "_GIT_HOME=%%f"
     )
     @rem keep _GIT_PATH undefined since executable already in path
     goto :eof
@@ -406,7 +406,7 @@ if defined GWINDOWS_HOME (
         for /f %%f in ('dir /ad /b "!__PATH!\GWindows-*" 2^>NUL') do set "_GWINDOWS_HOME=!__PATH!\%%f"
         if not defined _GWINDOWS_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\GWindows-*" 2^>NUL') do set "_GWINDOWS_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\GWindows-*" 2^>NUL') do set "_GWINDOWS_HOME=!__PATH!\%%f"
         )
     )
     if defined _GWINDOWS_HOME (
@@ -503,6 +503,11 @@ where /q "%ADACTL_HOME%:adactl.exe"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,3,*" %%i in ('"%ADACTL_HOME%\adactl.exe" -h version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% adactl %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%ADACTL_HOME%:adactl.exe"
+)
+where /q "%GNAT_HOME%\bin:alr.exe"
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1-2,*" %%i in ('"%GNAT_HOME%\bin\alr.exe" version ^| findstr /b Alr') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% alr %%k,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%GNAT_HOME%\bin:alr.exe"
 )
 where /q "%GNAT_HOME%\bin:gcc.exe"
 if %ERRORLEVEL%==0 (
