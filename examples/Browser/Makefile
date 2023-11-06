@@ -7,7 +7,7 @@
 
 include ../Makefile.inc
 
-PROJ_NAME      = HelloWorld
+PROJ_NAME      = Browser
 
 SOURCE_DIR     = src
 TARGET_DIR     = target
@@ -16,7 +16,7 @@ TARGET_OBJ_DIR = $(TARGET_DIR)/obj
 ##############################################################################
 ## main rules
 
-SOURCES = $(wildcard $(SOURCE_DIR)/main/ada/*.adb)
+SOURCES = $(wildcard $(SOURCE_DIR)/*.adb)
 TARGET  = $(TARGET_DIR)/$(PROJ_NAME)$(TARGET_EXT)
 
 all: build run
@@ -53,7 +53,7 @@ LOG_FILE = $(realpath $(TARGET_DIR))/adactl_log.txt
 
 lint:
 	cd $(TARGET_DIR); \
-	"$(ADACTL)" -v -f "$(ARU_FILE)" -o "$(LOG_FILE)" -w "$(realpath $(SOURCE_DIR))/*.adb"
+	"$(ADACTL)" -v -f "$(ARU_FILE)" -o "$(LOG_FILE)" -w "$(realpath $(SOURCE_DIR))"/*
 
 ##############################################################################
 ## phony

@@ -18,8 +18,32 @@ if not %_EXITCODE%==0 goto end
 @rem #########################################################################
 @rem ## Main
 
-for %%i in (%_COMMANDS%) do (
-    call :%%i
+if %_HELP%==1 (
+    call :help
+    exit /b !_EXITCODE!
+)
+if %_CLEAN%==1 (
+    call :clean
+    if not !_EXITCODE!==0 goto end
+)
+if %_LINT%==1 (
+    call :lint
+    if not !_EXITCODE!==0 goto end
+)
+if %_COMPILE%==1 (
+    call :compile
+    if not !_EXITCODE!==0 goto end
+)
+if %_DOC%==1 (
+    call :doc
+    if not !_EXITCODE!==0 goto end
+)
+if %_RUN%==1 (
+    call :run
+    if not !_EXITCODE!==0 goto end
+)
+if %_TEST%==1 (
+    call :test
     if not !_EXITCODE!==0 goto end
 )
 goto end
@@ -39,28 +63,23 @@ set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
 set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 
 set "_SOURCE_DIR=%_ROOT_DIR%src"
-set "_SOURCE_MAIN_DIR=%_SOURCE_DIR%\main\ada"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_TARGET_OBJ_DIR=%_TARGET_DIR%\obj"
 
-@rem required for gnatdoc
-if not exist "%_ROOT_DIR%build.gpr" (
-    echo %_ERROR_LABEL% GNAT Ada project file not found 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
 if not exist "%GNAT_HOME%\bin\gnatmake.exe" (
     echo %_ERROR_LABEL% GNAT installation not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
 set "_GNATMAKE_CMD=%GNAT_HOME%\bin\gnatmake.exe"
+
+if not exist "%GNAT_HOME%\bin\gnatdoc.exe" (
+    echo %_ERROR_LABEL% GNAT installation not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 set "_GNATDOC_CMD=%GNAT_HOME%\bin\gnatdoc.exe"
 
-set _MSYS_GNATMAKE_CMD=
-if exist "%MSYS_HOME%\mingw64\bin\gnatmake.exe" (
-    set "_MSYS_GNATMAKE_CMD=%MSYS_HOME%\mingw64\bin\gnatmake.exe"
-)
 set "_ADACTL_CMD=
 if exist "%ADACTL_HOME%\adactl.exe" (
     set "_ADACTL_CMD=%ADACTL_HOME%\adactl.exe"
@@ -119,22 +138,26 @@ goto :eof
 
 @rem input parameter: %*
 :args
-set _COMMANDS=
-set _MSYS=0
+set _CLEAN=0
+set _COMPILE=0
+set _DOC=0
+set _HELP=0
+set _LINT=0
+set _RUN=0
+set _TEST=0
 set _TIMER=0
 set _VERBOSE=0
 set __N=0
 :args_loop
 set "__ARG=%~1"
 if not defined __ARG (
-    if !__N!==0 set _COMMANDS=help
+    if !__N!==0 set _HELP=1
     goto args_done
 )
 if "%__ARG:~0,1%"=="-" (
     @rem option
     if "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if "%__ARG%"=="-help" ( set _HELP=1
-    ) else if "%__ARG%"=="-msys" ( set _MSYS=1
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
@@ -144,13 +167,13 @@ if "%__ARG:~0,1%"=="-" (
     )
 ) else (
     @rem subcommand
-    if "%__ARG%"=="clean" ( set _COMMANDS=!_COMMANDS! clean
-    ) else if "%__ARG%"=="compile" ( set _COMMANDS=!_COMMANDS! compile
-    ) else if "%__ARG%"=="doc" ( set _COMMANDS=!_COMMANDS! doc
-    ) else if "%__ARG%"=="help" ( set _COMMANDS=help
-    ) else if "%__ARG%"=="lint" ( set _COMMANDS=!_COMMANDS! lint
-    ) else if "%__ARG%"=="run" ( set _COMMANDS=!_COMMANDS! compile run
-    ) else if "%__ARG%"=="test" ( set _COMMANDS=!_COMMANDS! compile test
+    if "%__ARG%"=="clean" ( set _CLEAN=1
+    ) else if "%__ARG%"=="compile" ( set _COMPILE=1
+    ) else if "%__ARG%"=="doc" ( set _DOC=1
+    ) else if "%__ARG%"=="help" ( set _HELP=1
+    ) else if "%__ARG%"=="lint" ( set _LINT=1
+    ) else if "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
+    ) else if "%__ARG%"=="test" ( set _COMPILE=1& set _TEST=1
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand "%__ARG%" 1>&2
         set _EXITCODE=1
@@ -167,37 +190,28 @@ if %_DEBUG%==1 set _STDERR_REDIRECT=
 for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
 set "_EXE_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
 
-if %_MSYS%==1 if not defined _MSYS_GNATMAKE_CMD (
-    echo %_WARNING_LABEL% MSYS GNAT Make not found; use standard GNAT Make instead 1>&2
-    set _MSYS=0
-)
-set _MAIN_NAME=main
+set _MAIN_NAME=Browser
 set _MAIN_ARGS=
-if not "!_COMMANDS:lint=!"=="%_COMMANDS%" (
+if %_LINT%==1 (
     if not exist "%GNAT2019_HOME%\bin\gnat.exe" (
         echo %_WARNING_LABEL% GNAT 2019 is required to execute AdaControl 1>&2
-        set "_COMMANDS=!_COMMANDS:lint=!"
+        set _LINT=0
     ) else (
         for %%f in ("%_ROOT_DIR%.") do set "__PARENT_DIR=%%~dpf"
         for /f "delims=" %%f in ('dir /b /s "!__PARENT_DIR!*.aru"') do set "_ARU_FILE=%%f"
         if not exist "!_ARU_FILE!" (
             echo %_WARNING_LABEL% ARU file not found 1>&2
-            set "_COMMANDS=!_COMMANDS:lint=!"
+            set _LINT=0
         )
     )
 )
-if not "!_COMMANDS:compile=!"=="%_COMMANDS%" if defined _MSYS if not defined _MSYS_GNATMAKE_CMD (
-    echo %_WARNING_LABEL% MSYS GNAT Make not found; use standard GNAT Make instead 1>&2
-    set _MSYS=0
-)
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
-    echo %_DEBUG_LABEL% Subcommands: %_COMMANDS% 1>&2
+    echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _LINT=%_LINT% _RUN=%_RUN% _TEST=%_TEST% 1>&2
     echo %_DEBUG_LABEL% Variables  : "ADACTL_HOME=%ADACTL_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "GNAT_HOME=%GNAT_HOME%" 1>&2
 	echo %_DEBUG_LABEL% Variables  : "GNAT2019_HOME=%GNAT2019_HOME%" 1>&2
-    if defined MSYS_HOME echo %_DEBUG_LABEL% Variables  : "MSYS_HOME=%MSYS_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : _MAIN_NAME=%_MAIN_NAME% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
     echo %_DEBUG_LABEL% Variables  : _PROJECT_NAME=%_PROJECT_NAME% 1>&2
 )
@@ -220,7 +234,6 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-debug%__END%      print commands executed by this script
-echo     %__BEG_O%-msys%__END%       use MSYS GNAT Make if available
 echo     %__BEG_O%-timer%__END%      print total execution time
 echo     %__BEG_O%-verbose%__END%    print progress messages
 echo.
@@ -267,15 +280,17 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% GCC command is: !__GCC_CMD! 1>&2
 )
 @rem see https://www.adalog.fr/compo/adacontrol_ug.html#command-files-provided-with-AdaControl
+@rem set __ADACTL_OPTS=-f "%_ARU_FILE%" -o "%__LOG_FILE%" -w -l "check dependencies (with, Greetings);"
 set __ADACTL_OPTS=-f "%_ARU_FILE%" -o "%__LOG_FILE%" -w
 if %_DEBUG%==1 ( set __ADACTL_OPTS=-d -v %__ADACTL_OPTS%
 ) else if %_VERBOSE%==1 ( set __ADACTL_OPTS=-v %__ADACTL_OPTS%
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_ADACTL_CMD%" %__ADACTL_OPTS% "%_SOURCE_MAIN_DIR%"\* 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_ADACTL_CMD%" %__ADACTL_OPTS% "%_SOURCE_DIR%"\* 1>&2
 ) else if %_VERBOSE%==1 ( echo Analyze Ada source files 1>&2
 )
+@rem .adt and .ali files are generated in current directory
 pushd "%_TARGET_DIR%"
-call "%_ADACTL_CMD%" %__ADACTL_OPTS% "%_SOURCE_MAIN_DIR%"\*
+call "%_ADACTL_CMD%" %__ADACTL_OPTS% "%_SOURCE_DIR%"\*
 if not %ERRORLEVEL%==0 (
     if %_DEBUG%==1 ( type "%__LOG_FILE%"
     ) else if %_VERBOSE%==1 ( type "%__LOG_FILE%"
@@ -292,34 +307,87 @@ goto :eof
 :compile
 if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%" 1>NUL
 
+call :action_required "%_EXE_FILE%" "%_SOURCE_DIR%\*.ada" "%_SOURCE_DIR%\*.adb" "%_SOURCE_DIR%\*.ads"
+if %_ACTION_REQUIRED%==0 goto :eof
+
 set __SOURCE_FILES=
 set __N=0
-for /f "delims=" %%f in ('dir /b /s "%_SOURCE_MAIN_DIR%\*.ad?" 2^>NUL') do (
+for /f "delims=" %%f in ('dir /s /b "%_SOURCE_DIR%\%_MAIN_NAME%.ad?" ^| findstr /r [abs]$ 2^>NUL') do (
     set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
     set /a __N+=1
 )
-if %__N%==0 (
+if %__N%==0 ( 
     echo %_WARNING_LABEL% No Ada source file found 1>&2
     goto :eof
 ) else if %__N%==1 ( set __N_FILES=%__N% Ada source file
 ) else ( set __N_FILES=%__N% Ada source files
 )
-if %_MSYS%==1 ( set "__GNATMAKE_CMD=%_MSYS_GNATMAKE_CMD%"
-) else ( set "__GNATMAKE_CMD=%_GNATMAKE_CMD%"
-)
-set "__SOURCE_FILES=%_SOURCE_MAIN_DIR%\%_MAIN_NAME%.adb"
 @rem -we : Treat all warnings as errors
-set __GNATMAKE_OPTS=-gnat2022 -we -D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%"
-if %_DEBUG%==1 set __GNATMAKE_OPTS=-d %__GNATMAKE_OPTS%
+set __GNATMAKE_OPTS=-we -d -D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
 )
-call "%__GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% %_STDERR_REDIRECT%
+call "%_GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
+)
+goto :eof
+
+@rem input parameter: 1=target file 2,3,..=path (wildcards accepted)
+@rem output parameter: _ACTION_REQUIRED
+:action_required
+set "__TARGET_FILE=%~1"
+
+set __PATH_ARRAY=
+set __PATH_ARRAY1=
+:action_path
+shift
+set "__PATH=%~1"
+if not defined __PATH goto action_next
+if defined __PATH_ARRAY set "__PATH_ARRAY=%__PATH_ARRAY%,"
+set __PATH_ARRAY=%__PATH_ARRAY%'%__PATH%'
+if defined __PATH_ARRAY1 set "__PATH_ARRAY1=%__PATH_ARRAY1%,"
+set __PATH_ARRAY1=%__PATH_ARRAY1%'!__PATH:%_ROOT_DIR%=!'
+goto action_path
+
+:action_next
+set __TARGET_TIMESTAMP=00000000000000
+for /f "usebackq" %%i in (`powershell -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+     set __TARGET_TIMESTAMP=%%i
+)
+set __SOURCE_TIMESTAMP=00000000000000
+for /f "usebackq" %%i in (`powershell -c "gci -recurse -path %__PATH_ARRAY% -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+    set __SOURCE_TIMESTAMP=%%i
+)
+call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
+set _ACTION_REQUIRED=%_NEWER%
+if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% Target : '%__TARGET_FILE%' 1>&2
+    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% Sources: %__PATH_ARRAY% 1>&2
+    echo %_DEBUG_LABEL% _ACTION_REQUIRED=%_ACTION_REQUIRED% 1>&2
+) else if %_VERBOSE%==1 if %_ACTION_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
+    echo No action required ^(%__PATH_ARRAY1%^) 1>&2
+)
+goto :eof
+
+@rem output parameter: _NEWER
+:newer
+set __TIMESTAMP1=%~1
+set __TIMESTAMP2=%~2
+
+set __DATE1=%__TIMESTAMP1:~0,8%
+set __TIME1=%__TIMESTAMP1:~-6%
+
+set __DATE2=%__TIMESTAMP2:~0,8%
+set __TIME2=%__TIMESTAMP2:~-6%
+
+if %__DATE1% gtr %__DATE2% ( set _NEWER=1
+) else if %__DATE1% lss %__DATE2% ( set _NEWER=0
+) else if %__TIME1% gtr %__TIME2% ( set _NEWER=1
+) else ( set _NEWER=0
 )
 goto :eof
 
@@ -328,8 +396,7 @@ if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%"
 if not exist "%_TARGET_DIR%\html" mkdir "%_TARGET_DIR%\html"
 
 @rem https://docs.adacore.com/live/wave/gps/html/gnatdoc-doc/gnatdoc.html
-@rem Options: -p=Process private part of packages
-set __GNATDOC_OPTS=-d -p "--project=%_ROOT_DIR%build.gpr" --output=html
+set __GNATDOC_OPTS=--project=%_PROJECT_NAME% --output=html
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATDOC_CMD%" %__GNATDOC_OPTS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate HTML documentation into directory "!_TARGET_DIR:%_ROOT_DIR%=!\html" 1>&2
@@ -344,16 +411,16 @@ goto :eof
 
 :run
 if not exist "%_EXE_FILE%" (
-    echo %_ERROR_LABEL% Main program "%_PROJECT_NAME%" not found ^(%_EXE_FILE%^) 1>&2
+    echo %_ERROR_LABEL% Main executable '%_PROJECT_NAME%' not found ^(%_EXE_FILE%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_EXE_FILE%" %_MAIN_ARGS% 1>&2
-) else if %_VERBOSE%==1 ( echo Execute Ada program "!_EXE_FILE:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Execute Ada program "!_EXE_FILE:%_TARGET_DIR%\=!" 1>&2
 )
 call "%_EXE_FILE%" %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to execute Ada program "!_EXE_FILE:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to execute Ada program "!_EXE_FILE:%_TARGET_DIR%\=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -364,7 +431,7 @@ echo %_WARNING_LABEL% Not yet implemented 1>&2
 goto :eof
 
 :test
-echo %_WARNING_LABEL% Subcommand 'test' is not yet implemented 1>&2
+echo %_WARNING_LABEL% Not yet implemented 1>&2
 goto :eof
 
 @rem output parameter: _DURATION

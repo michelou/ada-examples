@@ -1,8 +1,8 @@
-------------------------------------------------------------------------------
+--
 -- Purpose : <describe the purpose of this program>
--- Created : <who>/<creation_date>
--- Modified: <who>/<modification_date>
-------------------------------------------------------------------------------
+-- Created : <who>/<dd.mm.yyyy>
+-- Modified: <who>/<dd.mm.yyyy>
+--
 with Greetings;
 
 -- @Function: Gmain

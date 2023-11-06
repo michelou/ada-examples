@@ -59,7 +59,8 @@
 - [Ada Planet](https://www.laeran.pl/adaplanet/i/).
 - [Ada Switzerland](https://www.ada-switzerland.ch/)
 - [AdaCore News](https://www.eejournal.com/?s=AdaCore) ([Electronic Engineering Journal](https://www.eejournal.com/)).
-- **reddit** - [r/ada](https://www.reddit.com/r/ada/).
+- **NARKIVE** &ndash; [comp.lang.ada](https://comp.lang.ada.narkive.com/).
+- **reddit** &ndash; [r/ada](https://www.reddit.com/r/ada/).
 
 ## <span id="projects">Projects</span> [**&#x25B4;**](#top)
 
@@ -81,6 +82,7 @@
 ## <span id="tools">Tools and Frameworks</span> [**&#x25B4;**](#top)
 
 - [`ada-util`](https://github.com/stcarrez/ada-util) &ndash; an Ada utility library for composing streams, processes, logs, serialization, encoders and more.
+- [AdaBrowse](http://home.datacomm.ch/t_wolf/tw/ada95/adabrowse/index.html) &ndash; a Javadoc-like HTML generator for Ada 95.
 - [alr][tool_alire] &ndash; a command-line tool  to obtain, build, and incorporate Ada libraries into a project (similar role to Rust's [cargo](https://doc.rust-lang.org/cargo/commands/cargo.html)).
 - [Ada Web Application](https://github.com/stcarrez/ada-awa) &ndash; a framework to build a web application in Ada 2012.
 - [Aflex](https://github.com/Ada-France/aflex) &ndash; an Ada fast lexical analyser generator.

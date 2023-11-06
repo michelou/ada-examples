@@ -506,7 +506,7 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%GNAT_HOME%\bin:alr.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1-2,*" %%i in ('"%GNAT_HOME%\bin\alr.exe" version ^| findstr /b Alr') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% alr %%k,"
+    for /f "tokens=1,*" %%i in ('"%GNAT_HOME%\bin\alr.exe" --version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% alr %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%GNAT_HOME%\bin:alr.exe"
 )
 where /q "%GNAT_HOME%\bin:gcc.exe"

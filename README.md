@@ -23,7 +23,7 @@ This project depends on the following external software for the **Microsoft Wind
 Optionally one may also install the following software:
 
 - [AdaControl 1.22][adactl_downloads]
-- [Alire 1.2][alire_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*changes*][alire_changes])
+- [Alire 2.0][alire_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*changes*][alire_changes])
 - [GNAT CE 2019][gnat2019_downloads] <sup id="anchor_02">[2](#footnote_02)</sup>
 - [GWindows 2023][gwindows_downloads] ([*release notes*][gwindows_relnotes])
 - [MSYS2 2023][msys2_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][msys2_changelog])
@@ -94,7 +94,7 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   adactl 1.22r16c, alr 1.1.3, gcc 10.3.1, gnat Community 2021, make 4.4.1,
+   adactl 1.22r16c, alr 2.0, gcc 10.3.1, gnat Community 2021, make 4.4.1,
    git 2.42.0.windows.1, diff 3.10, bash 5.2.12(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> diff git make</b>
@@ -112,7 +112,7 @@ C:\opt\msys64\usr\bin\make.exe
  <a href="https://alire.ada.dev/docs/">Alire</a> is a source-based package manager for the Ada and SPARK programming languages.
  </p>
  <p >
- We install <a href="https://alire.ada.dev/docs/">Alire</a> from the Zip file <a href="https://github.com/alire-project/alire/releases" rel="external">alr-1.2.2-bin-x86_64-windows.zip</a>; the archive contains the two files <code>bin\alr.exe</code> and <code>LICENSE.txt</code> (GNU license). We simply copy them to directory <code>%GNAT_HOME%</code> (in our case <code>GNAT_HOME=C:\opt\GNAT\2021\</code>).
+ We install <a href="https://alire.ada.dev/docs/">Alire</a> from the Zip file <a href="https://github.com/alire-project/alire/releases" rel="external">alr-2.0.0-bin-x86_64-windows.zip</a>; the archive contains the two files <code>bin\alr.exe</code> and <code>LICENSE.txt</code> (GNU license). We simply copy them to directory <code>%GNAT_HOME%\bin\</code> (in our case <code>GNAT_HOME=C:\opt\GNAT\2021\</code>).
 </dd></dl>
 
 <span id="footnote_02">[2]</span> ***GNAT 2019*** [↩](#anchor_02)
@@ -182,12 +182,12 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://www.adalog.fr/en/adacontrol.html" rel="external">adactl-1.22r16c-exe_windows_ce2019.zip</a>              <i>( 26 MB)</i>
-<a href="https://github.com/alire-project/alire/releases/" rel="external">alr-1.2.2-bin-x86_64-windows.zip</a>                    <i>(  9 MB)</i>
+<a href="https://github.com/alire-project/alire/releases/" rel="external">alr-2.0.0-bin-x86_64-windows.zip</a>                    <i>( 11 MB)</i>
 <a href="https://www.adacore.com/download/more">gnat-community-2019-20190517-x86_64-windows-bin.exe</a> <i>(380 MB)</i>
 <a href="https://www.adacore.com/download" rel="external">gnat-2021-20210519-x86_64-windows64-bin.exe</a>         <i>(562 MB)</i>
 <a href="https://www.adacore.com/download/more">gtkada-2021-x86_64-windows64-bin.exe</a>                <i>( 59 MB)</i>
 <a href="https://sourceforge.net/projects/gnavi/files/">GWindows Archive 29-May-2023.zip</a>                    <i>(  4 MB)</i>
-<a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20230718.exe</a>                           <i>( 83 MB)</i>
+<a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20231026.exe</a>                           <i>( 83 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.42.0-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
 </pre>
 </dd></dl>
@@ -223,7 +223,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [ada]: https://www.adacore.com/
 [adactl_downloads]: https://www.adalog.fr/en/adacontrol.html
 [akka_examples]: https://github.com/michelou/akka-examples
-[alire_changes]: https://github.com/alire-project/alire/blob/master/doc/user-changes.md#release-12
+[alire_changes]: https://github.com/alire-project/alire/blob/master/doc/user-changes.md#release-20-dev
 [alire_downloads]: https://github.com/alire-project/alire/releases/
 [cpp_examples]: https://github.com/michelou/cpp-examples
 [dart_examples]: https://github.com/michelou/dart-examples

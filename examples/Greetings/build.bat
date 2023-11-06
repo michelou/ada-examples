@@ -177,7 +177,7 @@ if not "!_COMMANDS:lint=!"=="%_COMMANDS%" (
         set "_COMMANDS=!_COMMANDS:lint=!"
     ) else (
         for %%f in ("%_ROOT_DIR%.") do set "__PARENT_DIR=%%~dpf"
-        for %%f in ("!__PARENT_DIR!*.aru") do set "_ARU_FILE=%%f"
+        for /f "delims=" %%f in ('dir /b /s "!__PARENT_DIR!*.aru"') do set "_ARU_FILE=%%f"
         if not exist "!_ARU_FILE!" (
             echo %_WARNING_LABEL% ARU file not found 1>&2
             set "_COMMANDS=!_COMMANDS:lint=!"
@@ -257,20 +257,25 @@ if not exist "%_TARGET_DIR%" mkdir "%_TARGET_DIR%" 1>NUL
 @rem set "__GPR_FILE=%_ROOT_DIR%%_PROJECT_NAME%.gpr"
 set "__LOG_FILE=%_TARGET_DIR%\adactl_log.txt"
 
-@rem see https://www.adalog.fr/compo/adacontrol_ug.html#command-files-provided-with-AdaControl
-@rem set __ADACTL_OPTS=-f "%_ARU_FILE%" -o "%__LOG_FILE%" -w -l "check dependencies (with, Greetings);"
-set __ADACTL_OPTS=-f "%_ARU_FILE%" -o "%__LOG_FILE%" -w
-if %_DEBUG%==1 ( set __ADACTL_OPTS=-d %__ADACTL_OPTS%
-) else if %_VERBOSE%==1 ( set __ADACTL_OPTS=-v %__ADACTL_OPTS%
-)
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_ADACTL_CMD%" %__ADACTL_OPTS% "%_SOURCE_DIR%\*.adb" 1>&2
-) else if %_VERBOSE%==1 ( echo Analyze Ada source files 1>&2
-)
-pushd "%_TARGET_DIR%"
 @rem AdaControl requires the GNAT 2019 tool chain
 set "__PATH=%PATH%"
 set "PATH=%GNAT2019_HOME%\bin;%PATH%"
-call "%_ADACTL_CMD%" %__ADACTL_OPTS% "%_SOURCE_DIR%\*.adb"
+if %_DEBUG%==1 (
+    for /f "delims=" %%f in ('where gcc') do set "__GCC_CMD=%%f"
+    echo %_DEBUG_LABEL% GCC command is: !__GCC_CMD! 1>&2
+)
+@rem see https://www.adalog.fr/compo/adacontrol_ug.html#command-files-provided-with-AdaControl
+@rem set __ADACTL_OPTS=-f "%_ARU_FILE%" -o "%__LOG_FILE%" -w -l "check dependencies (with, Greetings);"
+set __ADACTL_OPTS=-f "%_ARU_FILE%" -o "%__LOG_FILE%" -w
+if %_DEBUG%==1 ( set __ADACTL_OPTS=-d -v %__ADACTL_OPTS%
+) else if %_VERBOSE%==1 ( set __ADACTL_OPTS=-v %__ADACTL_OPTS%
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_ADACTL_CMD%" %__ADACTL_OPTS% "%_SOURCE_DIR%"\* 1>&2
+) else if %_VERBOSE%==1 ( echo Analyze Ada source files 1>&2
+)
+@rem .adt and .ali files are generated in current directory
+pushd "%_TARGET_DIR%"
+call "%_ADACTL_CMD%" %__ADACTL_OPTS% "%_SOURCE_DIR%"\*
 if not %ERRORLEVEL%==0 (
     if %_DEBUG%==1 ( type "%__LOG_FILE%"
     ) else if %_VERBOSE%==1 ( type "%__LOG_FILE%"
@@ -286,6 +291,9 @@ goto :eof
 
 :compile
 if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%" 1>NUL
+
+call :action_required "%_EXE_FILE%" "%_SOURCE_DIR%\*.ada" "%_SOURCE_DIR%\*.adb" "%_SOURCE_DIR%\*.ads"
+if %_ACTION_REQUIRED%==0 goto :eof
 
 set __SOURCE_FILES=
 set __N=0
@@ -327,11 +335,11 @@ if not exist "%_TARGET_DIR%\html" mkdir "%_TARGET_DIR%\html"
 set __GNATDOC_OPTS=-d -p "--project=%_ROOT_DIR%build.gpr" --output=html
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATDOC_CMD%" %__GNATDOC_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate HTML documentation 1>&2
+) else if %_VERBOSE%==1 ( echo Generate HTML documentation into directory "!_TARGET_DIR:%_ROOT_DIR%=!\html" 1>&2
 )
 call "%_GNATDOC_CMD%" %__GNATDOC_OPTS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to generate HTML documentation 1>&2
+    echo %_ERROR_LABEL% Failed to generate HTML documentation into directory "!_TARGET_DIR:%_ROOT_DIR%=!\html" 1>&2
     set _EXITCODE=1
     goto :eof
 )
