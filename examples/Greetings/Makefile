@@ -48,14 +48,25 @@ help:
 	@$(ECHO) "     all    alias for build"
 	@$(ECHO) "     build  compile Ada source files"
 	@$(ECHO) "     clean  delete generated files"
-	@$(ECHO) "     help   display this help message"
+	@$(ECHO) "     help   print this help message"
 	@$(ECHO) "     lint   analyze Ada source files"
 	@$(ECHO) "     run    execute main program \"$(TARGET)\""
 
 ##############################################################################
+## lint
+
+## adactl expects absolute path arguments
+ARU_FILE = $(realpath ../rules.aru)
+LOG_FILE = $(realpath $(TARGET_DIR))/adactl_log.txt
+
+lint:
+	cd $(TARGET_DIR); \
+	"$(ADACTL)" -v -f "$(ARU_FILE)" -o "$(LOG_FILE)" -w "$(realpath $(SOURCE_DIR))/*.adb"
+
+##############################################################################
 ## phony
 
-.PHONY: all build clean help run
+.PHONY: all build clean help lint run
 
 .SUFFIXES:
 .SUFFIXES: .adb .adc .ads .o .obj .exe

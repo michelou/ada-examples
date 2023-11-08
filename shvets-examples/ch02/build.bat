@@ -200,21 +200,21 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%      show commands executed by this script
+echo     %__BEG_O%-debug%__END%      print commands executed by this script
 echo     %__BEG_O%-main:^<name^>%__END%  set main program ^(default: %__BEG_O%%_MAIN_NAME_DEFAULT%%__END%^)
 echo     %__BEG_O%-msys%__END%       use MSYS GNAT Make if available
-echo     %__BEG_O%-verbose%__END%    display progress messages
+echo     %__BEG_O%-verbose%__END%    print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%       delete generated files
 echo     %__BEG_O%compile%__END%     compile Ada source files
 echo     %__BEG_O%doc%__END%         generate HTML documentation
-echo     %__BEG_O%help%__END%        display this help message
+echo     %__BEG_O%help%__END%        print this help message
 echo     %__BEG_O%lint%__END%        analyze Ada source files
 echo     %__BEG_O%test%__END%        execute unit tests
 echo.
 set __MAIN_NAMES=
-for /f %%f in ('dir /b "%_SOURCE_MAIN_DIR%\*.adb"') do (
+for /f "delims=" %%f in ('dir /b "%_SOURCE_MAIN_DIR%\*.adb"') do (
     set __FILE_NAME=%%f
     if defined __MAIN_NAMES ( set __MAIN_NAMES=!__MAIN_NAMES!, !__FILE_NAME:~0,-4!
     ) else ( set __MAIN_NAMES=!__FILE_NAME:~0,-4!

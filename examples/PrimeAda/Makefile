@@ -7,7 +7,7 @@
 
 include ../Makefile.inc
 
-PROJ_NAME      = TimingFibonacci
+PROJ_NAME      = PrimeAda
 
 SOURCE_DIR     = src
 TARGET_DIR     = target

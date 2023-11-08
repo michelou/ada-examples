@@ -1,3 +1,8 @@
+--
+-- Purpose : <describe the purpose of this package>
+-- Created : <who>/<dd.mm.yyyy>
+-- Modified: <who>/<dd.mm.yyyy>
+--
 with Ada.Text_IO; use Ada.Text_IO;
 
 -- @description

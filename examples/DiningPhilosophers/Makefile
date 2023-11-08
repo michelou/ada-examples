@@ -7,7 +7,7 @@
 
 include ../Makefile.inc
 
-PROJ_NAME      = TimingFibonacci
+PROJ_NAME      = Test_Dining_Philosophers
 
 SOURCE_DIR     = src
 TARGET_DIR     = target
@@ -53,7 +53,7 @@ LOG_FILE = $(realpath $(TARGET_DIR))/adactl_log.txt
 
 lint:
 	cd $(TARGET_DIR); \
-	"$(ADACTL)" -v -f "$(ARU_FILE)" -o "$(LOG_FILE)" -w "$(realpath $(SOURCE_DIR))/*.adb"
+	"$(ADACTL)" -v -f "$(ARU_FILE)" -o "$(LOG_FILE)" -w "$(realpath $(SOURCE_DIR))"/*
 
 ##############################################################################
 ## phony

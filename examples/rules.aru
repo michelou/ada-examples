@@ -1,12 +1,26 @@
+-- See https://www.adalog.fr/compo/adacontrol_ug.html#Rules-reference
+
 -- Allow only Ada.Text_IO:
 check dependencies (others, Ada.Text_IO);
+check dependencies (with, Ada.Integer_Text_IO, Interfaces.C);
 
 -- End record must be named if the declaration is more than 10 lines
 check comments (unnamed_end_record, 10);
 
-check header_comments (minimum, 10);
+check header_comments (minimum, 5);
 
 -- Don't declare subprograms or packages inside a block:
 check declarations (block procedure, block function, block package);
 
 check improper_initialization (out_parameter);
+
+-- Goto statement shall not be used
+--check statements (goto);
+
+-- All program units must repeat their name after the “end”
+--check style (no_closing_name);
+
+-- A local item shall not hide an outer one with the same name
+--check Local_Hiding;
+
+check characters (control);

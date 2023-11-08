@@ -44,6 +44,7 @@ set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
 set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 
 set "_SOURCE_DIR=%_ROOT_DIR%src"
+set "_SOURCE_MAIN_DIR=%_SOURCE_DIR%\main\ada"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_TARGET_OBJ_DIR=%_TARGET_DIR%\obj"
 
@@ -177,7 +178,7 @@ if not "!_COMMANDS:lint=!"=="%_COMMANDS%" (
         set "_COMMANDS=!_COMMANDS:lint=!"
     ) else (
         for %%f in ("%_ROOT_DIR%.") do set "__PARENT_DIR=%%~dpf"
-        for %%f in ("!__PARENT_DIR!*.aru") do set "_ARU_FILE=%%f"
+        for /f "delims=" %%f in ('dir /b /s "!__PARENT_DIR!*.aru" 2^>NUL') do set "_ARU_FILE=%%f"
         if not exist "!_ARU_FILE!" (
             echo %_WARNING_LABEL% ARU file not found 1>&2
             set "_COMMANDS=!_COMMANDS:lint=!"
@@ -261,19 +262,25 @@ if not exist "%_TARGET_DIR%" mkdir "%_TARGET_DIR%" 1>NUL
 @rem set "__GPR_FILE=%_ROOT_DIR%%_PROJECT_NAME%.gpr"
 set "__LOG_FILE=%_TARGET_DIR%\adactl_log.txt"
 
-@rem see https://www.adalog.fr/compo/adacontrol_ug.html#command-files-provided-with-AdaControl
-set __ADACTL_OPTS=-f "%_ARU_FILE%" -o "%__LOG_FILE%" -w
-if %_DEBUG%==1 ( set __ADACTL_OPTS=-d %__ADACTL_OPTS%
-) else if %_VERBOSE%==1 ( set __ADACTL_OPTS=-v %__ADACTL_OPTS%
-)
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_ADACTL_CMD%" %__ADACTL_OPTS% "%_SOURCE_DIR%\*.adb" 1>&2
-) else if %_VERBOSE%==1 ( echo Analyze Ada source files 1>&2
-)
-pushd "%_TARGET_DIR%"
 @rem AdaControl requires the GNAT 2019 tool chain
 set "__PATH=%PATH%"
 set "PATH=%GNAT2019_HOME%\bin;%PATH%"
-call "%_ADACTL_CMD%" %__ADACTL_OPTS% "%_SOURCE_DIR%\*.adb"
+if %_DEBUG%==1 (
+    for /f "delims=" %%f in ('where gcc') do set "__GCC_CMD=%%f"
+    echo %_DEBUG_LABEL% GCC command is: !__GCC_CMD! 1>&2
+)
+@rem see https://www.adalog.fr/compo/adacontrol_ug.html#command-files-provided-with-AdaControl
+@rem set __ADACTL_OPTS=-f "%_ARU_FILE%" -o "%__LOG_FILE%" -w -l "check dependencies (with, Greetings);"
+set __ADACTL_OPTS=-f "%_ARU_FILE%" -o "%__LOG_FILE%" -w
+if %_DEBUG%==1 ( set __ADACTL_OPTS=-d -v %__ADACTL_OPTS%
+) else if %_VERBOSE%==1 ( set __ADACTL_OPTS=-v %__ADACTL_OPTS%
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_ADACTL_CMD%" %__ADACTL_OPTS% "%_SOURCE_DIR%"\* 1>&2
+) else if %_VERBOSE%==1 ( echo Analyze Ada source files 1>&2
+)
+@rem .adt and .ali files are generated in current directory
+pushd "%_TARGET_DIR%"
+call "%_ADACTL_CMD%" %__ADACTL_OPTS% "%_SOURCE_DIR%"\*
 if not %ERRORLEVEL%==0 (
     if %_DEBUG%==1 ( type "%__LOG_FILE%"
     ) else if %_VERBOSE%==1 ( type "%__LOG_FILE%"
@@ -289,6 +296,9 @@ goto :eof
 
 :compile
 if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%" 1>NUL
+
+call :action_required "%_EXE_FILE%" "%_SOURCE_DIR%\*.ada" "%_SOURCE_DIR%\*.adb" "%_SOURCE_DIR%\*.ads"
+if %_ACTION_REQUIRED%==0 goto :eof
 
 set __SOURCE_FILES=
 set __N=0
@@ -321,6 +331,61 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
+@rem input parameter: 1=target file 2,3,..=path (wildcards accepted)
+@rem output parameter: _ACTION_REQUIRED
+:action_required
+set "__TARGET_FILE=%~1"
+
+set __PATH_ARRAY=
+set __PATH_ARRAY1=
+:action_path
+shift
+set "__PATH=%~1"
+if not defined __PATH goto action_next
+if defined __PATH_ARRAY set "__PATH_ARRAY=%__PATH_ARRAY%,"
+set __PATH_ARRAY=%__PATH_ARRAY%'%__PATH%'
+if defined __PATH_ARRAY1 set "__PATH_ARRAY1=%__PATH_ARRAY1%,"
+set __PATH_ARRAY1=%__PATH_ARRAY1%'!__PATH:%_ROOT_DIR%=!'
+goto action_path
+
+:action_next
+set __TARGET_TIMESTAMP=00000000000000
+for /f "usebackq" %%i in (`powershell -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+     set __TARGET_TIMESTAMP=%%i
+)
+set __SOURCE_TIMESTAMP=00000000000000
+for /f "usebackq" %%i in (`powershell -c "gci -recurse -path %__PATH_ARRAY% -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+    set __SOURCE_TIMESTAMP=%%i
+)
+call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
+set _ACTION_REQUIRED=%_NEWER%
+if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% Target : '%__TARGET_FILE%' 1>&2
+    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% Sources: %__PATH_ARRAY% 1>&2
+    echo %_DEBUG_LABEL% _ACTION_REQUIRED=%_ACTION_REQUIRED% 1>&2
+) else if %_VERBOSE%==1 if %_ACTION_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
+    echo No action required ^(%__PATH_ARRAY1%^) 1>&2
+)
+goto :eof
+
+@rem output parameter: _NEWER
+:newer
+set __TIMESTAMP1=%~1
+set __TIMESTAMP2=%~2
+
+set __DATE1=%__TIMESTAMP1:~0,8%
+set __TIME1=%__TIMESTAMP1:~-6%
+
+set __DATE2=%__TIMESTAMP2:~0,8%
+set __TIME2=%__TIMESTAMP2:~-6%
+
+if %__DATE1% gtr %__DATE2% ( set _NEWER=1
+) else if %__DATE1% lss %__DATE2% ( set _NEWER=0
+) else if %__TIME1% gtr %__TIME2% ( set _NEWER=1
+) else ( set _NEWER=0
+)
+goto :eof
+
 :doc
 if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%"
 if not exist "%_TARGET_DIR%\html" mkdir "%_TARGET_DIR%\html"
@@ -329,11 +394,11 @@ if not exist "%_TARGET_DIR%\html" mkdir "%_TARGET_DIR%\html"
 set __GNATDOC_OPTS=-d -p "--project=%_ROOT_DIR%build.gpr"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATDOC_CMD%" %__GNATDOC_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate HTML documentation 1>&2
+) else if %_VERBOSE%==1 ( echo Generate HTML documentation into directory "!_TARGET_DIR:%_ROOT_DIR%=!\html" 1>&2
 )
 call "%_GNATDOC_CMD%" %__GNATDOC_OPTS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to generate HTML documentation 1>&2
+    echo %_ERROR_LABEL% Failed to generate HTML documentation into directory "!_TARGET_DIR:%_ROOT_DIR%=!\html" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -341,16 +406,16 @@ goto :eof
 
 :run
 if not exist "%_EXE_FILE%" (
-    echo %_ERROR_LABEL% Main program '%_PROJECT_NAME%' not found ^(%_EXE_FILE%^) 1>&2
+    echo %_ERROR_LABEL% Main program "%_PROJECT_NAME%" not found ^(%_EXE_FILE%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_EXE_FILE%" %_MAIN_ARGS% 1>&2
-) else if %_VERBOSE%==1 ( echo Execute program "!_EXE_FILE:%_TARGET_DIR%\=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Execute Ada program "!_EXE_FILE:%_TARGET_DIR%\=!" 1>&2
 )
 call "%_EXE_FILE%" %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to execute program "!_EXE_FILE:%_TARGET_DIR%\=!" 1>&2
+    echo %_ERROR_LABEL% Failed to execute Ada program "!_EXE_FILE:%_TARGET_DIR%\=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )

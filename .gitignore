@@ -10,6 +10,8 @@ out/
 target/
 
 # project specific
+.adt
+.ali
 *_LOCAL/
 *_LOCAL.md
 *_LOCAL.txt

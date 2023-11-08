@@ -1,3 +1,7 @@
+ifndef GNAT_HOME
+    $(error Variable GNAT_HOME is not set)
+endif
+
 ifeq ($(OS),Windows_NT)
 #
 ############################## MSYS2 environment #############################
@@ -6,7 +10,11 @@ CP           = cp
 DIFF         = diff
 ECHO         = echo
 FIND         = find
+ifndef MSYS
+GNATMAKE     = $(subst \,/,$(GNAT_HOME))/bin/gnatmake.exe
+else
 GNATMAKE     = gnatmake
+endif
 GREP         = egrep
 MKDIR        = mkdir
 RM           = rm
@@ -14,19 +22,19 @@ TAR          = tar
 #
 ############################# Windows environment ############################
 else
-ifndef MSYS_HOME
-    $(error Variable MSYS_HOME is not set)
-endif
 #
-MSYS_PATH    = $(subst \,/,$(MSYS_HOME))
-CP           = $(MSYS_PATH)/usr/bin/cp.exe
-DIFF         = $(MSYS_PATH)/usr/bin/diff.exe
-ECHO         = $(MSYS_PATH)/usr/bin/echo.exe
-FIND         = $(MSYS_PATH)/usr/bin/find.exe
-GNATMAKE     = $(MSYS_PATH)/mingw64/bin/gnatmake.exe
-GREP         = $(MSYS_PATH)/usr/bin/grep.exe
-MKDIR        = $(MSYS_PATH)/usr/bin/mkdir.exe
-RM           = $(MSYS_PATH)/usr/bin/rm.exe
+CP           = /usr/bin/cp.exe
+DIFF         = /usr/bin/diff.exe
+ECHO         = /usr/bin/echo.exe
+FIND         = /usr/bin/find.exe
+ifndef MSYS
+GNATMAKE     = $(subst \,/,$(GNAT_HOME))/bin/gnatmake.exe
+else
+GNATMAKE     = /mingw64/bin/gnatmake.exe
+endif
+GREP         = /usr/bin/grep.exe
+MKDIR        = /usr/bin/mkdir.exe
+RM           = /usr/bin/rm.exe
 #
 ifndef ADACTL_HOME
     $(error Variable ADACTL_HOME is not set)
@@ -34,7 +42,7 @@ endif
 #
 ADACTL       = $(subst \,/,$(ADACTL_HOME))/adactl.exe
 #
-TAR          = /$(subst :,,$(MSYS_PATH))/usr/bin/tar.exe
+TAR          = /usr/bin/tar.exe
 endif
 #
 TARGET_EXT   = .exe
@@ -45,6 +53,7 @@ CP           = cp
 DIFF         = diff
 ECHO         = echo
 FIND         = find
+GNATMAKE     = $(GNAT_HOME)/bin/gnatmake
 GREP         = egrep
 MKDIR        = mkdir
 RM           = rm
