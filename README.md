@@ -52,6 +52,7 @@ This project is organized as follows:
 <a href="aunit-examples/">aunit-examples\</a>{<a href="aunit-examples/README.md">README.md</a>, <a href="aunit-examples/calculator/">calculator</a>, etc.}
 <a href="examples/">examples\</a>{<a href="examples/README.md">README.md</a>, <a href="examples/Greetings">Greetings</a>, etc.}
 <a href="gwindows-examples/">gwindows-examples\</a>{<a href="gwindows-examples/README.md">README.md</a>, <a href="gwindows-examples/tutorial1">tutorial1</a>, etc.}
+<a href="hac-examples/">hac-examples</a>{<a href="hac-examples/README.md">README.md</a>, <a href="./hac-examples/Ackermann/">Ackermann</a>, ..}
 <a href="intro-to-ada/">intro-to-ada\</a>{<a href="intro-to-ada/README.md">README.md</a>, <a href="intro-to-ada/Greet/">Greet</a>, <a href="intro-to-ada/Week/">Week</a>, etc.}
 <a href="shvets-examples/">shvets-examples\</a>{<a href="shvets-examples/README.md">README.md</a>, <a href="shvets-examples/ch02">ch02</a>, <a href="shvets-examples/ch03">ch03</a>, etc.}
 <a href="QUICKREF.md">QUICKREF.md</a>
@@ -67,6 +68,7 @@ where
 - directory [**`aunit-examples\`**](aunit-examples/) contains [Ada] code examples from GitHub project [`AdaCore/aunit`](https://github.com/AdaCore/aunit).
 - directory [**`examples\`**](examples/) contains [Ada] code examples grabbed from various websites.
 - directory [**`gwindows-examples\`**](./gwindows-examples/) contains [GNAVI] code examples (see [`README.md`](./gwindows-examples/README.md))
+- directory [**`hac-examples\`**](./hac-examples/) contains [Ada] code examples from the [HAC](https://github.com/zertovitch/hac) project.
 - directory [**`intro-to-ada\`**](intro-to-ada/) contains [Ada] code examples from AdaCore's course <a href="https://learn.adacore.com/courses/intro-to-ada" rel="external">*Introduction to Ada*</a>.
 - directory [**`shvets-examples`**](./shvets-examples/) contains [Ada] code examples from Shvets's book <a href="https://www.apress.com/9781484254271" rel="external">*Beginning Ada Programming*</a>.
 - file [**`QUICKREF.md`**](QUICKREF.md) gathers [Ada] hints and tips.
