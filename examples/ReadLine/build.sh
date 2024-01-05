@@ -185,12 +185,13 @@ compile() {
     local gnatmake_opts="-gnat2022 -we -D \"$TARGET_OBJ_DIR\" -o \"$TARGET_FILE\""
     $DEBUG && gnatmake_opts="-d $gnatmake_opts"
 
+    local main_file="$SOURCE_DIR/Main.adb"
     if $DEBUG; then
-        debug "\"$gnatmake_cmd\" $gnatmake_opts $source_files"
+        debug "\"$gnatmake_cmd\" $gnatmake_opts $main_file"
     elif $VERBOSE; then
         echo "Compile $n_files to directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
-    eval "\"$gnatmake_cmd\" $gnatmake_opts $source_files"
+    eval "\"$gnatmake_cmd\" $gnatmake_opts $main_file"
     if [[ $? -ne 0 ]]; then
         error "Failed to compile $n_files to directory \"${TARGET_DIR/$ROOT_DIR\//}\""
         cleanup 1

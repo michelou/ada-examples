@@ -207,16 +207,16 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%        show commands executed by this script
+echo     %__BEG_O%-debug%__END%        print commands executed by this script
 echo     %__BEG_O%-main:^<name^>%__END%  set main program ^(default: %__BEG_O%%_MAIN_NAME_DEFAULT%%__END%^)
 echo     %__BEG_O%-msys%__END%         use MSYS GNAT Make if available
-echo     %__BEG_O%-verbose%__END%      display progress messages
+echo     %__BEG_O%-verbose%__END%      print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%         delete generated class files
 echo     %__BEG_O%compile%__END%       compile Ada source files
 echo     %__BEG_O%doc%__END%           generate HTML documentation
-echo     %__BEG_O%help%__END%          display this help message
+echo     %__BEG_O%help%__END%          print this help message
 echo     %__BEG_O%lint%__END%          analyze Ada source files
 echo     %__BEG_O%test%__END%          execute unit tests
 echo.
@@ -237,6 +237,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
 )
 rmdir /s /q "%__DIR%"
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -251,7 +252,7 @@ if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%" 1>NUL
 
 set __SOURCE_FILES=
 set __N=0
-for /f %%f in ('dir /s /b "%_SOURCE_MAIN_DIR%\*.ad?" 2^>NUL') do (
+for /f "delims=" %%f in ('dir /s /b "%_SOURCE_MAIN_DIR%\*.ad?" 2^>NUL') do (
     set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
     set /a __N+=1
 )

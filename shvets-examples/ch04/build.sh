@@ -305,7 +305,7 @@ fi
 PROJECT_NAME="$(basename $ROOT_DIR)"
 TARGET_FILE="$TARGET_DIR/$PROJECT_NAME$TARGET_EXT"
 
-MAIN_NAME=Browser
+MAIN_NAME=max_recursion
 MAIN_ARGS=
 
 if $LINT && [[ ! -f "$GNAT2019_HOME/bin/gnat.exe" ]]; then

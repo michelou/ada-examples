@@ -54,14 +54,12 @@ if not exist "%GNAT_HOME%\bin\gnatmake.exe" (
     goto :eof
 )
 set "_GNATMAKE_CMD=%GNAT_HOME%\bin\gnatmake.exe"
-
-if not exist "%GNAT_HOME%\bin\gnatdoc.exe" (
-    echo %_ERROR_LABEL% GNAT installation not found 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
 set "_GNATDOC_CMD=%GNAT_HOME%\bin\gnatdoc.exe"
 
+set _MSYS_GNATMAKE_CMD=
+if exist "%MSYS_HOME%\mingw64\bin\gnatmake.exe" (
+    set "_MSYS_GNATMAKE_CMD=%MSYS_HOME%\mingw64\bin\gnatmake.exe"
+)
 set _ADACTL_CMD=
 if exist "%ADACTL_HOME%\adactl.exe" (
     set "_ADACTL_CMD=%ADACTL_HOME%\adactl.exe"
@@ -312,7 +310,7 @@ if %__N%==0 (
 ) else if %__N%==1 ( set __N_FILES=%__N% Ada source file
 ) else ( set __N_FILES=%__N% Ada source files
 )
-set "__SOURCE_FILES=%_SOURCE_DIR%\Main.adb"
+set "__MAIN_FILE=%_SOURCE_DIR%\Main.adb"
 
 if %_MSYS%==1 ( set "__GNATMAKE_CMD=%_MSYS_GNATMAKE_CMD%"
 ) else ( set "__GNATMAKE_CMD=%_GNATMAKE_CMD%"
@@ -320,10 +318,10 @@ if %_MSYS%==1 ( set "__GNATMAKE_CMD=%_MSYS_GNATMAKE_CMD%"
 @rem -we : Treat all warnings as errors, -d : Display progress for each source
 set __GNATMAKE_OPTS=-we -d -D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__MAIN_FILE% 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
 )
-call "%_GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% %_STDERR_REDIRECT%
+call "%_GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__MAIN_FILE% %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1

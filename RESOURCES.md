@@ -8,12 +8,25 @@
   </tr>
 </table>
 
+<!--
+http://www.dmitry-kazakov.de/reusable_code.htm
+-->
+
 ## <span id="articles">Articles</span>
 
 - [AdaCore Technologies for cyber security, part 4: Industrial scenario examples][article_chapman4] by Roderick Chapman, July 2018.
 - [AdaCore Technologies for cyber security, part 3: Security vulnerabilities and their mitigation][article_chapman3] by Roderick Chapman, July 2018.
 - [AdaCore Technologies for cyber security, part 2: The challenge of secure software][article_chapman2] by Roderick Chapman, June 2018.
 - [AdaCore Technologies for cyber security, part 1][article_chapman1] by Roderick Chapman, May 2018.
+- Learning Ada, by [Xintia](https://steemit.com/@xinta) :
+  - [Learning Ada 7: generics and (static) overloading](https://steemit.com/ada-lang/@xinta/learning-ada-7-generics-and-static-overloading), 2018.
+  - [Learning Ada 6: tasking](https://steemit.com/programming/@xinta/learning-ada-6-tasking), 2018.
+  - [Learning Ada 5: object oriented paradigm](https://steemit.com/ada-lang/@xinta/learning-ada-5-object-oriented-paradigm), 2017.
+  - [Learning Ada 4: predicates](https://steemit.com/ada-lang/@xinta/learning-ada-4-predicates), 2017.
+  - [Learning Ada 3: exploring types](https://steemit.com/ada-lang/@xinta/learning-ada-3-exploring-types), 2017.
+  - [Learning Ada 2: more on packages, naming conventions](https://steemit.com/ada-lang/@xinta/learning-ada-2-more-on-packages-naming-conventions-and-bits-of-types), 2017.
+  - [Learning Ada 1: Hello world, basic greeter package](https://steemit.com/ada-lang/@xinta/learning-ada-1-hello-world-basic-greeter-package-citing-contract-based-programming-aspects-spark), 2017.
+- [Safe Parallel Programming in Ada with Language Extensions][article_taft] by S. Tucker Taft &amp; al., April 2014.
 
 ## <span id="blogs">Blogs</span> [**&#x25B4;**](#top)
 
@@ -103,7 +116,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -112,6 +125,7 @@
 [article_chapman2]: http://www.embeddedcomputing.com/technology/software-and-os/adacore-technologies-for-cyber-security-part-2-the-challenge-of-secure-software
 [article_chapman3]: https://www.embeddedcomputing.com/technology/software-and-os/adacore-technologies-for-cyber-security-part-3-languages-tools-and-technologies
 [article_chapman4]: https://www.embeddedcomputing.com/technology/software-and-os/adacore-technologies-for-cyber-security-part-4-industrial-scenario-examples
+[article_taft]: http://www.cister.isep.ipp.pt/docs/safe_parallel_programming_in_ada_with_language_extensions/1030/
 [book_adaic]: https://www.adaic.org/resources/add_content/docs/95style/html/cover.html
 [book_barnes]: https://www.cambridge.org/gb/academic/subjects/computer-science/software-engineering-and-development/programming-ada-2012
 [book_barnes_2nd]: https://www.cambridge.org/ch/academic/subjects/computer-science/software-engineering-and-development/programming-ada-2012-preview-ada-2022-2nd-edition?format=PB

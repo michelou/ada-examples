@@ -266,29 +266,33 @@ if %_MSYS%==1 ( set "__GNATMAKE_CMD=%_MSYS_GNATMAKE_CMD%"
 ) else ( set "__GNATMAKE_CMD=%_GNATMAKE_CMD%"
 )
 @rem -we : Treat all warnings as errors
-set __GNATMAKE_OPTS=-gnat2022 -we -D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%"
+set __GNATMAKE_OPTS=-d -gnat2022 -we -D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%"
 if %_DEBUG%==1 set __GNATMAKE_OPTS=-g %__GNATMAKE_OPTS%
 
+pushd "%_TARGET_DIR%"
+
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__GNATMAKE_CMD%" %__GNATMAKE_OPTS% "%_SOURCE_MAIN_DIR%\%_MAIN_NAME%.adb" 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% into directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%__GNATMAKE_CMD%" %__GNATMAKE_OPTS% "%_SOURCE_MAIN_DIR%\%_MAIN_NAME%.adb" %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
+    popd
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% into directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
+popd
 goto :eof
 
 :doc
 set __GNATDOC_OPTS="--project=%_ROOT_DIR%build.gpr"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATDOC_CMD%" %__GNATDOC_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate documentation 1>&2
+) else if %_VERBOSE%==1 ( echo Generate documentation into director "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_GNATDOC_CMD%" %__GNATDOC_OPTS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to generate documentation 1>&2
+    echo %_ERROR_LABEL% Failed to generate documentation into directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )

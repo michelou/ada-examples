@@ -16,14 +16,14 @@ TARGET_OBJ_DIR = $(TARGET_DIR)/obj
 ##############################################################################
 ## main rules
 
-SOURCES = $(wildcard $(SOURCE_DIR)/main/ada/*.adb)
+MAIN_FILE = $(wildcard $(SOURCE_DIR)/$(PROJ_NAME).adb)
 TARGET  = $(TARGET_DIR)/$(PROJ_NAME)$(TARGET_EXT)
 
 all: build run
 
 build: $(TARGET)
 
-$(TARGET): $(SOURCES)
+$(TARGET): $(MAIN_FILE)
 	[[ -d "$(TARGET_OBJ_DIR)" ]] || "$(MKDIR)" -p "$(TARGET_OBJ_DIR)"
 	"$(GNATMAKE)" -d -gnat2022 -we -D "$(TARGET_OBJ_DIR)" -o "$(TARGET)" $^
 

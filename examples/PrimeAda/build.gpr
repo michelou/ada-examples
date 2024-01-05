@@ -1,4 +1,4 @@
---- @summary HelloWorld program
+--- @summary PrimeAda program
 project Build is
 
     -- project level attributes

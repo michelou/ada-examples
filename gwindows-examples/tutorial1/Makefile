@@ -1,3 +1,10 @@
+##
+## Copyright (c) 2018-2024 Stéphane Micheloud
+##
+## Licensed under the MIT License.
+##
+##############################################################################
+
 DEBUG ?= 0
 
 include ../Makefile.inc
@@ -54,4 +61,4 @@ $(TARGET_DOC): $(SOURCES)
 .PHONY: all build clean doc run
 
 .SUFFIXES:
-.SUFFIXES: .c .o .obj .exe
+.SUFFIXES: .adb .c .o .obj .exe

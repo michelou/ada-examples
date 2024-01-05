@@ -25,7 +25,7 @@ This example contains the source file [`test_dining_philosophers.adb`](./DiningP
 <b>&gt; <a href="./DiningPhilosophers/build.bat">build</a> -debug run</b>
 [build] Options    : _TIMER=0 _VERBOSE=0
 [build] Subcommands:  compile run
-[build] Variables  : "ADACTL_HOME=C:\opt\adactl-1.22r16c"
+[build] Variables  : "ADACTL_HOME=C:\opt\adactl"
 [build] Variables  : "GIT_HOME=C:\opt\Git"
 [build] Variables  : "GNAT_HOME="C:\opt\GNAT\2021"
 [build] Variables  : "GNAT2019_HOME=C:\opt\GNAT\2019"
@@ -313,7 +313,7 @@ Setup
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

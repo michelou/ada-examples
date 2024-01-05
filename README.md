@@ -11,7 +11,7 @@
 
 > **&#9755;** Read the document <a href="https://www.adaic.org/advantages/ada-comp-chart/">"Ada Comparison Chart"</a> for an overview of evolution of the major features of the Ada programming language.
 
-[Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other topics we are continuously monitoring.
+[Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples] and [TruffleSqueak][trufflesqueak_examples] are other topics we are continuously monitoring. [Modula-2][m2_examples] and [WiX Toolset][wix_examples] are further topics we worked with quite many years ago.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -254,6 +254,7 @@ https://sourceforge.net/p/gnavi/news/2023/05/gwindows-release-29-may-2023-revisi
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
 [linux_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [llvm_examples]: https://github.com/michelou/llvm-examples
+[m2_examples]: https://github.com/michelou/m2-examples
 [make_cli]: https://www.gnu.org/software/make/manual/html_node/Options-Summary.html
 [man1_awk]: https://www.linux.org/docs/man1/awk.html
 [man1_diff]: https://www.linux.org/docs/man1/diff.html
