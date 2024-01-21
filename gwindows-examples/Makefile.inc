@@ -12,13 +12,15 @@ endif
 
 TARGET_EXT  = .exe
 PSEP        = ;
-CP          = $(subst \,/,$(MSYS_HOME))/usr/bin/cp.exe
-ECHO        = $(subst \,/,$(MSYS_HOME))/usr/bin/echo.exe
-FIND        = $(subst \,/,$(MSYS_HOME))/usr/bin/find.exe
-MKDIR       = $(subst \,/,$(MSYS_HOME))/usr/bin/mkdir.exe
-RM          = $(subst \,/,$(MSYS_HOME))/usr/bin/rm.exe
-TEST        = $(subst \,/,$(MSYS_HOME))/usr/bin/test.exe
-TOUCH       = $(subst \,/,$(MSYS_HOME))/usr/bin/touch.exe
+## $(MSYS_HOME)\usr\bin\{cp.exe, make.exe, wget.exe}
+CP          = /usr/bin/cp.exe
+ECHO        = /usr/bin/echo.exe
+FIND        = /usr/bin/find.exe
+MKDIR       = /usr/bin/mkdir.exe
+RM          = /usr/bin/rm.exe
+TEST        = /usr/bin/test.exe
+TOUCH       = /usr/bin/touch.exe
+WGET        = /usr/bin/wget.exe
 
 GNATDOC      = $(subst \,/,$(GNAT_HOME))/bin/gnatdoc.exe
 ## Gnatmake from MSYS installation has a newer version

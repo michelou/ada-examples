@@ -26,7 +26,7 @@ Optionally one may also install the following software:
 - [Alire 2.0][alire_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*changes*][alire_changes])
 - [GNAT CE 2019][gnat2019_downloads] <sup id="anchor_02">[2](#footnote_02)</sup>
 - [GWindows 2023][gwindows_downloads] ([*release notes*][gwindows_relnotes])
-- [MSYS2 2023][msys2_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][msys2_changelog])
+- [MSYS2 2024][msys2_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][msys2_changelog])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][linux_opt] directory on Unix).
@@ -189,7 +189,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://www.adacore.com/download" rel="external">gnat-2021-20210519-x86_64-windows64-bin.exe</a>         <i>(562 MB)</i>
 <a href="https://www.adacore.com/download/more">gtkada-2021-x86_64-windows64-bin.exe</a>                <i>( 59 MB)</i>
 <a href="https://sourceforge.net/projects/gnavi/files/">GWindows Archive 29-May-2023.zip</a>                    <i>(  4 MB)</i>
-<a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20231026.exe</a>                           <i>( 83 MB)</i>
+<a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240113.exe</a>                           <i>( 83 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.43.0-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
 </pre>
 </dd></dl>

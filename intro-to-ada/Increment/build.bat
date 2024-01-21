@@ -142,7 +142,7 @@ if "%__ARG:~0,1%"=="-" (
     set /a __N+=1
 )
 shift
-goto :args_loop
+goto args_loop
 :args_done
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
@@ -150,7 +150,7 @@ if %_DEBUG%==1 set _STDERR_REDIRECT=
 for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
 set _MAIN_NAME=show_increment
 set _MAIN_ARGS=
-set _EXE_NAME=%_PROJECT_NAME%
+set "_EXE_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
 
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
@@ -226,10 +226,10 @@ if %__N%==0 (
 ) else if %__N%==1 ( set __N_FILES=%__N% Ada source file
 ) else ( set __N_FILES=%__N% Ada source files
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATMAKE_CMD%" "%_SOURCE_DIR%\%_MAIN_NAME%.adb" -D "%_TARGET_OBJ_DIR%" -o "%_TARGET_DIR%\%_EXE_NAME%.exe" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATMAKE_CMD%" "%_SOURCE_DIR%\%_MAIN_NAME%.adb" -D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to object directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
 )
-call "%_GNATMAKE_CMD%" "%_SOURCE_DIR%\%_MAIN_NAME%.adb" -D "%_TARGET_OBJ_DIR%" -o "%_TARGET_DIR%\%_EXE_NAME%.exe" %_STDERR_REDIRECT%
+call "%_GNATMAKE_CMD%" "%_SOURCE_DIR%\%_MAIN_NAME%.adb" -D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%" %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to object directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
@@ -256,18 +256,17 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :run
-set "__EXE_FILE=%_TARGET_DIR%\%_EXE_NAME%.exe"
-if not exist "%__EXE_FILE%" (
-    echo %_ERROR_LABEL% Main executable '%_EXE_NAME%' not found ^(%__EXE_FILE%^) 1>&2
+if not exist "%_EXE_FILE%" (
+    echo %_ERROR_LABEL% Main executable "!_EXE_FILE:%_TARGET_DIR%\=!" not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__EXE_FILE%" %_MAIN_ARGS% 1>&2
-) else if %_VERBOSE%==1 ( echo Execute program "!__EXE_FILE:%_TARGET_DIR%\=!" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_EXE_FILE%" %_MAIN_ARGS% 1>&2
+) else if %_VERBOSE%==1 ( echo Execute program "!_EXE_FILE:%_TARGET_DIR%\=!" 1>&2
 )
-call "%__EXE_FILE%" %_MAIN_ARGS%
+call "%_EXE_FILE%" %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Program execution failed ^("!__EXE_FILE:%_TARGET_DIR%\=!"^) 1>&2
+    echo %_ERROR_LABEL% Program execution failed ^("!_EXE_FILE:%_TARGET_DIR%\=!"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
