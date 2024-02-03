@@ -61,4 +61,4 @@ $(TARGET_DOC): $(SOURCES)
 .PHONY: all build clean doc run
 
 .SUFFIXES:
-.SUFFIXES: .adb .c .o .obj .exe
+.SUFFIXES: .adb .adc .ads .o .obj .exe

@@ -162,7 +162,7 @@ goto args_loop
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
-for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
+for /f "delims=" %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
 set "_EXE_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
 
 if %_MSYS%==1 if not defined _MSYS_GNATMAKE_CMD (
@@ -176,7 +176,7 @@ if not "!_COMMANDS:lint=!"=="%_COMMANDS%" (
         echo %_WARNING_LABEL% GNAT 2019 is required to execute AdaControl 1>&2
         set "_COMMANDS=!_COMMANDS:lint=!"
     ) else (
-        for %%f in ("%_ROOT_DIR%.") do set "__PARENT_DIR=%%~dpf"
+        for /f "delims=" %%f in ("%_ROOT_DIR%.") do set "__PARENT_DIR=%%~dpf"
         for /f "delims=" %%f in ('dir /b /s "!__PARENT_DIR!*.aru"') do set "_ARU_FILE=%%f"
         if not exist "!_ARU_FILE!" (
             echo %_WARNING_LABEL% ARU file not found 1>&2

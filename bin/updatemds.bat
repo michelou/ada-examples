@@ -10,11 +10,11 @@ set _DEBUG=0
 set _EXITCODE=0
 
 @rem files README.md, RESOURCES.md, etc.
-set _LAST_MODIFIED_OLD=michelou/)/December 2023
-set _LAST_MODIFIED_NEW=michelou/)/January 2024
+set _LAST_MODIFIED_OLD=michelou/)/January 2024
+set _LAST_MODIFIED_NEW=michelou/)/February 2024
 
-set _LAST_DOWNLOAD_OLD=(\*December 2023\*)
-set _LAST_DOWNLOAD_NEW=(*January 2024*)
+set _LAST_DOWNLOAD_OLD=(\*January 2024\*)
+set _LAST_DOWNLOAD_NEW=(*February 2024*)
 
 set _EXCLUDE_DIRS=bin docs
 
