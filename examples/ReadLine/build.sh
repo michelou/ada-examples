@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2023 Stéphane Micheloud
+# Copyright (c) 2018-2024 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -64,6 +64,7 @@ args() {
         ## subcommands
         clean)   CLEAN=true ;;
         compile) COMPILE=true ;;
+        doc)     DOC=true ;;
         help)    HELP=true ;;
         lint)    LINT=true ;;
         run)     COMPILE=true && RUN=true ;;
@@ -75,7 +76,7 @@ args() {
         esac
     done
     debug "Options    : TIMER=$TIMER VERBOSE=$VERBOSE"
-    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE HELP=$HELP LINT=$LINT RUN=$RUN TEST=$TEST"
+    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DOC=$DOC HELP=$HELP LINT=$LINT RUN=$RUN TEST=$TEST"
     debug "Variables  : ADACTL_HOME=$ADACTL_HOME"
     debug "Variables  : GIT_HOME=$GIT_HOME"
     debug "Variables  : GNAT_HOME=$GNAT_HOME"
@@ -214,7 +215,7 @@ doc() {
 
     ## https://docs.adacore.com/live/wave/gps/html/gnatdoc-doc/gnatdoc.html
     ## Options: -p=Process private part of packages
-    local gnatdoc_opts="-d -p \"--project=%_ROOT_DIR%build.gpr\" --output=html"
+    local gnatdoc_opts="-d -p \"--project=$(mixed_path $ROOT_DIR)/build.gpr\" --output=html"
 
     if $DEBUG; then
         debug "\"$GNATDOC_CMD\" $gnatdoc_opts"
@@ -336,6 +337,9 @@ if $LINT; then
 fi
 if $COMPILE; then
     compile || cleanup 1
+fi
+if $DOC; then
+    doc || cleanup 1
 fi
 if $RUN; then
     run || cleanup 1

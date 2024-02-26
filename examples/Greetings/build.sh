@@ -64,6 +64,7 @@ args() {
         ## subcommands
         clean)   CLEAN=true ;;
         compile) COMPILE=true ;;
+        doc)     DOC=true ;;
         help)    HELP=true ;;
         lint)    LINT=true ;;
         run)     COMPILE=true && RUN=true ;;
@@ -75,7 +76,7 @@ args() {
         esac
     done
     debug "Options    : TIMER=$TIMER VERBOSE=$VERBOSE"
-    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE HELP=$HELP LINT=$LINT RUN=$RUN TEST=$TEST"
+    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DOC=$DOC HELP=$HELP LINT=$LINT RUN=$RUN TEST=$TEST"
     debug "Variables  : ADACTL_HOME=$ADACTL_HOME"
     debug "Variables  : GIT_HOME=$GIT_HOME"
     debug "Variables  : GNAT_HOME=$GNAT_HOME"
@@ -214,14 +215,14 @@ doc() {
 
     ## https://docs.adacore.com/live/wave/gps/html/gnatdoc-doc/gnatdoc.html
     ## Options: -p=Process private part of packages
-    local gnatdoc_opts="-d -p \"--project=%_ROOT_DIR%build.gpr\" --output=html"
+    local gnatdoc_opts="-d -p \"--project=$(mixed_path $ROOT_DIR)/build.gpr\" --output=html"
 
     if $DEBUG; then
         debug "\"$GNATDOC_CMD\" $gnatdoc_opts"
     elif $VERBOSE; then
         echo "Generate HTML documentation" 1>&2
     fi
-    eval "\*$GNATDOC_CMD\" $gnatdoc_opts"
+    eval "\"$GNATDOC_CMD\" $gnatdoc_opts"
     if [[ $? -ne 0 ]]; then
         error "Failed to generate HTML documentation into directory \"${TARGET_DIR/$ROOT_DIR\//}/html\""
         cleanup 1
@@ -265,6 +266,7 @@ TARGET_OBJ_DIR="$TARGET_DIR/obj"
 CLEAN=false
 COMPILE=false
 DEBUG=false
+DOC=false
 HELP=false
 LINT=false
 MSYS=false
@@ -291,12 +293,14 @@ PSEP=":"
 if $cygwin || $mingw || $msys; then
     CYGPATH_CMD="$(which cygpath 2>/dev/null)"
     TARGET_EXT=".exe"
-	PSEP=";"
+    PSEP=";"
     ADACTL_CMD="$(mixed_path $ADACTL_HOME)/adactl.exe"
+    GNATDOC_CMD="$(mixed_path $GNAT_HOME)/bin/gnatdoc.exe"
     GNATMAKE_CMD="$(mixed_path $GNAT_HOME)/bin/gnatmake.exe"
     MSYS_GNATMAKE_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/gnatmake.exe"
 else
     ADACTL_CMD=adactl
+    GNATDOC=gnatdoc
     GNATMAKE_CMD=gnatmake
     MSYS_GNATMAKE_CMD=gnatmake
 fi
@@ -336,6 +340,9 @@ if $LINT; then
 fi
 if $COMPILE; then
     compile || cleanup 1
+fi
+if $DOC; then
+    doc || cleanup 1
 fi
 if $RUN; then
     run || cleanup 1

@@ -64,6 +64,7 @@ args() {
         ## subcommands
         clean)   CLEAN=true ;;
         compile) COMPILE=true ;;
+        doc)     DOC=true ;;
         help)    HELP=true ;;
         lint)    LINT=true ;;
         run)     COMPILE=true && RUN=true ;;
@@ -75,7 +76,7 @@ args() {
         esac
     done
     debug "Options    : TIMER=$TIMER VERBOSE=$VERBOSE"
-    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE HELP=$HELP LINT=$LINT RUN=$RUN"
+    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DOC=$DOC HELP=$HELP LINT=$LINT RUN=$RUN"
     debug "Variables  : ADACTL_HOME=$ADACTL_HOME"
     debug "Variables  : GIT_HOME=$GIT_HOME"
     debug "Variables  : GNAT_HOME=$GNAT_HOME"
@@ -214,14 +215,14 @@ doc() {
 
     ## https://docs.adacore.com/live/wave/gps/html/gnatdoc-doc/gnatdoc.html
     ## Options: -p=Process private part of packages
-    local gnatdoc_opts="-d -p \"--project=%_ROOT_DIR%build.gpr\" --output=html"
+    local gnatdoc_opts="-d -p \"--project=$(mixed_path $ROOT_DIR)/build.gpr\" --output=html"
 
     if $DEBUG; then
         debug "\"$GNATDOC_CMD\" $gnatdoc_opts"
     elif $VERBOSE; then
         echo "Generate HTML documentation" 1>&2
     fi
-    eval "\*$GNATDOC_CMD\" $gnatdoc_opts"
+    eval "\"$GNATDOC_CMD\" $gnatdoc_opts"
     if [[ $? -ne 0 ]]; then
         error "Failed to generate HTML documentation into directory \"${TARGET_DIR/$ROOT_DIR\//}/html\""
         cleanup 1
@@ -266,6 +267,7 @@ TARGET_OBJ_DIR="$TARGET_DIR/obj"
 CLEAN=false
 COMPILE=false
 DEBUG=false
+DOC=false
 HELP=false
 LINT=false
 MSYS=false
@@ -337,6 +339,9 @@ if $LINT; then
 fi
 if $COMPILE; then
     compile || cleanup 1
+fi
+if $DOC; then
+    doc || cleanup 1
 fi
 if $RUN; then
     run || cleanup 1

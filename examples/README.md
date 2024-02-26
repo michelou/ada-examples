@@ -73,7 +73,21 @@ ARISTOTLE is leaving
 
 ## <span id="hello">`HelloWorld` Example</span> [**&#x25B4;**](#top)
 
-This example contains the source file [`main.adb`](./HelloWorld/src/main/ada/main.adb), the project file [`build.gpr`](./HelloWorld/build.gpr) and the batch file [`build.bat`](./HelloWorld/build.bat).
+Project directory `HelloWorld` is organized as follows :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
+|   <a href="./HelloWorld/build.bat">build.bat</a>
+|   <a href="./HelloWorld/build.gpr">build.gpr</a>
+|   <a href="./HelloWorld/build.sh">build.sh</a>
+|   <a href="./HelloWorld/Makefile">Makefile</a>
+\---src
+    \---main
+        \---ada
+                <a href="./HelloWorld/src/main/ada/main.adb">main.adb</a>
+</pre>
+
+Command [`build.bat`](./HelloWorld/build.bat) generates and runs the executable `target\HelloWorld.exe`.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./HelloWorld/build.bat">build</a> -verbose clean run</b>
@@ -97,7 +111,21 @@ Hello WORLD!
 
 ## <span id="greetings">`Greetings` Example</span> [**&#x25B4;**](#top)
 
-This example contains the source file [`gmain.adb`](./Greetings/src/gmain.adb), the project files [`build.gpr`](./Greetings/build.gpr) and the batch file [`build.bat`](./Greetings/build.bat).
+Project directory `greetings\` is organized as follows : 
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
+|   <a href="./Greetings/build.bat">build.bat</a>
+|   <a href="./Greetings/build.gpr">build.gpr</a>
+|   <a href="./Greetings/build.sh">build.sh</a>
+|   <a href="./Greetings/Makefile">Makefile</a>
+\---src
+        <a href="./Greetings/src/gmain.adb">gmain.adb</a>
+        <a href="./Greetings/src/greetings.adb">greetings.adb</a>
+        <a href="./Greetings/src/greetings.ads">greetings.ads</a>
+</pre>
+
+Command [`build.bat`](./Greetings/build.bat) generates and runs the executable `target\Greetings.exe`. 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./Greetings/build.bat">build</a> -verbose run</b>
