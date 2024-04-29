@@ -1,4 +1,4 @@
-# <span id="top">Ada Resources</span> <span style="size:25%;"><a href="README.md">↩</a></span>
+# <span id="top">Ada Resources</span> <span style="font-size:90%;">[↩](README.md)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
@@ -116,7 +116,7 @@ http://www.dmitry-kazakov.de/reusable_code.htm
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

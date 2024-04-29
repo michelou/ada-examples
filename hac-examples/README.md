@@ -1,4 +1,4 @@
-# <span id="top">HAC Examples</span> <span style="size:25%;"><a href="../README.md">↩</a></span>
+# <span id="top">HAC Examples</span> <span style="font-size:90%;">[↩](../README.md)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
@@ -124,7 +124,7 @@ There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR P
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

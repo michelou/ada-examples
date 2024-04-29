@@ -1,4 +1,4 @@
-# <span id="top">GWindows examples</span> <span style="size:25%;"><a href="../README.md">↩</a></span>
+# <span id="top">GWindows examples</span> <span style="font-size:90%;">[↩](../README.md)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
@@ -131,7 +131,7 @@ gnatlink W:\gwindows-examples\tutorial1\target\obj\tutorial1.ali -o W:\gwindows-
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
