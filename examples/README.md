@@ -19,29 +19,27 @@ We support the following build tools :
 
 ## <span id="dining_philosophers">`DiningPhilosophers` Example</span>
 
-This example contains the source file [`test_dining_philosophers.adb`](./DiningPhilosophers/src/test_dining_philosophers.adb), the project file [`build.gpr`](./DiningPhilosophers/build.gpr) and the batch file [`build.bat`](./DiningPhilosophers/build.bat).
+This example has the following directory structure :
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="./DiningPhilosophers/build.bat">build</a> -debug run</b>
-[build] Options    : _TIMER=0 _VERBOSE=0
-[build] Subcommands:  compile run
-[build] Variables  : "ADACTL_HOME=C:\opt\adactl"
-[build] Variables  : "GIT_HOME=C:\opt\Git"
-[build] Variables  : "GNAT_HOME="C:\opt\GNAT\2021"
-[build] Variables  : "GNAT2019_HOME=C:\opt\GNAT\2019"
-[build] Variables  : _MAIN_NAME=Test_Dining_Philosophers _MAIN_ARGS=
-[build] "C:\opt\GNAT\2021\bin\gnatmake.exe" -we -d \
-   -D "G:\examples\DiningPhilosophers\target\obj" \
-   -o "G:\examples\DiningPhilosophers\target\DiningPhilosophers.exe" \
-   "G:\examples\DiningPhilosophers\src\test_dining_philosophers.adb"
-gcc -c -IG:\examples\DiningPhilosophers\src\ -I- \
-   -o G:\examples\DiningPhilosophers\target\obj\test_dining_philosophers.o \
-   G:\examples\DiningPhilosophers\src\test_dining_philosophers.adb
-completed 1 out of 1 (100%)...
-gnatbind -aOG:\examples\DiningPhilosophers\target\obj \
-   -x G:\examples\DiningPhilosophers\target\obj\test_dining_philosophers.ali
-gnatlink G:\examples\DiningPhilosophers\target\obj\test_dining_philosophers.ali \
-  - o G:\examples\DiningPhilosophers\target\DiningPhilosophers.exe
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
+|   <a href="./DiningPhilosophers/00download.txt">00download.txt</a>
+|   <a href="./DiningPhilosophers/build.bat">build.bat</a>
+|   <a href="./DiningPhilosophers/build.gpr">build.gpr</a>
+|   <a href="./DiningPhilosophers/build.sh">build.sh</a>
+|   <a href="./DiningPhilosophers/Makefile">Makefile</a>
+\---src
+    \---main
+        \---ada
+                <a href="./DiningPhilosophers/src/main/ada/test_dining_philosophers.adb">test_dining_philosophers.adb</a>
+</pre>
+
+Command `build -verbose run` generates and runs executable `target\DiningPhilosophers.exe` :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./DiningPhilosophers/build.bat">build</a> -verbose run</b>
+Compile 1 Ada source file to directory "target\obj"
+Execute program "target\DiningPhilosophers.exe"
 SPINOZA is thinking
 KANT is thinking
 ARISTOTLE is thinking
@@ -50,6 +48,8 @@ ARISTOTLE is hungry
 ARISTOTLE is eating
 ARISTOTLE is leaving
 </pre>
+
+We get the same output with command [`grpbuild`](https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/building_with_gprbuild.html) :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/companion_tools.html#cleaning-up-with-gprclean" rel="external">gprclean</a>& <a href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/building_with_gprbuild.html" rel="external">gprbuild</a>& target\DiningPhilosophers.exe</b>
@@ -73,7 +73,7 @@ ARISTOTLE is leaving
 
 ## <span id="hello">`HelloWorld` Example</span> [**&#x25B4;**](#top)
 
-Project directory `HelloWorld` is organized as follows :
+This example has the following directory structure :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
@@ -111,7 +111,7 @@ Hello WORLD!
 
 ## <span id="greetings">`Greetings` Example</span> [**&#x25B4;**](#top)
 
-Project directory `greetings\` is organized as follows : 
+This example has the following directory structure : 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
@@ -209,14 +209,46 @@ The correct word was grandchildren
 Would you like to play again? y/n: n
 </pre>
 
-## <span id="">`TimingFibonacci` Example</span>
+## <span id="separate_procedure">`SeparateProcedure` Example</span>
 
-This example contains the source file [`main.adb`](./TimingFibonacci/src/main/ada/main.adb), the project file [`build.gpr`](./TimingFibonacci/build.gpr) and the batch file [**`build.bat`**](./TimingFibonacci/build.bat).
+This example has the following directory structure :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
+|   <a href="./SeparateProcedure/00download.txt">00download.txt</a>
+|   <a href="./SeparateProcedure/build.bat">build.bat</a>
+\---src
+    \---main
+        \---ada
+                <a href="./SeparateProcedure/src/main/ada/main.adb">main.adb</a>
+                <a href="./SeparateProcedure/src/main/ada/package_x-sep.adb">package_x-sep.adb</a>
+                package_x.adb</a>
+                package_x.ads</a>
+</pre>
+
+## <span id="timing_fibonacci">`TimingFibonacci` Example</span>
+
+This example has the following directory structure :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
+|   <a href="./TimingFibonacci/00download.txt">00download.txt</a>
+|   <a href="./TimingFibonacci/build.bat">build.bat</a>
+|   <a href="./TimingFibonacci/build.gpr">build.gpr</a>
+|   <a href="./TimingFibonacci/build.sh">build.sh</a>
+|   <a href="./TimingFibonacci/Makefile">Makefile</a>
+\---src
+    \---main
+        \---ada
+                <a href="./TimingFibonacci/src/main/ada/main.adb">main.adb</a>
+</pre>
+
+Command [**`build.bat`**](./TimingFibonacci/build.bat) generates and runs executable `target\TimingFibonacci.exe` : 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./TimingFibonacci/build.baT">build</a> -verbose clean run</b>
 Compile 1 Ada source file to directory "target\obj"
-Execute program "TimingFibonacci.exe"
+Execute program "target\TimingFibonacci.exe"
 Fibonacci number:
 23
 Result:  28657

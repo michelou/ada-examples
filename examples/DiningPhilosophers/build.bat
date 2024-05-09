@@ -39,6 +39,7 @@ set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
 set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 
 set "_SOURCE_DIR=%_ROOT_DIR%src"
+set "_SOURCE_MAIN_DIR=%_SOURCE_DIR%\main\ada"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_TARGET_OBJ_DIR=%_TARGET_DIR%\obj"
 
@@ -69,10 +70,6 @@ goto :eof
 :env_colors
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
-set _RESET=[0m
-set _BOLD=[1m
-set _UNDERSCORE=[4m
-set _INVERSE=[7m
 
 @rem normal foreground colors
 set _NORMAL_FG_BLACK=[30m
@@ -110,6 +107,12 @@ set _STRONG_BG_RED=[101m
 set _STRONG_BG_GREEN=[102m
 set _STRONG_BG_YELLOW=[103m
 set _STRONG_BG_BLUE=[104m
+
+@rem we define _RESET in last position to avoid crazy console output with type command
+set _BOLD=[1m
+set _UNDERSCORE=[4m
+set _INVERSE=[7m
+set _RESET=[0m
 goto :eof
 
 @rem input parameter: %*
@@ -157,11 +160,13 @@ goto args_loop
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
+set _MAIN_NAME=Test_Dining_Philosophers
+set _MAIN_ARGS=
+
+set "_SOURCE_MAIN_FILE=%_SOURCE_MAIN_DIR%\%_MAIN_NAME%.adb"
 for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
 set "_EXE_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
 
-set _MAIN_NAME=Test_Dining_Philosophers
-set _MAIN_ARGS=
 if not "!_COMMANDS:lint=!"=="%_COMMANDS%" (
     if not exist "%GNAT2019_HOME%\bin\gnat.exe" (
         echo %_WARNING_LABEL% GNAT 2019 is required to execute AdaControl 1>&2
@@ -271,10 +276,8 @@ goto :eof
 :compile
 if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%" 1>NUL
 
-set __SOURCE_FILES=
 set __N=0
 for /f "delims=" %%f in ('dir /s /b "%_SOURCE_DIR%\*.adb" "%_SOURCE_DIR%\*.ads" 2^>NUL') do (
-    set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
     set /a __N+=1
 )
 if %__N%==0 ( 
@@ -284,12 +287,12 @@ if %__N%==0 (
 ) else ( set __N_FILES=%__N% Ada source files
 )
 @rem -we : Treat all warnings as errors
-set __GNATMAKE_OPTS=-we -d -D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%"
+set __GNATMAKE_OPTS=-we -d -I"%_SOURCE_MAIN_DIR%" -D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATMAKE_CMD%" %__GNATMAKE_OPTS% "%_SOURCE_MAIN_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
 )
-call "%_GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% %_STDERR_REDIRECT%
+call "%_GNATMAKE_CMD%" %__GNATMAKE_OPTS% "%_SOURCE_MAIN_FILE%" %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
@@ -321,12 +324,12 @@ if not exist "%_EXE_FILE%" (
     set _EXITCODE=1
     goto :eof
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__EXE_FILE%" %_MAIN_ARGS% 1>&2
-) else if %_VERBOSE%==1 ( echo Execute program "!__EXE_FILE:%_TARGET_DIR%\=!" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_EXE_FILE%" %_MAIN_ARGS% 1>&2
+) else if %_VERBOSE%==1 ( echo Execute program "!_EXE_FILE:%_ROOT_DIR%=!" 1>&2
 )
 call "%_EXE_FILE%" %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to execute program "!__EXE_FILE:%_TARGET_DIR%\=!" 1>&2
+    echo %_ERROR_LABEL% Failed to execute program "!_EXE_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )

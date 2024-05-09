@@ -7,7 +7,7 @@
 
 include ../Makefile.inc
 
-PROJ_NAME = PrimeAda
+PROJ_NAME = TimingFibonacci
 
 SOURCE_DIR      = src
 SOURCE_MAIN_DIR = $(SOURCE_DIR)/main/ada
@@ -17,9 +17,8 @@ TARGET_OBJ_DIR  = $(TARGET_DIR)/obj
 ##############################################################################
 ## main rules
 
-SOURCE_MAIN_FILE = $(SOURCE_MAIN_DIR)/Main.adb
-
-TARGET  = $(TARGET_DIR)/$(PROJ_NAME)$(TARGET_EXT)
+SOURCE_MAIN_FILE = $(SOURCE_MAIN_DIR)/main.adb
+TARGET = $(TARGET_DIR)/$(PROJ_NAME)$(TARGET_EXT)
 
 all: build run
 

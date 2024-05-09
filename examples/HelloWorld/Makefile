@@ -7,25 +7,27 @@
 
 include ../Makefile.inc
 
-PROJ_NAME      = HelloWorld
+PROJ_NAME = HelloWorld
 
-SOURCE_DIR     = src
-TARGET_DIR     = target
-TARGET_OBJ_DIR = $(TARGET_DIR)/obj
+SOURCE_DIR      = src
+SOURCE_MAIN_DIR = $(SOURCE_DIR)/main/ada
+TARGET_DIR      = target
+TARGET_OBJ_DIR  = $(TARGET_DIR)/obj
 
 ##############################################################################
 ## main rules
 
-SOURCES = $(wildcard $(SOURCE_DIR)/main/ada/*.adb)
+SOURCE_MAIN_FILE = $(SOURCE_MAIN_DIR)/main.adb
+
 TARGET  = $(TARGET_DIR)/$(PROJ_NAME)$(TARGET_EXT)
 
 all: build run
 
 build: $(TARGET)
 
-$(TARGET): $(SOURCES)
+$(TARGET): $(SOURCE_MAIN_FILE)
 	[[ -d "$(TARGET_OBJ_DIR)" ]] || "$(MKDIR)" -p "$(TARGET_OBJ_DIR)"
-	"$(GNATMAKE)" -d -gnat2022 -we -D "$(TARGET_OBJ_DIR)" -o "$(TARGET)" $^
+	"$(GNATMAKE)" -d -gnat2022 -we -I"$(SOURCE_MAIN_DIR)" -D "$(TARGET_OBJ_DIR)" -o "$(TARGET)" $^
 
 clean:
 	"$(RM)" -rf "$(TARGET_DIR)"

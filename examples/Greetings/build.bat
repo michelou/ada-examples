@@ -39,6 +39,7 @@ set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
 set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 
 set "_SOURCE_DIR=%_ROOT_DIR%src"
+set "_SOURCE_MAIN_DIR=%_SOURCE_DIR%\main\ada"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_TARGET_OBJ_DIR=%_TARGET_DIR%\obj"
 
@@ -164,6 +165,10 @@ goto args_loop
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
+set _MAIN_NAME=gmain
+set _MAIN_ARGS=
+
+set "_SOURCE_MAIN_FILES=%_SOURCE_MAIN_DIR%\%_MAIN_NAME%.adb"
 for /f "delims=" %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
 set "_EXE_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
 
@@ -171,8 +176,6 @@ if %_MSYS%==1 if not defined _MSYS_GNATMAKE_CMD (
     echo %_WARNING_LABEL% MSYS GNAT Make not found; use standard GNAT Make instead 1>&2
     set _MSYS=0
 )
-set _MAIN_NAME=gmain
-set _MAIN_ARGS=
 if not "!_COMMANDS:lint=!"=="%_COMMANDS%" (
     if not exist "%GNAT2019_HOME%\bin\gnat.exe" (
         echo %_WARNING_LABEL% GNAT 2019 is required to execute AdaControl 1>&2
@@ -297,10 +300,8 @@ if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%" 1>NUL
 call :action_required "%_EXE_FILE%" "%_SOURCE_DIR%\*.ada" "%_SOURCE_DIR%\*.adb" "%_SOURCE_DIR%\*.ads"
 if %_ACTION_REQUIRED%==0 goto :eof
 
-set __SOURCE_FILES=
 set __N=0
 for /f "delims=" %%f in ('dir /b /s "%_SOURCE_DIR%\*.ad?" 2^>NUL') do (
-    set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
     set /a __N+=1
 )
 if %__N%==0 (
@@ -312,15 +313,14 @@ if %__N%==0 (
 if %_MSYS%==1 ( set "__GNATMAKE_CMD=%_MSYS_GNATMAKE_CMD%"
 ) else ( set "__GNATMAKE_CMD=%_GNATMAKE_CMD%"
 )
-set "__SOURCE_FILES=%_SOURCE_DIR%\%_MAIN_NAME%.adb"
 @rem -we : Treat all warnings as errors
 set __GNATMAKE_OPTS=-gnat2022 -we -D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%"
 if %_DEBUG%==1 set __GNATMAKE_OPTS=-d %__GNATMAKE_OPTS%
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__GNATMAKE_CMD%" %__GNATMAKE_OPTS% "%_SOURCE_MAIN_FILES%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% into directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
 )
-call "%__GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% %_STDERR_REDIRECT%
+call "%__GNATMAKE_CMD%" %__GNATMAKE_OPTS% "%_SOURCE_MAIN_FILES%" %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% into directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1

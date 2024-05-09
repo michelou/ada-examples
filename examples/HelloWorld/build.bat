@@ -74,10 +74,6 @@ goto :eof
 :env_colors
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
-set _RESET=[0m
-set _BOLD=[1m
-set _UNDERSCORE=[4m
-set _INVERSE=[7m
 
 @rem normal foreground colors
 set _NORMAL_FG_BLACK=[30m
@@ -115,6 +111,12 @@ set _STRONG_BG_RED=[101m
 set _STRONG_BG_GREEN=[102m
 set _STRONG_BG_YELLOW=[103m
 set _STRONG_BG_BLUE=[104m
+
+@rem we defined _RESET in last position to avoid crazy console output with type command
+set _BOLD=[1m
+set _UNDERSCORE=[4m
+set _INVERSE=[7m
+set _RESET=[0m
 goto :eof
 
 @rem input parameter: %*
@@ -164,6 +166,10 @@ goto args_loop
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
+set _MAIN_NAME=main
+set _MAIN_ARGS=
+
+set "_SOURCE_MAIN_FILE=%_SOURCE_MAIN_DIR%\%_MAIN_NAME%.adb"
 for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
 set "_EXE_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
 
@@ -171,8 +177,6 @@ if %_MSYS%==1 if not defined _MSYS_GNATMAKE_CMD (
     echo %_WARNING_LABEL% MSYS GNAT Make not found; use standard GNAT Make instead 1>&2
     set _MSYS=0
 )
-set _MAIN_NAME=main
-set _MAIN_ARGS=
 if not "!_COMMANDS:lint=!"=="%_COMMANDS%" (
     if not exist "%GNAT2019_HOME%\bin\gnat.exe" (
         echo %_WARNING_LABEL% GNAT 2019 is required to execute AdaControl 1>&2
@@ -292,10 +296,8 @@ goto :eof
 :compile
 if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%" 1>NUL
 
-set __SOURCE_FILES=
 set __N=0
 for /f "delims=" %%f in ('dir /b /s "%_SOURCE_MAIN_DIR%\*.ad?" 2^>NUL') do (
-    set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
     set /a __N+=1
 )
 if %__N%==0 (
@@ -307,15 +309,14 @@ if %__N%==0 (
 if %_MSYS%==1 ( set "__GNATMAKE_CMD=%_MSYS_GNATMAKE_CMD%"
 ) else ( set "__GNATMAKE_CMD=%_GNATMAKE_CMD%"
 )
-set "__SOURCE_FILES=%_SOURCE_MAIN_DIR%\%_MAIN_NAME%.adb"
 @rem -we : Treat all warnings as errors
-set __GNATMAKE_OPTS=-gnat2022 -we -D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%"
+set __GNATMAKE_OPTS=-gnat2022 -we -I"%_SOURCE_MAIN_DIR%" -D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%"
 if %_DEBUG%==1 set __GNATMAKE_OPTS=-d %__GNATMAKE_OPTS%
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__GNATMAKE_CMD%" %__GNATMAKE_OPTS% "%_SOURCE_MAIN_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
 )
-call "%__GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% %_STDERR_REDIRECT%
+call "%__GNATMAKE_CMD%" %__GNATMAKE_OPTS% "%_SOURCE_MAIN_FILE%" %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1

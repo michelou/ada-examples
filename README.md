@@ -17,7 +17,7 @@
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.44][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.45][git_releases] ([*release notes*][git_relnotes])
 - [GNAT CE 2021][gnat2021_downloads] ([*announcement*][gnat2021_announcement])
 
 Optionally one may also install the following software:
@@ -97,7 +97,7 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    adactl 1.22r16c, alr 2.0.1, gcc 13.2.0, gnat Community 2021, make 4.4.1,
-   git 2.44.0.windows.1, diff 3.10, bash 5.2.26(1)-release
+   git 2.45.0.windows.1, diff 3.10, bash 5.2.26(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> diff git make</b>
 C:\opt\Git\usr\bin\diff.exe
@@ -190,7 +190,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://www.adacore.com/download/more">gtkada-2021-x86_64-windows64-bin.exe</a>                <i>( 59 MB)</i>
 <a href="https://sourceforge.net/projects/gnavi/files/">GWindows Archive 29-May-2023.zip</a>                    <i>(  4 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240113.exe</a>                           <i>( 83 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.44.0-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.45.0-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
 </pre>
 </dd></dl>
 
@@ -236,7 +236,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [flix_examples]: https://github.com/michelou/flix-examples
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.44.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.45.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [gnat2019_downloads]: https://www.adacore.com/download/more
 [gnat2021_announcement]: https://blog.adacore.com/gnat-community-2021-is-here

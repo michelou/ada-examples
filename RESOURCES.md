@@ -91,6 +91,7 @@ http://www.dmitry-kazakov.de/reusable_code.htm
 - [COSC 3P95: Embedded Software](https://www.cosc.brocku.ca/Offerings/3P95/), Brock University, Fall 2013.
 - [L3-PASD : Programmation avancée et structures dynamiques][course_lacrampe] by Jean-Jacques Lacrampe.
 - [LEARN.ADACORE.COM](https://learn.adacore.com/) (including free PDF books).
+- [Ada Essentials: Overview, Examples and Glossary](https://www.cs.uni.edu/~mccormic/AdaEssentials/) by Bard S. Crawford, 2000.
 
 ## <span id="tools">Tools and Frameworks</span> [**&#x25B4;**](#top)
 
@@ -107,6 +108,7 @@ http://www.dmitry-kazakov.de/reusable_code.htm
 
 ## <span id="others">Other resources</span>
 
+- [Overview of Ada 2022](http://www.ada-auth.org/standards/22over/html/Ov22-TOC.html) by Jeff Cousins.
 - [AdaControl User Guide](https://www.adalog.fr/compo/adacontrol_ug.html).
 - [Awesome Ada](https://github.com/ohenley/awesome-ada) - a curated list of awesome resources related to Ada.
 - [Free Tools and Libraries](https://www.adaic.org/ada-resources/tools-libraries/)

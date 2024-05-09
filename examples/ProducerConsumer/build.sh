@@ -75,7 +75,7 @@ args() {
         esac
     done
     debug "Options    : TIMER=$TIMER VERBOSE=$VERBOSE"
-    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE HELP=$HELP LINT=$LINT RUN=$RUN"
+    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE HELP=$HELP LINT=$LINT RUN=$RUN TEST=$TEST"
     debug "Variables  : ADACTL_HOME=$ADACTL_HOME"
     debug "Variables  : GIT_HOME=$GIT_HOME"
     debug "Variables  : GNAT_HOME=$GNAT_HOME"
@@ -166,7 +166,7 @@ compile() {
     [[ -d "$TARGET_OBJ_DIR" ]] || mkdir -p "$TARGET_OBJ_DIR"
 
     local n=0
-    for f in $(find "$SOURCE_MAIN_DIR/" -type f -name "*.ad?" 2>/dev/null); do
+    for f in $(find "$SOURCE_DIR/" -type f -name "*.ad?" 2>/dev/null); do
         n=$((n + 1))
     done
     if [[ $n -eq 0 ]]; then
@@ -179,17 +179,16 @@ compile() {
     local gnatmake_cmd="$GNATMAKE_CMD"
     $MSYS && gnatmake_cmd="$MSYS_GNATMAKE_CMD"
  
-    source_files="$SOURCE_MAIN_DIR/$MAIN_NAME.adb"
     ## -we : Treat all warnings as errors
-    local gnatmake_opts="-gnat2022 -we -I\"$SOURCE_MAIN_DIR\" -D \"$TARGET_OBJ_DIR\" -o \"$TARGET_FILE\""
+    local gnatmake_opts="-gnat2022 -we -D \"$TARGET_OBJ_DIR\" -o \"$TARGET_FILE\""
     $DEBUG && gnatmake_opts="-d $gnatmake_opts"
 
     if $DEBUG; then
-        debug "\"$gnatmake_cmd\" $gnatmake_opts $source_files"
+        debug "\"$gnatmake_cmd\" $gnatmake_opts \"$SOURCE_MAIN_FILE\""
     elif $VERBOSE; then
         echo "Compile $n_files to directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
-    eval "\"$gnatmake_cmd\" $gnatmake_opts $source_files"
+    eval "\"$gnatmake_cmd\" $gnatmake_opts \"$SOURCE_MAIN_FILE\""
     if [[ $? -ne 0 ]]; then
         error "Failed to compile $n_files to directory \"${TARGET_DIR/$ROOT_DIR\//}\""
         cleanup 1
@@ -300,13 +299,13 @@ else
     MSYS_GNATMAKE_CMD=gnatmake
 fi
 
-PROJECT_NAME="$(basename $ROOT_DIR)"
-TARGET_FILE="$TARGET_DIR/$PROJECT_NAME$TARGET_EXT"
-
-MAIN_NAME=main
+MAIN_NAME=Main
 MAIN_ARGS=
 
 SOURCE_MAIN_FILE="$SOURCE_MAIN_DIR/$MAIN_NAME.adb"
+PROJECT_NAME="$(basename $ROOT_DIR)"
+TARGET_FILE="$TARGET_DIR/$PROJECT_NAME$TARGET_EXT"
+
 
 if $LINT && [[ ! -f "$GNAT2019_HOME/bin/gnat.exe" ]]; then
     warning "GNAT 2019 is required to execute AdaControl" 1>&2

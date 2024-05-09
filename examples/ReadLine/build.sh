@@ -166,10 +166,8 @@ lint() {
 compile() {
     [[ -d "$TARGET_OBJ_DIR" ]] || mkdir -p "$TARGET_OBJ_DIR"
 
-    local source_files=
     local n=0
     for f in $(find "$SOURCE_DIR/" -type f -name "*.ad?" 2>/dev/null); do
-        source_files="$source_files \"$f\""
         n=$((n + 1))
     done
     if [[ $n -eq 0 ]]; then
@@ -186,13 +184,12 @@ compile() {
     local gnatmake_opts="-gnat2022 -we -D \"$TARGET_OBJ_DIR\" -o \"$TARGET_FILE\""
     $DEBUG && gnatmake_opts="-d $gnatmake_opts"
 
-    local main_file="$SOURCE_DIR/Main.adb"
     if $DEBUG; then
-        debug "\"$gnatmake_cmd\" $gnatmake_opts $main_file"
+        debug "\"$gnatmake_cmd\" $gnatmake_opts \"$SOURCE_MAIN_FILE\""
     elif $VERBOSE; then
         echo "Compile $n_files to directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
-    eval "\"$gnatmake_cmd\" $gnatmake_opts $main_file"
+    eval "\"$gnatmake_cmd\" $gnatmake_opts \"$SOURCE_MAIN_FILE\""
     if [[ $? -ne 0 ]]; then
         error "Failed to compile $n_files to directory \"${TARGET_DIR/$ROOT_DIR\//}\""
         cleanup 1
@@ -222,7 +219,7 @@ doc() {
     elif $VERBOSE; then
         echo "Generate HTML documentation" 1>&2
     fi
-    eval "\*$GNATDOC_CMD\" $gnatdoc_opts"
+    eval "\"$GNATDOC_CMD\" $gnatdoc_opts"
     if [[ $? -ne 0 ]]; then
         error "Failed to generate HTML documentation into directory \"${TARGET_DIR/$ROOT_DIR\//}/html\""
         cleanup 1
@@ -260,12 +257,14 @@ EXITCODE=0
 ROOT_DIR="$(getHome)"
 
 SOURCE_DIR="$ROOT_DIR/src"
+SOURCE_MAIN_DIR="$SOURCE_DIR/main/ada"
 TARGET_DIR="$ROOT_DIR/target"
 TARGET_OBJ_DIR="$TARGET_DIR/obj"
 
 CLEAN=false
 COMPILE=false
 DEBUG=false
+DOC=false
 HELP=false
 LINT=false
 MSYS=false
@@ -292,21 +291,24 @@ PSEP=":"
 if $cygwin || $mingw || $msys; then
     CYGPATH_CMD="$(which cygpath 2>/dev/null)"
     TARGET_EXT=".exe"
-	PSEP=";"
+    PSEP=";"
     ADACTL_CMD="$(mixed_path $ADACTL_HOME)/adactl.exe"
+    GNATDOC_CMD="$(mixed_path $GNAT_HOME)/bin/gnatdoc.exe"
     GNATMAKE_CMD="$(mixed_path $GNAT_HOME)/bin/gnatmake.exe"
     MSYS_GNATMAKE_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/gnatmake.exe"
 else
     ADACTL_CMD=adactl
+    GNATDOC=gnatdoc
     GNATMAKE_CMD=gnatmake
     MSYS_GNATMAKE_CMD=gnatmake
 fi
 
-PROJECT_NAME="$(basename $ROOT_DIR)"
-TARGET_FILE="$TARGET_DIR/$PROJECT_NAME$TARGET_EXT"
-
 MAIN_NAME=Main
 MAIN_ARGS=
+
+SOURCE_MAIN_FILE="$SOURCE_MAIN_DIR/$MAIN_NAME.adb"
+PROJECT_NAME="$(basename $ROOT_DIR)"
+TARGET_FILE="$TARGET_DIR/$PROJECT_NAME$TARGET_EXT"
 
 if $LINT && [[ ! -f "$GNAT2019_HOME/bin/gnat.exe" ]]; then
     warning "GNAT 2019 is required to execute AdaControl" 1>&2
