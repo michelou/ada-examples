@@ -24,6 +24,7 @@ Optionally one may also install the following software:
 
 - [AdaControl 1.22][adactl_downloads]
 - [Alire 2.0][alire_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*changes*][alire_changes])
+- [ConEmu][conemu_downloads] ([*release notes*][conemu_relnotes])
 - [GNAT CE 2019][gnat2019_downloads] <sup id="anchor_02">[2](#footnote_02)</sup>
 - [GWindows 2023][gwindows_downloads] ([*release notes*][gwindows_relnotes])
 - [MSYS2 2024][msys2_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][msys2_changelog])
@@ -35,11 +36,13 @@ For instance our development environment looks as follows (*May 2024*) <sup id="
 
 <pre style="font-size:80%;">
 C:\opt\adactl\       <i>( 79 MB)</i>
+C:\opt\ConEmu\       <i>( 26 MB)</i>
 C:\opt\Git\          <i>(367 MB)</i>
 C:\opt\GNAT\2019\    <i>(1.1 GB)</i>
 C:\opt\GNAT\2021\    <i>(2.8 GB)</i>
 C:\opt\GWindows\     <i>(  4 MB)</i>
 C:\opt\msys64\       <i>(2.8 GB)</i>
+C:\opt\VSCode\       <i>(341 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_releases] provides a BASH emulation used to run [**`git.exe`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -75,7 +78,7 @@ where
 - file [**`README.md`**](README.md) is the [Markdown][github_markdown] document for this page.
 - file [**`RESOURCES.md`**](RESOURCES.md) gathers [Ada] related informations.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
-- file [**`SETUP.md`**](SETUP.md) gathers environment setup informations.
+- file [**`SETUP.md`**](SETUP.md) gathers information about setting up our environment.
 
 
 We also define a virtual drive &ndash; e.g. drive **`W:`** &ndash; in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"][windows_limitation] from Microsoft Support).
@@ -97,7 +100,7 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    adactl 1.22r16c, alr 2.0.1, gcc 13.2.0, gnat Community 2021, make 4.4.1,
-   git 2.45.0.windows.1, diff 3.10, bash 5.2.26(1)-release
+   git 2.45.0, diff 3.10, bash 5.2.26(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> diff git make</b>
 C:\opt\Git\usr\bin\diff.exe
@@ -111,10 +114,10 @@ C:\opt\msys64\usr\bin\make.exe
 
 <dl><dd>
  <p>
- <a href="https://alire.ada.dev/docs/" rel="external">Alire</a> is a source-based package manager for the Ada and SPARK programming languages.
+ <a href="https://alire.ada.dev/docs/" rel="external">Alire</a> is a source-based package manager for the Ada and <a href="https://learn.adacore.com/courses/intro-to-spark/chapters/01_Overview.html#what-is-it" rel="external">SPARK</a> programming languages.
  </p>
  <p >
- We install <a href="https://alire.ada.dev/docs/" rel="external">Alire</a> from the Zip file <a href="https://github.com/alire-project/alire/releases" rel="external">alr-2.0.0-bin-x86_64-windows.zip</a>; the archive contains the two files <code>bin\alr.exe</code> and <code>LICENSE.txt</code> (GNU license). We simply copy them to directory <code>%GNAT_HOME%\bin\</code> (in our case <code>GNAT_HOME=C:\opt\GNAT\2021\</code>).
+ We install <a href="https://alire.ada.dev/docs/" rel="external">Alire</a> from the Zip file <a href="https://github.com/alire-project/alire/releases" rel="external">alr-2.0.1-bin-x86_64-windows.zip</a>; the archive contains the two files <code>bin\alr.exe</code> and <code>LICENSE.txt</code> (GNU license). We simply copy them to directory <code>%GNAT_HOME%\bin\</code> (in our case <code>GNAT_HOME=C:\opt\GNAT\2021\</code>).
 </dd></dl>
 
 <span id="footnote_02">[2]</span> ***GNAT 2019*** [↩](#anchor_02)
@@ -185,12 +188,14 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <pre style="font-size:80%;">
 <a href="https://www.adalog.fr/en/adacontrol.html" rel="external">adactl-1.22r16c-exe_windows_ce2019.zip</a>              <i>( 26 MB)</i>
 <a href="https://github.com/alire-project/alire/releases/" rel="external">alr-2.0.1-bin-x86_64-windows.zip</a>                    <i>( 11 MB)</i>
+<a href="https://github.com/Maximus5/ConEmu/releases/tag/v23.07.24" rel="external">ConEmuPack.230724.7z</a>                                <i>(  5 MB)</i>
 <a href="https://www.adacore.com/download/more">gnat-community-2019-20190517-x86_64-windows-bin.exe</a> <i>(380 MB)</i>
 <a href="https://www.adacore.com/download" rel="external">gnat-2021-20210519-x86_64-windows64-bin.exe</a>         <i>(562 MB)</i>
 <a href="https://www.adacore.com/download/more">gtkada-2021-x86_64-windows64-bin.exe</a>                <i>( 59 MB)</i>
 <a href="https://sourceforge.net/projects/gnavi/files/">GWindows Archive 29-May-2023.zip</a>                    <i>(  4 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240113.exe</a>                           <i>( 83 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.45.0-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
+<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.89.1.zip</a>                         <i>(131 MB)</i>
 </pre>
 </dd></dl>
 
@@ -228,6 +233,8 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [alire_changes]: https://github.com/alire-project/alire/blob/master/doc/user-changes.md#release-20-dev
 [alire_downloads]: https://github.com/alire-project/alire/releases/
 [cobol_examples]: https://github.com/michelou/cobol-examples
+[conemu_downloads]: https://github.com/Maximus5/ConEmu/releases
+[conemu_relnotes]: https://conemu.github.io/blog/2023/07/24/Build-230724.html
 [cpp_examples]: https://github.com/michelou/cpp-examples
 [dart_examples]: https://github.com/michelou/dart-examples
 [deno_examples]: https://github.com/michelou/deno-examples

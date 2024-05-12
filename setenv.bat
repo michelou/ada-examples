@@ -118,8 +118,8 @@ set _STRONG_BG_BLUE=[104m
 
 @rem we define _RESET in last position to avoid crazy console output with type command
 set _BOLD=[1m
-set _INVERSE=[7m
 set _UNDERSCORE=[4m
+set _INVERSE=[7m
 set _RESET=[0m
 goto :eof
 
@@ -268,7 +268,7 @@ if defined __ADACTK_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\adactl\" ( set "_ADACTL_HOME=!__PATH!\adactl"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\adactl*" 2^>NUL') do set "_ADACTL_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\adactl*" 2^>NUL') do set "_ADACTL_HOME=!__PATH!\%%f"
         if not defined _ADACTL_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\adactl-*" 2^>NUL') do set "_ADACTL_HOME=!__PATH!\%%f"
@@ -303,7 +303,7 @@ if defined _GNAT_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable GNAT_HOME 1>&2
 ) else (
     set __PATH=C:\opt\GNAT
-    for /f %%f in ('dir /ad /b "!__PATH!\20*" 2^>NUL') do set "_GNAT_HOME=!__PATH!\%%f"
+    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\20*" 2^>NUL') do set "_GNAT_HOME=!__PATH!\%%f"
     if not defined _GNAT_HOME (
         set "__PATH=%ProgramFiles%\GNAT"
         for /f "delims=" %%f in ('dir /ad /b "!__PATH!\20*" 2^>NUL') do set "_GNAT_HOME=!__PATH!\%%f"
@@ -337,7 +337,7 @@ if defined __GNAT_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable GNAT2019_HOME 1>&2
 ) else (
     set __PATH=C:\opt\GNAT
-    for /f %%f in ('dir /ad /b "!__PATH!\%__VERSION%*" 2^>NUL') do set "_GNAT2019_HOME=!__PATH!\%%f"
+    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\%__VERSION%*" 2^>NUL') do set "_GNAT2019_HOME=!__PATH!\%%f"
     if not defined _GNAT2019_HOME (
         set "__PATH=%ProgramFiles%\GNAT"
         for /f "delims=" %%f in ('dir /ad /b "!__PATH!\%__VERSION%*" 2^>NUL') do set "_GNAT2019_HOME=!__PATH!\%%f"
@@ -377,7 +377,7 @@ if defined __GIT_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\Git\" ( set "_GIT_HOME=!__PATH!\Git"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
         if not defined _GIT_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
@@ -405,7 +405,7 @@ if defined GWINDOWS_HOME (
     set __PATH=C:\opt
     if exist "!__PATH!\GWindows\" ( set "_GWINDOWS_HOME=!__PATH!\GWindows"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\GWindows-*" 2^>NUL') do set "_GWINDOWS_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\GWindows-*" 2^>NUL') do set "_GWINDOWS_HOME=!__PATH!\%%f"
         if not defined _GWINDOWS_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\GWindows-*" 2^>NUL') do set "_GWINDOWS_HOME=!__PATH!\%%f"
@@ -444,7 +444,7 @@ if defined __MAKE_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MSYS_HOME 1>&2
 ) else (
     set __PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!__PATH!\msys*" 2^>NUL') do set "_MSYS_HOME=!__PATH!\%%f"
+    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\msys*" 2^>NUL') do set "_MSYS_HOME=!__PATH!\%%f"
     if not defined _MSYS_HOME (
         set "__PATH=ProgramFiles%"
         for /f "delims=" %%f in ('dir /ad /b "!__PATH!\msys*" 2^>NUL') do set "_MSYS_HOME=!__PATH!\%%f"
@@ -478,7 +478,7 @@ if defined __CODE_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\VSCode\" ( set "_VSCODE_HOME=!__PATH!\VSCode"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
         if not defined _VSCODE_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
@@ -528,7 +528,9 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%GIT_HOME%\bin:git.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,*" %%i in ('"%GIT_HOME%\bin\git.exe" --version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% git %%k,"
+    for /f "tokens=1,2,*" %%i in ('"%GIT_HOME%\bin\git.exe" --version') do (
+        for /f "delims=. tokens=1,2,3,*" %%a in ("%%k") do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% git %%a.%%b.%%c,"
+    )
     set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\bin:git.exe"
 )
 where /q "%GIT_HOME%\usr\bin:diff.exe"
