@@ -4,14 +4,13 @@
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:25%;"><a href="https://www.adacore.com/" rel="external"><img src="docs/images/adamascot.png" width="100" alt="Ada project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://www.adacore.com/" rel="external" title="Ada">Ada</a> code examples coming from various websites and books.<br/>
-  It also includes several build scripts (<a href="https://cloudblogs.microsoft.com/opensource/2023/02/21/introducing-bash-for-beginners/l" rel="external">bash scripts</a>, <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>) for experimenting with <a href="https://www.adacore.com/" rel="external">Ada</a> on a Windows machine.
-  </td>
+  It also includes several build scripts (<a href="https://cloudblogs.microsoft.com/opensource/2023/02/21/introducing-bash-for-beginners/l" rel="external">bash scripts</a>, <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>) for experimenting with <a href="https://www.adacore.com/" rel="external">Ada</a> on a Windows machine.</td>
   </tr>
 </table>
 
-> **&#9755;** Read the document <a href="https://www.adaic.org/advantages/ada-comp-chart/" rel="external">"Ada Comparison Chart"</a> for an overview of evolution of the major features of the Ada programming language.
-
 [Akka][akka_examples], [C++][cpp_examples], [COBOL][cobol_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Erlang][erlang_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Modula-2][m2_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other topics we are continuously monitoring.
+
+> **&#9755;** Read the document <a href="https://www.adaic.org/advantages/ada-comp-chart/" rel="external">"Ada Comparison Chart"</a> for an overview of evolution of the major features of the Ada programming language.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -33,7 +32,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][linux_opt] directory on Unix).
 
-For instance our development environment looks as follows (*May 2024*) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (*June 2024*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\adactl\       <i>( 79 MB)</i>
@@ -223,7 +222,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

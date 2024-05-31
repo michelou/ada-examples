@@ -1,4 +1,4 @@
-# <span id="top">HAC Examples</span> <span style="font-size:90%;">[↩](../README.md)</span>
+# <span id="top">HAC Examples</span> <span style="font-size:90%;">[↩](../README.md#top)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
@@ -60,9 +60,23 @@ Ackermann function
      5    13    29    61   125   253   509
 </pre>
 
-## <span id="binomials">`Binomials` Example</span>
+## <span id="binomials">`Binomials` Example</span> [**&#x25B4;**](#top)
 
-This code example consists of source file [`binomials.adb`](./Binomials/src/main/ada/binomials.adb).
+Example `Binomials`has the following directory structure :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+|   <a href="./Binomials/build.bat">build.bat</a>
+|   <a href="./Binomials/build.gpr">build.gpr</a>
+|   <a href="./Binomials/build.sh">build.sh</a>
+|   <a href="./Binomials/Makefile">Makefile</a>
+\---src
+    \---main
+        \---ada
+                <a href="./Binomials/src/main/ada/binomials.adb">binomials.adb</a>
+</pre>
+
+Command [`build -verbose run`](./Binomials/build.bat) generates and executes the program `target\Binomials.exe` :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./Binomials/build.bat">build</a> -verbose run</b>
@@ -124,7 +138,7 @@ There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR P
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
