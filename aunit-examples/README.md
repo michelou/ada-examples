@@ -1,11 +1,10 @@
-# <span id="top">AUnit examples</span> <span style="size:25%;"><a href="../README.md">↩</a></span>
+# <span id="top">AUnit examples</span> <span style="font-size:90%;">[↩](../README.md#top)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:100px;"><a href="https://www.adacore.com/" rel="external"><img style="border:0;" src="../docs/images/adamascot.png" width="100" alt="Ada project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>aunit-examples\</code></strong> contains <a href="https://www.adacore.com/" rel="external">Ada</a> code examples from the GitHub project <a href="https://github.com/AdaCore/aunit" rel="external"><code>AdaCore/aunit</code></a>.
-  </td>
+    Directory <strong><code>aunit-examples\</code></strong> contains <a href="https://www.adacore.com/" rel="external">Ada</a> code examples from the GitHub project <a href="https://github.com/AdaCore/aunit" rel="external"><code>AdaCore/aunit</code></a>.</td>
   </tr>
 </table>
 
@@ -14,6 +13,26 @@ We made the following changes to the original [`AdaCore/aunit`][adacore_aunit] c
 - We require the two environment variables `GNAT_HOME` and `MSYS_HOME` to be defined when working in the MSYS2 and Windows environments (behavior is unchanged under Unix).
 
 ## <span id="calculator">`calculator` Example</span>
+
+This example has the following directory structure :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="">tree</a> /a /f . | <a href="">findstr</a> /v /b [A-Z]</b>
+|   <a href="./calculator/harness.gpr">harness.gpr</a>
+|   <a href="./calculator/Makefile">Makefile</a>
++---tested_lib
+|   |   <a href="./calculator/tested_lib/testlib.gpr">testlib.gpr</a>
+|   +---lib
+|   \---src
+|           <a href="./calculator/tested_lib/src/math.adb">math.adb</a>
+|           <a href="./calculator/tested_lib/src/math.ads">math.ads</a>
+\---tests
+        <a href="./calculator/tests/math-test.adb">math-test.adb</A>
+        math-test.ads
+        math_suite.adb
+        math_suite.ads
+        test_math.adb
+</pre>
 
 We build this code example using the [`make.exe`][gnu_make] build tool (project file [`Makefile`](./calculator/Makefile) depends on parent file [`Makefile.inc`](./Makefile.inc)).
 

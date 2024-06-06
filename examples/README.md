@@ -209,6 +209,8 @@ The correct word was grandchildren
 Would you like to play again? y/n: n
 </pre>
 
+<!--=======================================================================-->
+
 ## <span id="separate_procedure">`SeparateProcedure` Example</span>
 
 This example has the following directory structure :
@@ -222,9 +224,22 @@ This example has the following directory structure :
         \---ada
                 <a href="./SeparateProcedure/src/main/ada/main.adb">main.adb</a>
                 <a href="./SeparateProcedure/src/main/ada/package_x-sep.adb">package_x-sep.adb</a>
-                package_x.adb</a>
-                package_x.ads</a>
+                <a href="./SeparateProcedure/src/main/ada/package_x.adb">package_x.adb</a>
+                <a href="./SeparateProcedure/src/main/ada/package_x.ads">package_x.ads</a>
 </pre>
+
+Command [`build.bat`](./SeparateProcedure/build.bat)`-verbose clean run` generates and executes the Ada program `target\SeparateProcedure.exe` :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./SeparateProcedure/build.bat">build</a> -verbose clean run</b>
+Delete directory "target"
+Compile 4 Ada source files to directory "target\obj"
+Execute Ada program "target\SeparateProcedure.exe"
+Foo
+Sep
+</pre>
+
+<!--=======================================================================-->
 
 ## <span id="timing_fibonacci">`TimingFibonacci` Example</span>
 
