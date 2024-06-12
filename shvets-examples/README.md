@@ -5,8 +5,7 @@
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:100px;"><a href="https://www.adacore.com/" rel="external"><img style="border:0;" src="../docs/images/adamascot.png" width="100" alt="Ada project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>shvets-examples\</code></strong> contains <a href="https://www.adacore.com/" rel="external">Ada</a> code examples coming from the book <a href="https://www.apress.com/9781484254271" rel="external"><i>Beginning Ada Programming</i></a> by Andrew Shvets (Apress, 2020).
-  </td>
+    Directory <strong><code>shvets-examples\</code></strong> contains <a href="https://www.adacore.com/" rel="external">Ada</a> code examples coming from the book <a href="https://www.apress.com/9781484254271" rel="external"><i>Beginning Ada Programming</i></a> by Andrew Shvets (Apress, 2020).</td>
   </tr>
 </table>
 
@@ -14,9 +13,26 @@ The code examples presented below can be built/run with the batch file [**`build
 
 ## <span id="ch02">Chapter 2: Basic Types</span>
 
-This example consists of 7 source files [`basic_operations.adb`](./ch02/src/main/ada/basic_operations.adb), [`bool.adb`](./ch02/src/main/ada/bool.adb), [`floats_ranges.adb`](./ch02/src/main/ada/floats_ranges.adb), etc.
+This example has the following directory structure :
 
-Batch file [**`build.bat`**](./ch02/build.bat) matches what the user would run from the command prompt (use option `-debug` to see the execution details), i.e. it calls the [**`gnatmake.exe`**][gnatmake_cli] build tool to generate executable `bool.exe`.
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /f /a . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+|   <a href="./ch02/build.bat">build.bat</a>
+|   <a href="./ch02/build.gpr">build.gpr</a>
+|   <a href="./ch02/build.sh">build.sh</a>
+\---src
+    \---main
+        \---ada
+                <a href="./ch02/src/main/ada/basic_operations.adb">basic_operations.adb</a>
+                basic_types_ranges.adb</a>
+                <a href="./ch02/src/main/ada/bool.adb">bool.adb</a>
+                <a href="./ch02/src/main/ada/floats_ranges.adb">floats_ranges.adb</a>
+                <a href="./ch02/src/main/ada/longer_ranges.adb">longer_integers.adb</a>
+                <a href="./ch02/src/main/ada/strings_example.adb">strings_example.adb</a>
+                <a href="./ch02/src/main/ada/unbounded_strings.adb">unbounded_strings.adb</a>
+</pre>
+
+Command [**`build.bat`**](./ch02/build.bat)`clean run` matches what the user would run from the command prompt (use option `-debug` to see the execution details), i.e. it calls the [**`gnatmake.exe`**][gnatmake_cli] build tool to generate executable `target\bool.exe`.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="ch02/build.bat">build</a> -verbose clean run</b>
@@ -44,7 +60,7 @@ Execute program "target\bool.exe"
 > 148.20000
 > </pre>
 
-Command [**`gprbuild.exe`**][gprbuild_cli] reads the build configuration from file [`build.gpr`](./ch02/build.gpr) and generates executable `bool.exe` :
+Command [**`gprbuild.exe`**][gprbuild_cli] reads the build configuration from file [`build.gpr`](./ch02/build.gpr) and generates executable `target\bool.exe` :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/companion_tools.html#cleaning-up-with-gprclean" rel="external">gprclean</a>&amp; <a href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/building_with_gprbuild.html#command-line" rel="external">gprbuild</a>&amp; target\bool.exe</b>
@@ -86,25 +102,53 @@ Link
 
 ## <span id="ch03">Chapter 3: Basic Control Structures</span>[**&#x25B4;**](#top)
 
-This example consists of 5 source files [`for_loop.adb`](./ch03/src/main/ada/for_loop.adb), [`if_statement.adb`](./ch03/src/main/ada/if_statement.adb), [`infinite_loop.adb`](./ch03/src/main/ada/infinite_loop.adb), [`switch_statement.adb`](./ch03/src/main/ada/switch_statement.adb) and [`while_loop.adb`](./ch03/src/main/ada/while_loop.adb).
+This example has the following directory structure :
 
-Batch file [**`build.bat`**](./ch03/build.bat) matches what the user would run from the command prompt (use option `-debug` to see the execution details), i.e. it calls the [**`gnatmake.exe`**][gnatmake_cli] build tool to generate executable `if_statement.exe`.
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /f /a . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+|   <a href="./ch03/build.bat">build.bat</a>
+|   <a href="./ch03/build.gpr">build.gpr</a>
+|   <a href="./ch03/build.sh">build.sh</a>
+\---src
+    \---main
+        \---ada
+                <a href="./ch03/src/main/ada/for_loop.adb">for_loop.adb</a>
+                <a href="./ch03/src/main/ada/if_statement.adb">if_statement.adb</a>
+                <a href="./ch03/src/main/ada/infinite_loop.adb">infinite_loop.adb</a>
+                <a href="./ch03/src/main/ada/switch_statement.adb">switch_statement.adb</a>
+                <a href="./ch03/src/main/ada/while_loop.adb">while_loop.adb</a>
+</pre>
+
+Command [**`build.bat`**](./ch03/build.bat)`clean run` matches what the user would run from the command prompt (use option `-debug` to see the execution details), i.e. it calls the [**`gnatmake.exe`**][gnatmake_cli] build tool to generate executable `target\if_statement.exe`.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./ch03/build.bat">build</a> -verbose -main:if_statement clean run</b>
 Delete directory "target"
 Compile 5 Ada source files to directory "target\obj"
-Execute program "target\.exe"
+Execute program "target\if_statement.exe"
 Int1 and Int2 are the same.
 Int3 is between 4 and 200.
 Int3 is not between 90 and 100.
 </pre>
 
-## <span id="ch04">Chapter 4: Procedures and Functions</span>
+## <span id="ch04">Chapter 4: Procedures and Functions</span>[**&#x25B4;**](#top)
 
-This example consists of 3 source files [`declare_block.adb`](./ch04/src/main/ada/declare_block.adb), [`functions_procedures.adb`](./ch04/src/main/ada/functions_procedures.adb) and [`max_recursion.adb`](./ch04/src/main/ada/max_recursion.adb).
+This example has the following directory structure :
 
-Batch file [**`build.bat`**](./ch04/build.bat) matches what the user would run from the command prompt (use option `-debug` to see the execution details), i.e. it calls the [**`gnatmake.exe`**][gnatmake_cli] build tool to generate executable `max_recursion.exe`.
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /f /a . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+|   <a href="./ch04/build.bat">build.bat</a>
+|   <a href="./ch04/build.gpr">build.gpr</a>
+|   <a href="./ch04/build.sh">build.sh</a>
+\---src
+    \---main
+        \---ada
+                <a href="./ch04/src/main/ada/declare_block.adb">declare_block.adb</a>
+                <a href="./ch04/src/main/ada/functions_procedures.adb">functions_procedures.adb</a>
+                <a href="./ch04/src/main/ada/max_recursion.adb">max_recursion.adb</a>
+</pre>
+
+Command [**`build.bat`**](./ch04/build.bat)`clean run` matches what the user would run from the command prompt (use option `-debug` to see the execution details), i.e. it calls the [**`gnatmake.exe`**][gnatmake_cli] build tool to generate executable `target\max_recursion.exe`.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./ch04/build.bat">build</a> -verbose -main:max_recursion clean run</b>
@@ -115,9 +159,25 @@ Execute program "target\max_recursion.exe"
 
 ## <span id="ch05">Chapter 5: Arrays, Records and Access Types</span>
 
-This example consists of 8 source files [`access_type_example.adb`](./ch05/src/main/ada/access_type_example.adb), [`complex_array.adb`](./ch05/src/main/ada/complex_array.adb) and [`dynamic_alloc_array.adb`](./ch05/src/main/ada/dynamic_alloc_array.adb), etc.
+This example has the following directory structure :
 
-Batch file [**`build.bat`**](./ch05/build.bat) matches what the user would run from the command prompt (use option `-debug` to see the execution details), i.e. it calls the [**`gnatmake.exe`**][gnatmake_cli] build tool to generate executable `records_array.exe`.
+<pre style="font-size:80%;">
+|   <a href="./ch05/build.bat">build.bat</a>
+|   <a href="./ch05/build.gpr">build.gpr</a>
+\---src
+    \---main
+        \---ada
+                <a href="./ch05/src/main/ada/access_type_example.adb">access_type_example.adb</a>
+                <a href="./ch05/src/main/ada/complex_array.adb">complex_array.adb</a>
+                <a href="./ch05/src/main/ada/dynamic_alloc_array.adb">dynamic_alloc_array.adb</a>
+                <a href="./ch05/src/main/ada/records_array.adb">records_array.adb</a>
+                <a href="./ch05/src/main/ada/records_example.adb">records_example.adb</a>
+                <a href="./ch05/src/main/ada/simple_array.adb">simple_array.adb</a>
+                <a href="./ch05/src/main/ada/simple_records.adb">simple_records.adb</a>
+                <a href="./ch05/src/main/ada/string_array.adb">string_array.adb</a>
+</pre>
+
+Command [**`build.bat`**](./ch05/build.bat)`clean run` matches what the user would run from the command prompt (use option `-debug` to see the execution details), i.e. it calls the [**`gnatmake.exe`**][gnatmake_cli] build tool to generate executable `target\records_array.exe`.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./ch05/build.bat">build</a> -verbose -main:records_array clean run</b>

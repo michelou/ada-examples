@@ -42,7 +42,7 @@ if not %_EXITCODE%==0 (
 )
 call :git
 if not %_EXITCODE%==0 goto end
-
+goto end
 call :gnat
 if not %_EXITCODE%==0 goto end
 
