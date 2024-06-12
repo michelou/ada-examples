@@ -24,7 +24,7 @@ This example has the following directory structure :
     \---main
         \---ada
                 <a href="./ch02/src/main/ada/basic_operations.adb">basic_operations.adb</a>
-                basic_types_ranges.adb</a>
+                <a href="./ch02/src/main/ada/basic_types_ranges.adb">basic_types_ranges.adb</a>
                 <a href="./ch02/src/main/ada/bool.adb">bool.adb</a>
                 <a href="./ch02/src/main/ada/floats_ranges.adb">floats_ranges.adb</a>
                 <a href="./ch02/src/main/ada/longer_ranges.adb">longer_integers.adb</a>
@@ -164,6 +164,7 @@ This example has the following directory structure :
 <pre style="font-size:80%;">
 |   <a href="./ch05/build.bat">build.bat</a>
 |   <a href="./ch05/build.gpr">build.gpr</a>
+|   <a href="./ch05/build.sh">build.sh</a>
 \---src
     \---main
         \---ada
