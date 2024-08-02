@@ -252,9 +252,9 @@ This example has the following directory structure :
 |   <a href="./TimingFibonacci/build.gpr">build.gpr</a>
 |   <a href="./TimingFibonacci/build.sh">build.sh</a>
 |   <a href="./TimingFibonacci/Makefile">Makefile</a>
-\---src
-    \---main
-        \---ada
+\---<b>src</b>
+    \---<b>main</b>
+        \---<b>ada</b>
                 <a href="./TimingFibonacci/src/main/ada/main.adb">main.adb</a>
 </pre>
 
@@ -388,7 +388,7 @@ Setup
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
