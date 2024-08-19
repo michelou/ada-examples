@@ -16,6 +16,10 @@
 
 ## <span id="gnat_commands">GNAT Commands</span>
 
+### <span id="gnatdoc">**`gnatedoc`**</span>
+
+[`gnatdoc`](https://docs.adacore.com/live/wave/gps/html/gnatdoc-doc/gnatdoc.html) generates an HTML report in the gnatdoc directory of the object directory of the main project.
+
 ### <span id="gnatelim">**`gnatelim`**</span>
 
 [`gnatelim`](https://www.cs.fsu.edu/~baker/ada/gnat/html/gnat_ugn_8.html#SEC98) tracks unused subprograms in an Ada program.

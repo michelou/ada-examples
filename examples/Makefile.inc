@@ -11,8 +11,10 @@ DIFF         = diff
 ECHO         = echo
 FIND         = find
 ifndef MSYS
+GNATDOC      = $(subst \,/,$(GNAT_HOME))/bin/gnatdoc.exe
 GNATMAKE     = $(subst \,/,$(GNAT_HOME))/bin/gnatmake.exe
 else
+GNATDOC      = gnatdoc
 GNATMAKE     = gnatmake
 endif
 GREP         = egrep
@@ -28,8 +30,10 @@ DIFF         = /usr/bin/diff.exe
 ECHO         = /usr/bin/echo.exe
 FIND         = /usr/bin/find.exe
 ifndef MSYS
+GNATDOC      = $(subst \,/,$(GNAT_HOME))/bin/gnatdoc.exe
 GNATMAKE     = $(subst \,/,$(GNAT_HOME))/bin/gnatmake.exe
 else
+GNATDOC      = /mingw64/bin/gnatdoc.exe
 GNATMAKE     = /mingw64/bin/gnatmake.exe
 endif
 GREP         = /usr/bin/grep.exe
@@ -53,6 +57,7 @@ CP           = cp
 DIFF         = diff
 ECHO         = echo
 FIND         = find
+GNATDOC      = $(GNAT_HOME)/bin/gnatdoc
 GNATMAKE     = $(GNAT_HOME)/bin/gnatmake
 GREP         = egrep
 MKDIR        = mkdir

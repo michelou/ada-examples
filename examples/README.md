@@ -28,7 +28,7 @@ This example has the following directory structure :
 |   <a href="./DiningPhilosophers/build.gpr">build.gpr</a>
 |   <a href="./DiningPhilosophers/build.sh">build.sh</a>
 |   <a href="./DiningPhilosophers/Makefile">Makefile</a>
-\---src
+\---<b>src</b>
     \---main
         \---ada
                 <a href="./DiningPhilosophers/src/main/ada/test_dining_philosophers.adb">test_dining_philosophers.adb</a>

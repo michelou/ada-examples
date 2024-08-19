@@ -6,7 +6,7 @@ project Build is
     Mode : Mode_Type := external ("mode", "debug");
     TargetDir := "target";
 
-    for Source_Dirs use ("src");
+    for Source_Dirs use ("src/main/ada");
     for Main use ("gmain.adb");
 
     for Exec_Dir use TargetDir;
@@ -28,9 +28,10 @@ project Build is
 
     -- https://docs.adacore.com/live/wave/gps/html/gnatdoc-doc/gnatdoc.html#configuration
     package Documentation is
-        for Documentation_Dir use TargetDir & "/docs";
+        for Documentation_Dir use TargetDir & "/html";
         for Create_Missing_Dirs use "True";
-        -- for Image_Dir use "target/docs/images";
+        for Ignored_Subprograms use ("prj_1");  -- example
+        for Image_dir use "src/main/images";  -- example
     end Documentation;
 
 end Build;

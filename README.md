@@ -16,7 +16,7 @@
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.45][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.46][git_releases] ([*release notes*][git_relnotes])
 - [GNAT CE 2021][gnat2021_downloads] ([*announcement*][gnat2021_announcement])
 
 Optionally one may also install the following software:
@@ -27,7 +27,7 @@ Optionally one may also install the following software:
 - [GNAT CE 2019][gnat2019_downloads] <sup id="anchor_02">[2](#footnote_02)</sup>
 - [GWindows 2023][gwindows_downloads] ([*release notes*][gwindows_relnotes])
 - [MSYS2 2024][msys2_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][msys2_changelog])
-- [Visual Studio Code 1.90][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.92][vscode_downloads] ([*release notes*][vscode_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][linux_opt] directory on Unix).
@@ -37,22 +37,23 @@ For instance our development environment looks as follows (*August 2024*) <sup i
 <pre style="font-size:80%;">
 C:\opt\adactl\       <i>( 79 MB)</i>
 C:\opt\ConEmu\       <i>( 26 MB)</i>
-C:\opt\Git\          <i>(367 MB)</i>
+C:\opt\Git\          <i>(388 MB)</i>
 C:\opt\GNAT\2019\    <i>(1.1 GB)</i>
 C:\opt\GNAT\2021\    <i>(2.8 GB)</i>
-C:\opt\GWindows\     <i>(  4 MB)</i>
+C:\opt\GWindows\     <i>( 15 MB)</i>
 C:\opt\msys64\       <i>(2.8 GB)</i>
-C:\opt\VSCode\       <i>(341 MB)</i>
+C:\opt\VSCode\       <i>(370 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_releases] provides a BASH emulation used to run [**`git.exe`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
 
 ## <span id="structure">Directory structure</span> [**&#x25B4;**](#top)
 
-This project is organized as follows:
+This project has the following directory structure :
+
 <pre style="font-size:80%;">
-<a href="docs/">docs\</a>
 <a href="aunit-examples/">aunit-examples\</a>{<a href="aunit-examples/README.md">README.md</a>, <a href="aunit-examples/calculator/">calculator</a>, etc.}
+<a href="docs/">docs\</a>
 <a href="examples/">examples\</a>{<a href="examples/README.md">README.md</a>, <a href="examples/Greetings">Greetings</a>, etc.}
 <a href="gwindows-examples/">gwindows-examples\</a>{<a href="gwindows-examples/README.md">README.md</a>, <a href="gwindows-examples/tutorial1">tutorial1</a>, etc.}
 <a href="hac-examples/">hac-examples</a>{<a href="hac-examples/README.md">README.md</a>, <a href="./hac-examples/Ackermann/">Ackermann</a>, ..}
@@ -67,8 +68,8 @@ README.md
 
 where
 
-- directory [**`docs\`**](docs/) contains [Ada] related documents.
 - directory [**`aunit-examples\`**](aunit-examples/) contains [Ada] code examples from GitHub project [`AdaCore/aunit`](https://github.com/AdaCore/aunit).
+- directory [**`docs\`**](docs/) contains [Ada] related documents.
 - directory [**`examples\`**](examples/) contains [Ada] code examples grabbed from various websites.
 - directory [**`gwindows-examples\`**](./gwindows-examples/) contains [GNAVI] code examples (see [`README.md`](./gwindows-examples/README.md))
 - directory [**`hac-examples\`**](./hac-examples/) contains [Ada] code examples from the [HAC](https://github.com/zertovitch/hac) project.
@@ -99,7 +100,7 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    adactl 1.22r16c, alr 2.0.1, gcc 13.2.0, gnat Community 2021, make 4.4.1,
-   git 2.45.2, diff 3.10, bash 5.2.26(1)
+   git 2.46.0, diff 3.10, bash 5.2.26(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> diff git make</b>
 C:\opt\Git\usr\bin\diff.exe
@@ -146,17 +147,17 @@ The <a href="http://repo.msys2.org/distrib/x86_64/" rel="external">MSYS64</a> so
 <a href=""><code>gnat.exe</code>/<code>gnatmake.exe</code></a>
 <pre style="font-size:80%;">
   <b>&gt; c:\opt\msys64\mingw64\bin\gnat.exe --version | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> GNAT</b>
-  GNAT 14.1.0
+  GNAT 14.2.0
 &nbsp;
   <b>&gt; c:\opt\msys64\mingw64\bin\<a href="https://gcc.gnu.org/onlinedocs/gcc-12.1.0/gnat_ugn/Running-gnatmake.html#Running-gnatmake" rel="external">gnatmake.exe</a> --version | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> GNAT</b>
-  GNATMAKE 14.1.0
+  GNATMAKE 14.2.0
 </pre>
 </dd>
 <dd>
 <a href=""><code>gcc.exe</code>/<code>make.exe</code></a>
 <pre style="font-size:80%;">
   <b>&gt; c:\opt\msys64\mingw64\bin\<a href="https://gcc.gnu.org/onlinedocs/gcc/Invoking-GCC.html" rel="external">gcc.exe</a> --version | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> gcc</b>
-  gcc.exe (Rev6, Built by MSYS2 project) 14.1.0
+  gcc.exe (Rev6, Built by MSYS2 project) 14.2.0
   &nbsp;
   <b>&gt; c:\opt\msys64\usr\bin\<a href="https://www.gnu.org/software/make/manual/make.html" rel="external">make.exe</a> --version | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> Make</b>
   GNU Make 4.4.1
@@ -192,9 +193,9 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://www.adacore.com/download" rel="external">gnat-2021-20210519-x86_64-windows64-bin.exe</a>         <i>(562 MB)</i>
 <a href="https://www.adacore.com/download/more">gtkada-2021-x86_64-windows64-bin.exe</a>                <i>( 59 MB)</i>
 <a href="https://sourceforge.net/projects/gnavi/files/">GWindows Archive 29-May-2023.zip</a>                    <i>(  4 MB)</i>
-<a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240113.exe</a>                           <i>( 83 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.45.2-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
-<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.90.2.zip</a>                         <i>(131 MB)</i>
+<a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                           <i>( 83 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.46.0-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
+<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.92.1.zip</a>                         <i>(131 MB)</i>
 </pre>
 </dd></dl>
 
@@ -243,7 +244,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [flix_examples]: https://github.com/michelou/flix-examples#top
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.45.2.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.46.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [gnat2019_downloads]: https://www.adacore.com/download/more
 [gnat2021_announcement]: https://blog.adacore.com/gnat-community-2021-is-here

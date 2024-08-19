@@ -66,8 +66,16 @@ set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_SOURCE_MAIN_DIR=%_SOURCE_DIR%\main\ada"
 set "_TARGET_DIR=%_ROOT_DIR%target"
+@rem path must match property `Documentation_Dir` in gpr file
+set "_TARGET_HTML_DIR=%_TARGET_DIR%\html"
 set "_TARGET_OBJ_DIR=%_TARGET_DIR%\obj"
 
+@rem required for gnatdoc
+if not exist "%_ROOT_DIR%build.gpr" (
+    echo %_ERROR_LABEL% GNAT Ada project file not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 if not exist "%GNAT_HOME%\bin\gnatmake.exe" (
     echo %_ERROR_LABEL% GNAT installation not found 1>&2
     set _EXITCODE=1
@@ -76,6 +84,10 @@ if not exist "%GNAT_HOME%\bin\gnatmake.exe" (
 set "_GNATMAKE_CMD=%GNAT_HOME%\bin\gnatmake.exe"
 set "_GNATDOC_CMD=%GNAT_HOME%\bin\gnatdoc.exe"
 
+set _MSYS_GNATMAKE_CMD=
+if exist "%MSYS_HOME%\mingw64\bin\gnatmake.exe" (
+    set "_MSYS_GNATMAKE_CMD=%MSYS_HOME%\mingw64\bin\gnatmake.exe"
+)
 set _ADACTL_CMD=
 if exist "%ADACTL_HOME%\adactl.exe" (
     set "_ADACTL_CMD=%ADACTL_HOME%\adactl.exe"
@@ -146,6 +158,7 @@ set _COMPILE=0
 set _DOC=0
 set _HELP=0
 set _LINT=0
+set _MSYS=0
 set _RUN=0
 set _TEST=0
 set _TIMER=0
@@ -161,6 +174,7 @@ if "%__ARG:~0,1%"=="-" (
     @rem option
     if "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if "%__ARG%"=="-help" ( set _HELP=1
+    ) else if "%__ARG%"=="-msys" ( set _MSYS=1
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
@@ -172,7 +186,7 @@ if "%__ARG:~0,1%"=="-" (
     @rem subcommand
     if "%__ARG%"=="clean" ( set _CLEAN=1
     ) else if "%__ARG%"=="compile" ( set _COMPILE=1
-    ) else if "%__ARG%"=="doc" ( set _DOC=1
+    ) else if "%__ARG%"=="doc" ( set _COMPILE=1& set _DOC=1
     ) else if "%__ARG%"=="help" ( set _HELP=1
     ) else if "%__ARG%"=="lint" ( set _LINT=1
     ) else if "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
@@ -208,6 +222,10 @@ if %_LINT%==1 (
         )
     )
 )
+if not "!_COMMANDS:compile=!"=="%_COMMANDS%" if defined _MSYS if not defined _MSYS_GNATMAKE_CMD (
+    echo %_WARNING_LABEL% MSYS GNAT Make not found; use standard GNAT Make instead 1>&2
+    set _MSYS=0
+)
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _LINT=%_LINT% _RUN=%_RUN% _TEST=%_TEST% 1>&2
@@ -215,6 +233,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "GNAT_HOME=%GNAT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "GNAT2019_HOME=%GNAT2019_HOME%" 1>&2
+    if defined MSYS_HOME echo %_DEBUG_LABEL% Variables  : "MSYS_HOME=%MSYS_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : _MAIN_NAME=%_MAIN_NAME% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
     echo %_DEBUG_LABEL% Variables  : _PROJECT_NAME=%_PROJECT_NAME% 1>&2
 )
@@ -237,6 +256,7 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-debug%__END%      print commands executed by this script
+echo     %__BEG_O%-msys%__END%       use MSYS GNAT Make if available
 echo     %__BEG_O%-timer%__END%      print total execution time
 echo     %__BEG_O%-verbose%__END%    print progress messages
 echo.
@@ -325,13 +345,17 @@ if %__N%==0 (
 ) else if %__N%==1 ( set __N_FILES=%__N% Ada source file
 ) else ( set __N_FILES=%__N% Ada source files
 )
+if %_MSYS%==1 ( set "__GNATMAKE_CMD=%_MSYS_GNATMAKE_CMD%"
+) else ( set "__GNATMAKE_CMD=%_GNATMAKE_CMD%"
+)
 @rem -we : Treat all warnings as errors
-set __GNATMAKE_OPTS=-we -D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%"
+set __GNATMAKE_OPTS=-gnat2022 -we -I"%_SOURCE_MAIN_DIR%" -D "%_TARGET_OBJ_DIR%" -o "%_EXE_FILE%"
+if %_DEBUG%==1 set __GNATMAKE_OPTS=-d %__GNATMAKE_OPTS%
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
 )
-call "%_GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% %_STDERR_REDIRECT%
+call "%__GNATMAKE_CMD%" %__GNATMAKE_OPTS% %__SOURCE_FILES% %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TARGET_OBJ_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
@@ -350,10 +374,8 @@ set __PATH_ARRAY1=
 shift
 set "__PATH=%~1"
 if not defined __PATH goto action_next
-if defined __PATH_ARRAY set "__PATH_ARRAY=%__PATH_ARRAY%,"
-set __PATH_ARRAY=%__PATH_ARRAY%'%__PATH%'
-if defined __PATH_ARRAY1 set "__PATH_ARRAY1=%__PATH_ARRAY1%,"
-set __PATH_ARRAY1=%__PATH_ARRAY1%'!__PATH:%_ROOT_DIR%=!'
+set __PATH_ARRAY=%__PATH_ARRAY%,'%__PATH%'
+set __PATH_ARRAY1=%__PATH_ARRAY1%,'!__PATH:%_ROOT_DIR%=!'
 goto action_path
 
 :action_next
@@ -362,20 +384,21 @@ for /f "usebackq" %%i in (`call "%_PWSH_CMD%" -c "gci -path '%__TARGET_FILE%' -e
      set __TARGET_TIMESTAMP=%%i
 )
 set __SOURCE_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`call "%_PWSH_CMD%" -c "gci -recurse -path %__PATH_ARRAY% -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+for /f "usebackq" %%i in (`call "%_PWSH_CMD%" -c "gci -recurse -path %__PATH_ARRAY:~1% -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
     set __SOURCE_TIMESTAMP=%%i
 )
 call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
 set _ACTION_REQUIRED=%_NEWER%
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% Target : '%__TARGET_FILE%' 1>&2
-    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% Sources: %__PATH_ARRAY% 1>&2
+    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% Sources: %__PATH_ARRAY:~1% 1>&2
     echo %_DEBUG_LABEL% _ACTION_REQUIRED=%_ACTION_REQUIRED% 1>&2
 ) else if %_VERBOSE%==1 if %_ACTION_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
-    echo No action required ^(%__PATH_ARRAY1%^) 1>&2
+    echo No action required ^("%__PATH_ARRAY1:~1%"^) 1>&2
 )
 goto :eof
 
+@rem input parameters: %1=file timestamp 1, %2=file timestamp 2
 @rem output parameter: _NEWER
 :newer
 set __TIMESTAMP1=%~1
@@ -395,18 +418,23 @@ if %__DATE1% gtr %__DATE2% ( set _NEWER=1
 goto :eof
 
 :doc
-if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%"
-if not exist "%_TARGET_DIR%\html" mkdir "%_TARGET_DIR%\html"
+if not exist "%_TARGET_HTML_DIR%\" mkdir "%_TARGET_HTML_DIR%"
 
+set "__JS_FILE=%_TARGET_HTML_DIR%\index.js"
+
+call :action_required "%__JS_FILE%" "%_ROOT_DIR%build.gpr" "%_EXE_FILE%" 
+if %_ACTION_REQUIRED%==0 goto :eof
+
+@rem https://docs.adacore.com/live/wave/gps/html/gnatdoc-doc/gnatdoc.html
 @rem Options: -p=Process private part of packages
-set __GNATDOC_OPTS=--project=%_PROJECT_NAME% --output=html
+set __GNATDOC_OPTS=-d -p "--project=%_ROOT_DIR%build.gpr" --output=html
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATDOC_CMD%" %__GNATDOC_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate HTML documentation into directory "!_TARGET_DIR:%_ROOT_DIR%=!\html" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate HTML documentation into directory "!_TARGET_HTML_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_GNATDOC_CMD%" %__GNATDOC_OPTS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to generate HTML documentation into directory "!_TARGET_DIR:%_ROOT_DIR%=!\html" 1>&2
+    echo %_ERROR_LABEL% Failed to generate HTML documentation into directory "!_TARGET_HTML_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -419,11 +447,11 @@ if not exist "%_EXE_FILE%" (
     goto :eof
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_EXE_FILE%" %_MAIN_ARGS% 1>&2
-) else if %_VERBOSE%==1 ( echo Execute Ada program "!_EXE_FILE:%_TARGET_DIR%\=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Execute Ada program "!_EXE_FILE:%_ROOT_DIR%\=!" 1>&2
 )
 call "%_EXE_FILE%" %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to execute Ada program "!_EXE_FILE:%_TARGET_DIR%\=!" 1>&2
+    echo %_ERROR_LABEL% Failed to execute Ada program "!_EXE_FILE:%_ROOT_DIR%\=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )

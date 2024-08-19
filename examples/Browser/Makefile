@@ -32,14 +32,15 @@ clean:
 
 run: build
 	"$(TARGET)"
-  
+
 help:
-	@$(ECHO) "Usage: make all|build|clean|help|lint|run"
+	@$(ECHO) "Usage: make all|build|clean|doc|help|lint|run"
 	@$(ECHO) ""
 	@$(ECHO) "   Subcommands:"
 	@$(ECHO) "     all    alias for build"
 	@$(ECHO) "     build  compile Ada source files"
 	@$(ECHO) "     clean  delete generated files"
+	@$(ECHO) "     doc    generate HTML documentation"
 	@$(ECHO) "     help   print this help message"
 	@$(ECHO) "     lint   analyze Ada source files"
 	@$(ECHO) "     run    execute main program \"$(TARGET)\""
@@ -54,6 +55,15 @@ LOG_FILE = $(realpath $(TARGET_DIR))/adactl_log.txt
 lint:
 	cd $(TARGET_DIR); \
 	"$(ADACTL)" -v -f "$(ARU_FILE)" -o "$(LOG_FILE)" -w "$(realpath $(SOURCE_DIR))"/*
+
+##############################################################################
+## doc
+
+PRJ_FILE = build.gpr
+
+doc:
+	## Other options: -q=be quiet
+	"$(GNATDOC)" --project="$(PRJ_FILE)"
 
 ##############################################################################
 ## phony

@@ -41,6 +41,8 @@ set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_SOURCE_MAIN_DIR=%_SOURCE_DIR%\main\ada"
 set "_TARGET_DIR=%_ROOT_DIR%target"
+@rem path must match property `Documentation_Dir` in gpr file
+set "_TARGET_HTML_DIR=%_TARGET_DIR%\html"
 set "_TARGET_OBJ_DIR=%_TARGET_DIR%\obj"
 
 @rem required for gnatdoc
@@ -140,7 +142,7 @@ if not defined __ARG (
 if "%__ARG:~0,1%"=="-" (
     @rem option
     if "%__ARG%"=="-debug" ( set _DEBUG=1
-    ) else if "%__ARG%"=="-help" ( set _HELP=1
+    ) else if "%__ARG%"=="-help" ( set _COMMANDS=help
     ) else if "%__ARG%"=="-msys" ( set _MSYS=1
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
@@ -153,7 +155,7 @@ if "%__ARG:~0,1%"=="-" (
     @rem subcommand
     if "%__ARG%"=="clean" ( set _COMMANDS=!_COMMANDS! clean
     ) else if "%__ARG%"=="compile" ( set _COMMANDS=!_COMMANDS! compile
-    ) else if "%__ARG%"=="doc" ( set _COMMANDS=!_COMMANDS! doc
+    ) else if "%__ARG%"=="doc" ( set _COMMANDS=!_COMMANDS! compile doc
     ) else if "%__ARG%"=="help" ( set _COMMANDS=help
     ) else if "%__ARG%"=="lint" ( set _COMMANDS=!_COMMANDS! lint
     ) else if "%__ARG%"=="run" ( set _COMMANDS=!_COMMANDS! compile run
@@ -175,7 +177,7 @@ set _MAIN_NAME=main
 set _MAIN_ARGS=
 
 set "_SOURCE_MAIN_FILE=%_SOURCE_MAIN_DIR%\%_MAIN_NAME%.adb"
-for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
+for /f "delims=" %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
 set "_EXE_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
 
 if %_MSYS%==1 if not defined _MSYS_GNATMAKE_CMD (
@@ -187,7 +189,7 @@ if not "!_COMMANDS:lint=!"=="%_COMMANDS%" (
         echo %_WARNING_LABEL% GNAT 2019 is required to execute AdaControl 1>&2
         set "_COMMANDS=!_COMMANDS:lint=!"
     ) else (
-        for %%f in ("%_ROOT_DIR%.") do set "__PARENT_DIR=%%~dpf"
+        for /f "delims=" %%f in ("%_ROOT_DIR%.") do set "__PARENT_DIR=%%~dpf"
         for /f "delims=" %%f in ('dir /b /s "!__PARENT_DIR!*.aru"') do set "_ARU_FILE=%%f"
         if not exist "!_ARU_FILE!" (
             echo %_WARNING_LABEL% ARU file not found 1>&2
@@ -283,6 +285,7 @@ if %_DEBUG%==1 ( set __ADACTL_OPTS=-d -v %__ADACTL_OPTS%
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_ADACTL_CMD%" %__ADACTL_OPTS% "%_SOURCE_MAIN_DIR%"\* 1>&2
 ) else if %_VERBOSE%==1 ( echo Analyze Ada source files 1>&2
 )
+@rem .adt and .ali files are generated in current directory
 pushd "%_TARGET_DIR%"
 call "%_ADACTL_CMD%" %__ADACTL_OPTS% "%_SOURCE_MAIN_DIR%"\*
 if not %ERRORLEVEL%==0 (
@@ -300,6 +303,9 @@ goto :eof
 
 :compile
 if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%" 1>NUL
+
+call :action_required "%_EXE_FILE%" "%_SOURCE_DIR%\*.ada" "%_SOURCE_DIR%\*.adb" "%_SOURCE_DIR%\*.ads"
+if %_ACTION_REQUIRED%==0 goto :eof
 
 set __N=0
 for /f "delims=" %%f in ('dir /b /s "%_SOURCE_MAIN_DIR%\*.ad?" 2^>NUL') do (
@@ -329,20 +335,78 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
+@rem input parameter: 1=target file 2,3,..=path (wildcards accepted)
+@rem output parameter: _ACTION_REQUIRED
+:action_required
+set "__TARGET_FILE=%~1"
+
+set __PATH_ARRAY=
+set __PATH_ARRAY1=
+:action_path
+shift
+set "__PATH=%~1"
+if not defined __PATH goto action_next
+set __PATH_ARRAY=%__PATH_ARRAY%,'%__PATH%'
+set __PATH_ARRAY1=%__PATH_ARRAY1%,'!__PATH:%_ROOT_DIR%=!'
+goto action_path
+
+:action_next
+set __TARGET_TIMESTAMP=00000000000000
+for /f "usebackq" %%i in (`call "%_PWSH_CMD%" -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+     set __TARGET_TIMESTAMP=%%i
+)
+set __SOURCE_TIMESTAMP=00000000000000
+for /f "usebackq" %%i in (`call "%_PWSH_CMD%" -c "gci -recurse -path %__PATH_ARRAY:~1% -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+    set __SOURCE_TIMESTAMP=%%i
+)
+call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
+set _ACTION_REQUIRED=%_NEWER%
+if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% Target : '%__TARGET_FILE%' 1>&2
+    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% Sources: %__PATH_ARRAY:~1% 1>&2
+    echo %_DEBUG_LABEL% _ACTION_REQUIRED=%_ACTION_REQUIRED% 1>&2
+) else if %_VERBOSE%==1 if %_ACTION_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
+    echo No action required ^("%__PATH_ARRAY1:~1%"^) 1>&2
+)
+goto :eof
+
+@rem input parameters: %1=file timestamp 1, %2=file timestamp 2
+@rem output parameter: _NEWER
+:newer
+set __TIMESTAMP1=%~1
+set __TIMESTAMP2=%~2
+
+set __DATE1=%__TIMESTAMP1:~0,8%
+set __TIME1=%__TIMESTAMP1:~-6%
+
+set __DATE2=%__TIMESTAMP2:~0,8%
+set __TIME2=%__TIMESTAMP2:~-6%
+
+if %__DATE1% gtr %__DATE2% ( set _NEWER=1
+) else if %__DATE1% lss %__DATE2% ( set _NEWER=0
+) else if %__TIME1% gtr %__TIME2% ( set _NEWER=1
+) else ( set _NEWER=0
+)
+goto :eof
+
 :doc
-if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%"
-if not exist "%_TARGET_DIR%\html" mkdir "%_TARGET_DIR%\html"
+if not exist "%_TARGET_HTML_DIR%\" mkdir "%_TARGET_HTML_DIR%"
+
+set "__JS_FILE=%_TARGET_HTML_DIR%\index.js"
+
+call :action_required "%__JS_FILE%" "%_ROOT_DIR%build.gpr" "%_EXE_FILE%" 
+if %_ACTION_REQUIRED%==0 goto :eof
 
 @rem https://docs.adacore.com/live/wave/gps/html/gnatdoc-doc/gnatdoc.html
 @rem Options: -p=Process private part of packages
 set __GNATDOC_OPTS=-d -p "--project=%_ROOT_DIR%build.gpr" --output=html
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GNATDOC_CMD%" %__GNATDOC_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate HTML documentation into directory "!_TARGET_DIR:%_ROOT_DIR%=!\html" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate HTML documentation into directory "!_TARGET_HTML_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_GNATDOC_CMD%" %__GNATDOC_OPTS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to generate HTML documentation into directory "!_TARGET_DIR:%_ROOT_DIR%=!\html" 1>&2
+    echo %_ERROR_LABEL% Failed to generate HTML documentation into directory "!_TARGET_HTML_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )

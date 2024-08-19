@@ -75,7 +75,7 @@ args() {
         esac
     done
     debug "Options    : TIMER=$TIMER VERBOSE=$VERBOSE"
-    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE HELP=$HELP LINT=$LINT RUN=$RUN TEST=$TEST"
+    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DOC=$DOC HELP=$HELP LINT=$LINT RUN=$RUN TEST=$TEST"
     debug "Variables  : ADACTL_HOME=$ADACTL_HOME"
     debug "Variables  : GIT_HOME=$GIT_HOME"
     debug "Variables  : GNAT_HOME=$GNAT_HOME"
@@ -213,14 +213,14 @@ doc() {
 
     ## https://docs.adacore.com/live/wave/gps/html/gnatdoc-doc/gnatdoc.html
     ## Options: -p=Process private part of packages
-    local gnatdoc_opts="-d -p \"--project=%_ROOT_DIR%build.gpr\" --output=html"
+    local gnatdoc_opts="-d -p \"--project=$(mixed_path $ROOT_DIR)/build.gpr\" --output=html"
 
     if $DEBUG; then
         debug "\"$GNATDOC_CMD\" $gnatdoc_opts"
     elif $VERBOSE; then
         echo "Generate HTML documentation" 1>&2
     fi
-    eval "\*$GNATDOC_CMD\" $gnatdoc_opts"
+    eval "\"$GNATDOC_CMD\" $gnatdoc_opts"
     if [[ $? -ne 0 ]]; then
         error "Failed to generate HTML documentation into directory \"${TARGET_DIR/$ROOT_DIR\//}/html\""
         cleanup 1
@@ -258,12 +258,14 @@ EXITCODE=0
 ROOT_DIR="$(getHome)"
 
 SOURCE_DIR="$ROOT_DIR/src"
+SOURCE_MAIN_DIR="$SOURCE_DIR/main/ada"
 TARGET_DIR="$ROOT_DIR/target"
 TARGET_OBJ_DIR="$TARGET_DIR/obj"
 
 CLEAN=false
 COMPILE=false
 DEBUG=false
+DOC=false
 HELP=false
 LINT=false
 MSYS=false
@@ -290,21 +292,22 @@ PSEP=":"
 if $cygwin || $mingw || $msys; then
     CYGPATH_CMD="$(which cygpath 2>/dev/null)"
     TARGET_EXT=".exe"
-	PSEP=";"
+    PSEP=";"
     ADACTL_CMD="$(mixed_path $ADACTL_HOME)/adactl.exe"
+    GNATDOC_CMD="$(mixed_path $GNAT_HOME)/bin/gnatdoc.exe"
     GNATMAKE_CMD="$(mixed_path $GNAT_HOME)/bin/gnatmake.exe"
     MSYS_GNATMAKE_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/gnatmake.exe"
 else
     ADACTL_CMD=adactl
+    GNATDOC=gnatdoc
     GNATMAKE_CMD=gnatmake
     MSYS_GNATMAKE_CMD=gnatmake
 fi
 
-PROJECT_NAME="$(basename $ROOT_DIR)"
-TARGET_FILE="$TARGET_DIR/$PROJECT_NAME$TARGET_EXT"
-
 MAIN_NAME=Main
 MAIN_ARGS=
+PROJECT_NAME="$(basename $ROOT_DIR)"
+TARGET_FILE="$TARGET_DIR/$PROJECT_NAME$TARGET_EXT"
 
 if $LINT && [[ ! -f "$GNAT2019_HOME/bin/gnat.exe" ]]; then
     warning "GNAT 2019 is required to execute AdaControl" 1>&2
@@ -335,6 +338,9 @@ if $LINT; then
 fi
 if $COMPILE; then
     compile || cleanup 1
+fi
+if $DOC; then
+    doc || cleanup 1
 fi
 if $RUN; then
     run || cleanup 1

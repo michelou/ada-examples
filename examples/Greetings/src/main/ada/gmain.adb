@@ -1,13 +1,13 @@
---
--- Purpose : <describe the purpose of this program>
--- Created : <who>/<dd.mm.yyyy>
--- Modified: <who>/<dd.mm.yyyy>
---
 with Greetings;
 
--- @Function: Gmain
--- @Parameter:
--- @Return:
+--
+-- @summary
+-- This simple Ada program illustrates the usage of user-defined packages.
+--
+-- Created : 13.02.2022/mics
+--
+-- Modified: 19.08.2024/mics
+--
 procedure Gmain is
 begin
    Greetings.Hello;

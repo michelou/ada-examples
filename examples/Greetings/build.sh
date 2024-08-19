@@ -166,8 +166,10 @@ lint() {
 compile() {
     [[ -d "$TARGET_OBJ_DIR" ]] || mkdir -p "$TARGET_OBJ_DIR"
 
+    local source_files=
     local n=0
     for f in $(find "$SOURCE_DIR/" -type f -name "*.ad?" 2>/dev/null); do
+        source_files="$source_files \"$f\""
         n=$((n + 1))
     done
     if [[ $n -eq 0 ]]; then
