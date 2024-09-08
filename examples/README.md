@@ -1,4 +1,4 @@
-# <span id="top">Ada Examples</span> <span style="font-size:90%;">[↩](../README.md)</span>
+# <span id="top">Ada Examples</span> <span style="font-size:90%;">[↩](../README.md#top)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
@@ -16,6 +16,24 @@ We support the following build tools :
 | [**`gnatmake.exe`**][gnatmake_cmd] <sup id="anchor_01">[1](#footnote_01)</sup> | &ndash; |
 | [**`gprbuild.exe`**][gprbuild_cmd] | [`build.gpr`](./HelloWorld/build.gpr) |
 
+## <span id="browser">`Browser` Example</span>
+
+This example comes from the blog post ["Opening a web page using default browser with Ada on Windows"](https://ada.tips/opening-a-web-page-using-default-browser-with-ada-on-windows.html) ([Ada Tips](https://ada.tips/)); it has the following directory structure :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+|   <a href="./Browser/00download.txt">00download.txt</a>
+|   <a href="./Browser/build.bat">build.bat</a>
+|   <a href="./Browser/build.gpr">build.gpr</a>
+|   <a href="./Browser/build.sh">build.sh</a>
+|   <a href="./Browser/Makefile">Makefile</a>
+\---<b>src</b>
+    \---<b>main</b>
+        \---<b>ada</b>
+                <a href="./Browser/src/main/ada/Browser.adb">Browser.adb</a>
+</pre>
+
+<!--=======================================================================-->
 
 ## <span id="dining_philosophers">`DiningPhilosophers` Example</span>
 
@@ -30,11 +48,11 @@ This example has the following directory structure :
 |   <a href="./DiningPhilosophers/Makefile">Makefile</a>
 \---<b>src</b>
     \---main
-        \---ada
+        \---<b>ada</b>
                 <a href="./DiningPhilosophers/src/main/ada/test_dining_philosophers.adb">test_dining_philosophers.adb</a>
 </pre>
 
-Command `build -verbose run` generates and runs executable `target\DiningPhilosophers.exe` :
+Command [**`build`**](./DiningPhilosophers/build.bat)`-verbose run` generates and runs executable `target\DiningPhilosophers.exe` :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./DiningPhilosophers/build.bat">build</a> -verbose run</b>
@@ -81,9 +99,9 @@ This example has the following directory structure :
 |   <a href="./HelloWorld/build.gpr">build.gpr</a>
 |   <a href="./HelloWorld/build.sh">build.sh</a>
 |   <a href="./HelloWorld/Makefile">Makefile</a>
-\---src
-    \---main
-        \---ada
+\---<b>src</b>
+    \---<b>main</b>
+        \---<b>ada</b>
                 <a href="./HelloWorld/src/main/ada/main.adb">main.adb</a>
 </pre>
 
@@ -221,7 +239,7 @@ This example has the following directory structure :
 |   <a href="./SeparateProcedure/build.bat">build.bat</a>
 \---src
     \---main
-        \---ada
+        \---<b>ada</b>
                 <a href="./SeparateProcedure/src/main/ada/main.adb">main.adb</a>
                 <a href="./SeparateProcedure/src/main/ada/package_x-sep.adb">package_x-sep.adb</a>
                 <a href="./SeparateProcedure/src/main/ada/package_x.adb">package_x.adb</a>
@@ -388,7 +406,7 @@ Setup
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

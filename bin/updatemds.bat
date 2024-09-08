@@ -10,11 +10,11 @@ set _DEBUG=0
 set _EXITCODE=0
 
 @rem files README.md, RESOURCES.md, etc.
-set _LAST_MODIFIED_OLD=michelou/)/July 2024
-set _LAST_MODIFIED_NEW=michelou/)/August 2024
+set _LAST_MODIFIED_OLD=michelou/)/August 2024
+set _LAST_MODIFIED_NEW=michelou/)/September 2024
 
-set _LAST_DOWNLOAD_OLD=(\*July 2024\*)
-set _LAST_DOWNLOAD_NEW=(*August 2024*)
+set _LAST_DOWNLOAD_OLD=(\*August 2024\*)
+set _LAST_DOWNLOAD_NEW=(*September 2024*)
 
 @rem to be transformed into -not -path "./<dirname>/*"
 set _EXCLUDE_TOPDIRS=acats-examples ada-util-samples bin docs
@@ -109,8 +109,8 @@ set _STRONG_BG_BLUE=[104m
 
 @rem we define _RESET in last position to avoid crazy console output with type command
 set _BOLD=[1m
-set _INVERSE=[7m
 set _UNDERSCORE=[4m
+set _INVERSE=[7m
 set _RESET=[0m
 goto :eof
 

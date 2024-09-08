@@ -184,20 +184,21 @@ if %_MSYS%==1 if not defined _MSYS_GNATMAKE_CMD (
     echo %_WARNING_LABEL% MSYS GNAT Make not found; use standard GNAT Make instead 1>&2
     set _MSYS=0
 )
+
 if not "!_COMMANDS:lint=!"=="%_COMMANDS%" (
     if not exist "%GNAT2019_HOME%\bin\gnat.exe" (
         echo %_WARNING_LABEL% GNAT 2019 is required to execute AdaControl 1>&2
         set "_COMMANDS=!_COMMANDS:lint=!"
     ) else (
         for /f "delims=" %%f in ("%_ROOT_DIR%.") do set "__PARENT_DIR=%%~dpf"
-        for /f "delims=" %%f in ('dir /b /s "!__PARENT_DIR!*.aru"') do set "_ARU_FILE=%%f"
+        for /f "delims=" %%f in ('dir /b /s "!__PARENT_DIR!*.aru" 2^>NUL') do set "_ARU_FILE=%%f"
         if not exist "!_ARU_FILE!" (
             echo %_WARNING_LABEL% ARU file not found 1>&2
             set "_COMMANDS=!_COMMANDS:lint=!"
         )
     )
 )
-if not "!_COMMANDS:compile=!"=="%_COMMANDS%" if defined _MSYS if not defined _MSYS_GNATMAKE_CMD (
+if not "!_COMMANDS:compile=!"=="%_COMMANDS%" if %_MSYS%==1 if not defined _MSYS_GNATMAKE_CMD (
     echo %_WARNING_LABEL% MSYS GNAT Make not found; use standard GNAT Make instead 1>&2
     set _MSYS=0
 )
@@ -310,7 +311,7 @@ if %_ACTION_REQUIRED%==0 goto :eof
 
 set __SOURCE_FILES=
 set __N=0
-for /f "delims=" %%f in ('dir /s /b "%_SOURCE_MAIN_DIR%\*.ad?" ^| findstr /r [abs]$ 2^>NUL') do (
+for /f "delims=" %%f in ('dir /b /s "%_SOURCE_MAIN_DIR%\*.ad?" 2^>NUL') do (
     set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
     set /a __N+=1
 )

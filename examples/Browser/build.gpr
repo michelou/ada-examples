@@ -1,7 +1,37 @@
-project Browser is
-   for Source_Dirs use ("src");
-   for Object_Dir use "target/obj";
-   for Exec_Dir use "target";
-   for Create_Missing_Dirs use "True";
-   for Main use ("Browser.adb");
-end Browser;
+--- @summary Browser program
+project Build is
+
+    -- project level attributes
+    type Mode_Type is ("debug", "release");
+    Mode : Mode_Type := external ("mode", "debug");
+    TargetDir := "target";
+
+    for Source_Dirs use ("src/main/ada");
+    for Main use ("Browser.adb");
+
+    for Exec_Dir use TargetDir;
+    for Object_Dir use TargetDir & "/obj";
+    for Create_Missing_Dirs use "True";
+
+    package Builder is
+        for Executable ("Browser.adb") use "Browser";
+    end Builder;
+
+    package Compiler is
+        case Mode is
+           when "debug" =>
+               for Switches ("Ada") use ("-g");
+           when "release" =>
+               for Switches ("Ada") use ("-O2");
+        end case;
+    end Compiler;
+
+    -- https://docs.adacore.com/live/wave/gps/html/gnatdoc-doc/gnatdoc.html#configuration
+    package Documentation is
+        for Documentation_Dir use TargetDir & "/html";
+        for Create_Missing_Dirs use "True";
+        for Ignored_Subprograms use ("prj_1");  -- example
+        for Image_dir use "src/main/images";  -- example
+    end Documentation;
+
+end Build;

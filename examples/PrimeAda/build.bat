@@ -222,7 +222,7 @@ if %_LINT%==1 (
         )
     )
 )
-if not "!_COMMANDS:compile=!"=="%_COMMANDS%" if defined _MSYS if not defined _MSYS_GNATMAKE_CMD (
+if not "!_COMMANDS:compile=!"=="%_COMMANDS%" if %_MSYS%==1 if not defined _MSYS_GNATMAKE_CMD (
     echo %_WARNING_LABEL% MSYS GNAT Make not found; use standard GNAT Make instead 1>&2
     set _MSYS=0
 )
