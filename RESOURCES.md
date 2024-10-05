@@ -102,6 +102,7 @@ http://www.dmitry-kazakov.de/ada/strings_edit.htm
 - [Ada Web Application](https://github.com/stcarrez/ada-awa) &ndash; a framework to build a web application in Ada 2012.
 - [Aflex](https://github.com/Ada-France/aflex) &ndash; an Ada fast lexical analyser generator.
 - [Ayacc](https://github.com/Ada-France/ayacc#ayacc) &ndash; an Ada LALR(1) parser generator.
+- [gnoga](https://sourceforge.net/projects/gnoga/) &ndash; the GNU Omnificent GUI for Ada.
 - [Language Support for Ada](https://marketplace.visualstudio.com/items?itemName=AdaCore.ada) &ndash; a Language Server providing Ada and SPARK support in Visual Studio Code.
 - [LEA][tool_lea] &ndash; a Lightweight Editor for Ada.
 - [SweetAda](https://www.sweetada.org/) &ndash; a lightweight development framework to inplement Ada-based software systems.

@@ -25,9 +25,9 @@ Optionally one may also install the following software:
 - [Alire 2.0][alire_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*changes*][alire_changes])
 - [ConEmu 2023][conemu_downloads] ([*release notes*][conemu_relnotes])
 - [GNAT CE 2019][gnat2019_downloads] <sup id="anchor_02">[2](#footnote_02)</sup>
-- [GWindows 2023][gwindows_downloads] ([*release notes*][gwindows_relnotes])
+- [GWindows 2024][gwindows_downloads] ([*release notes*][gwindows_relnotes])
 - [MSYS2 2024][msys2_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][msys2_changelog])
-- [Visual Studio Code 1.92][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.93][vscode_downloads] ([*release notes*][vscode_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][linux_opt] directory on Unix).
@@ -192,10 +192,10 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://www.adacore.com/download/more">gnat-community-2019-20190517-x86_64-windows-bin.exe</a> <i>(380 MB)</i>
 <a href="https://www.adacore.com/download" rel="external">gnat-2021-20210519-x86_64-windows64-bin.exe</a>         <i>(562 MB)</i>
 <a href="https://www.adacore.com/download/more">gtkada-2021-x86_64-windows64-bin.exe</a>                <i>( 59 MB)</i>
-<a href="https://sourceforge.net/projects/gnavi/files/">GWindows Archive 29-May-2023.zip</a>                    <i>(  4 MB)</i>
+<a href="https://sourceforge.net/projects/gnavi/files/">GWindows Archive 13-Apr-2024.zip</a>                    <i>(  4 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                           <i>( 83 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.46.2-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
-<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.93.0.zip</a>                         <i>(131 MB)</i>
+<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.93.1.zip</a>                         <i>(131 MB)</i>
 </pre>
 </dd></dl>
 
@@ -256,8 +256,9 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 <!--
 https://sourceforge.net/p/gnavi/news/2022/11/gwindows-release-13-nov-2022-revision-459/
 https://sourceforge.net/p/gnavi/news/2023/05/gwindows-release-29-may-2023-revision-480/
+https://sourceforge.net/p/gnavi/news/2024/04/gwindows-release-13-apr-2024-revision-549/
 -->
-[gwindows_relnotes]: https://sourceforge.net/p/gnavi/news/2023/05/gwindows-release-29-may-2023-revision-480/
+[gwindows_relnotes]: https://sourceforge.net/p/gnavi/news/2024/04/gwindows-release-13-apr-2024-revision-549/
 [haskell_examples]: https://github.com/michelou/haskell-examples#top
 [kafka_examples]: https://github.com/michelou/kafka-examples#top
 [kotlin_examples]: https://github.com/michelou/kotlin-examples#top
