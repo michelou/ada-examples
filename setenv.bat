@@ -501,6 +501,7 @@ goto :eof
 set __VERBOSE=%1
 set __VERSIONS_LINE1=
 set __VERSIONS_LINE2=
+set __VERSIONS_LINE3=
 set __WHERE_ARGS=
 where /q "%ADACTL_HOME%:adactl.exe"
 if %ERRORLEVEL%==0 (
@@ -509,7 +510,11 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%GNAT_HOME%\bin:alr.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('"%GNAT_HOME%\bin\alr.exe" --version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% alr %%j,"
+    for /f "tokens=1,*" %%i in ('"%GNAT_HOME%\bin\alr.exe" --version') do (
+        @rem option --version may print something like "alr 2.0.2+9b80158"
+        for /f "tokens=1,* delims=+" %%x in ("%%j") do set "__ALR_VERSION=%%~x"
+        set "__VERSIONS_LINE1=%__VERSIONS_LINE1% alr !__ALR_VERSION!,"
+    )
     set __WHERE_ARGS=%__WHERE_ARGS% "%GNAT_HOME%\bin:alr.exe"
 )
 where /q "%GNAT_HOME%\bin:gcc.exe"
@@ -522,21 +527,29 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1-3,*" %%i in ('"%GNAT_HOME%\bin\gnat.exe" --version ^| findstr GNAT') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% gnat %%j %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%GNAT_HOME%\bin:gnat.exe"
 )
+set __GWINDOWS_VERSION=
+where /q "%GWINDOWS_HOME%\gwindows:changes.txt"
+if %ERRORLEVEL%==0 (
+   for /f "tokens=1,2,3,*" %%i in ('findstr /b /c:"GWindows release" "%GWINDOWS_HOME%\gwindows\changes.txt"') do (
+       if not defined __GWINDOWS_VERSION set "__GWINDOWS_VERSION=%%~k"
+   )
+   set "__VERSIONS_LINE2=%__VERSIONS_LINE2% Gwindows !__GWINDOWS_VERSION!,"
+)  
 where /q "%MSYS_HOME%\usr\bin:make.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,*" %%i in ('"%MSYS_HOME%\usr\bin\make.exe" --version 2^>^&1 ^| findstr Make') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% make %%k,"
+    for /f "tokens=1,2,3,*" %%i in ('"%MSYS_HOME%\usr\bin\make.exe" --version 2^>^&1 ^| findstr Make') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% make %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%MSYS_HOME%\usr\bin:make.exe"
 )
 where /q "%GIT_HOME%\bin:git.exe"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,*" %%i in ('"%GIT_HOME%\bin\git.exe" --version') do (
-        for /f "delims=. tokens=1,2,3,*" %%a in ("%%k") do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% git %%a.%%b.%%c,"
+        for /f "delims=. tokens=1,2,3,*" %%a in ("%%k") do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% git %%a.%%b.%%c,"
     )
     set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\bin:git.exe"
 )
 where /q "%GIT_HOME%\usr\bin:diff.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1-3,*" %%i in ('"%GIT_HOME%\usr\bin\diff.exe" --version ^| findstr diff') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% diff %%l,"
+    for /f "tokens=1-3,*" %%i in ('"%GIT_HOME%\usr\bin\diff.exe" --version ^| findstr diff') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% diff %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\usr\bin:diff.exe"
 )
 where /q "%GIT_HOME%\bin:bash.exe"
@@ -544,13 +557,14 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1-3,4,*" %%i in ('"%GIT_HOME%\bin\bash.exe" --version ^| findstr bash') do (
         set "__VERSION=%%l"
         setlocal enabledelayedexpansion
-        set "__VERSIONS_LINE2=%__VERSIONS_LINE2% bash !__VERSION:-release=!"
+        set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bash !__VERSION:-release=!"
     )
     set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\bin:bash.exe"
 )
 echo Tool versions:
 echo   %__VERSIONS_LINE1%
 echo   %__VERSIONS_LINE2%
+echo   %__VERSIONS_LINE3%
 if %__VERBOSE%==1 (
     echo Tool paths: 1>&2
     for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do (

@@ -108,12 +108,17 @@ http://www.dmitry-kazakov.de/ada/strings_edit.htm
 - [SweetAda](https://www.sweetada.org/) &ndash; a lightweight development framework to inplement Ada-based software systems.
 - [Win32Ada](https://github.com/AdaCore/win32ada) &ndash; an Ada API to the Windows library.
 
+## <span id="tutorials">Tutorials</span>
+
+- [Ada 95 Tutorial](https://perso.telecom-paristech.fr/pautet/Ada95/a95list.htm) by Gordon Dodrill, 1998.
+
 ## <span id="others">Other resources</span>
 
-- [Overview of Ada 2022](http://www.ada-auth.org/standards/22over/html/Ov22-TOC.html) by Jeff Cousins.
+- [ada-lang.io](https://ada-lang.io/) &ndash; an Open Source Community site for [Ada].
 - [AdaControl User Guide](https://www.adalog.fr/compo/adacontrol_ug.html).
-- [Awesome Ada](https://github.com/ohenley/awesome-ada) - a curated list of awesome resources related to Ada.
+- [Awesome Ada](https://github.com/ohenley/awesome-ada) &ndash; a curated list of awesome resources related to Ada.
 - [Free Tools and Libraries](https://www.adaic.org/ada-resources/tools-libraries/)
+- [Overview of Ada 2022](http://www.ada-auth.org/standards/22over/html/Ov22-TOC.html) by Jeff Cousins.
 - UNC paths
   - [File path formats on Windows systems](https://learn.microsoft.com/en-us/dotnet/standard/io/file-path-formats)
   - [Microsoft Windows Topics](hhttps://docs.adacore.com/gnat_ugn-docs/html/gnat_ugn/gnat_ugn/platform_specific_information.html#using-a-network-installation-of-gnats)
@@ -125,6 +130,7 @@ http://www.dmitry-kazakov.de/ada/strings_edit.htm
 
 <!-- link refs -->
 
+[ada]: https://www.adacore.com/
 [article_chapman1]: http://www.embeddedcomputing.com/technology/security/software-security/adacore-technologies-for-cyber-security-part-1
 [article_chapman2]: http://www.embeddedcomputing.com/technology/software-and-os/adacore-technologies-for-cyber-security-part-2-the-challenge-of-secure-software
 [article_chapman3]: https://www.embeddedcomputing.com/technology/software-and-os/adacore-technologies-for-cyber-security-part-3-languages-tools-and-technologies

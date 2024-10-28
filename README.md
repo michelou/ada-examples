@@ -8,7 +8,7 @@
   </tr>
 </table>
 
-[Akka][akka_examples], [C++][cpp_examples], [COBOL][cobol_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Erlang][erlang_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Modula-2][m2_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples], [WiX Toolset][wix_examples] and [Zig][zig_examples] are other topics we are continuously monitoring.
+[Akka][akka_examples], [C++][cpp_examples], [COBOL][cobol_examples], [Dafny][dafny_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Erlang][erlang_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Modula-2][m2_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples], [WiX Toolset][wix_examples] and [Zig][zig_examples] are other topics we are continuously monitoring.
 
 > **&#9755;** Read the document <a href="https://www.adaic.org/advantages/ada-comp-chart/" rel="external">"Ada Comparison Chart"</a> for an overview of evolution of the major features of the Ada programming language.
 
@@ -16,7 +16,7 @@
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.46][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.47][git_releases] ([*release notes*][git_relnotes])
 - [GNAT CE 2021][gnat2021_downloads] ([*announcement*][gnat2021_announcement])
 
 Optionally one may also install the following software:
@@ -27,7 +27,7 @@ Optionally one may also install the following software:
 - [GNAT CE 2019][gnat2019_downloads] <sup id="anchor_02">[2](#footnote_02)</sup>
 - [GWindows 2024][gwindows_downloads] ([*release notes*][gwindows_relnotes])
 - [MSYS2 2024][msys2_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][msys2_changelog])
-- [Visual Studio Code 1.93][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.94][vscode_downloads] ([*release notes*][vscode_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][linux_opt] directory on Unix).
@@ -42,7 +42,7 @@ C:\opt\GNAT\2019\    <i>(1.1 GB)</i>
 C:\opt\GNAT\2021\    <i>(2.8 GB)</i>
 C:\opt\GWindows\     <i>( 15 MB)</i>
 C:\opt\msys64\       <i>(2.8 GB)</i>
-C:\opt\VSCode\       <i>(374 MB)</i>
+C:\opt\VSCode\       <i>(371 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_releases] provides a BASH emulation used to run [**`git.exe`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -53,11 +53,13 @@ This project has the following directory structure :
 
 <pre style="font-size:80%;">
 <a href="aunit-examples/">aunit-examples\</a>{<a href="aunit-examples/README.md">README.md</a>, <a href="aunit-examples/calculator/">calculator</a>, etc.}
+<a href="bin/">bin\</a>
 <a href="docs/">docs\</a>
 <a href="examples/">examples\</a>{<a href="examples/README.md">README.md</a>, <a href="examples/Greetings">Greetings</a>, etc.}
 <a href="gwindows-examples/">gwindows-examples\</a>{<a href="gwindows-examples/README.md">README.md</a>, <a href="gwindows-examples/tutorial1">tutorial1</a>, etc.}
 <a href="hac-examples/">hac-examples</a>{<a href="hac-examples/README.md">README.md</a>, <a href="./hac-examples/Ackermann/">Ackermann</a>, ..}
 <a href="intro-to-ada/">intro-to-ada\</a>{<a href="intro-to-ada/README.md">README.md</a>, <a href="intro-to-ada/Greet/">Greet</a>, <a href="intro-to-ada/Week/">Week</a>, etc.}
+<a href="pchapin-exeamples/">pchapin-examples</a>{<a href="pchapin-examples/README.md">README.md</a>, <a href="pchapin-examples/Rationals/">Rationals</a>, <a href="pchapin-examples/Tagged/">Tagged</a>, <a href="pchapin-examples/Vowels/">Vowels</a>, etc.}
 <a href="shvets-examples/">shvets-examples\</a>{<a href="shvets-examples/README.md">README.md</a>, <a href="shvets-examples/ch02">ch02</a>, <a href="shvets-examples/ch03">ch03</a>, etc.}
 <a href="QUICKREF.md">QUICKREF.md</a>
 README.md
@@ -69,12 +71,14 @@ README.md
 where
 
 - directory [**`aunit-examples\`**](aunit-examples/) contains [Ada] code examples from GitHub project [`AdaCore/aunit`](https://github.com/AdaCore/aunit).
+- directory [**`bin\`**](bin/) contains utility batch files.
 - directory [**`docs\`**](docs/) contains [Ada] related documents.
 - directory [**`examples\`**](examples/) contains [Ada] code examples grabbed from various websites.
 - directory [**`gwindows-examples\`**](./gwindows-examples/) contains [GNAVI] code examples (see [`README.md`](./gwindows-examples/README.md))
 - directory [**`hac-examples\`**](./hac-examples/) contains [Ada] code examples from the [HAC](https://github.com/zertovitch/hac) project.
 - directory [**`intro-to-ada\`**](intro-to-ada/) contains [Ada] code examples from AdaCore's course <a href="https://learn.adacore.com/courses/intro-to-ada" rel="external">*Introduction to Ada*</a>.
-- directory [**`shvets-examples`**](./shvets-examples/) contains [Ada] code examples from Shvets's book <a href="https://www.apress.com/9781484254271" rel="external">*Beginning Ada Programming*</a>.
+- directory [**`pchapin-examples\`**](./pchapin-examples/) contains [Ada] code examples from Peter's [Ada tutorial](https://github.com/pchapin/tutorialada).
+- directory [**`shvets-examples\`**](./shvets-examples/) contains [Ada] code examples from Shvets's book <a href="https://www.apress.com/9781484254271" rel="external">*Beginning Ada Programming*</a>.
 - file [**`QUICKREF.md`**](QUICKREF.md) gathers [Ada] hints and tips.
 - file [**`README.md`**](README.md) is the [Markdown][github_markdown] document for this page.
 - file [**`RESOURCES.md`**](RESOURCES.md) gathers [Ada] related informations.
@@ -99,8 +103,9 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   adactl 1.22r16c, alr 2.0.1, gcc 13.2.0, gnat Community 2021, make 4.4.1,
-   git 2.46.2, diff 3.10, bash 5.2.37(1)
+   adactl 1.22r16c, alr 2.0.2, gcc 13.3.0, gnat Community 2021,
+   Gwindows 13-Apr-2024, make 4.4.1,
+   git 2.47.0, diff 3.10, bash 5.2.37(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> diff git make</b>
 C:\opt\Git\usr\bin\diff.exe
@@ -117,7 +122,7 @@ C:\opt\msys64\usr\bin\make.exe
  <a href="https://alire.ada.dev/docs/" rel="external">Alire</a> is a source-based package manager for the Ada and <a href="https://learn.adacore.com/courses/intro-to-spark/chapters/01_Overview.html#what-is-it" rel="external">SPARK</a> programming languages.
  </p>
  <p >
- We install <a href="https://alire.ada.dev/docs/" rel="external">Alire</a> from the Zip file <a href="https://github.com/alire-project/alire/releases" rel="external">alr-2.0.1-bin-x86_64-windows.zip</a>; the archive contains the two files <code>bin\alr.exe</code> and <code>LICENSE.txt</code> (GNU license). We simply copy them to directory <code>%GNAT_HOME%\bin\</code> (in our case <code>GNAT_HOME=C:\opt\GNAT\2021\</code>).
+ We install <a href="https://alire.ada.dev/docs/" rel="external">Alire</a> from the Zip file <a href="https://github.com/alire-project/alire/releases" rel="external">alr-2.0.2-bin-x86_64-windows.zip</a>; the archive contains the two files <code>bin\alr.exe</code> and <code>LICENSE.txt</code> (GNU license). We simply copy them to directory <code>%GNAT_HOME%\bin\</code> (in our case <code>GNAT_HOME=C:\opt\GNAT\2021\</code>).
 </dd></dl>
 
 <span id="footnote_02">[2]</span> ***GNAT 2019*** [↩](#anchor_02)
@@ -187,15 +192,15 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://www.adalog.fr/en/adacontrol.html" rel="external">adactl-1.22r16c-exe_windows_ce2019.zip</a>              <i>( 26 MB)</i>
-<a href="https://github.com/alire-project/alire/releases/" rel="external">alr-2.0.1-bin-x86_64-windows.zip</a>                    <i>( 11 MB)</i>
+<a href="https://github.com/alire-project/alire/releases/" rel="external">alr-2.0.2-bin-x86_64-windows.zip</a>                    <i>( 11 MB)</i>
 <a href="https://github.com/Maximus5/ConEmu/releases/tag/v23.07.24" rel="external">ConEmuPack.230724.7z</a>                                <i>(  5 MB)</i>
 <a href="https://www.adacore.com/download/more">gnat-community-2019-20190517-x86_64-windows-bin.exe</a> <i>(380 MB)</i>
 <a href="https://www.adacore.com/download" rel="external">gnat-2021-20210519-x86_64-windows64-bin.exe</a>         <i>(562 MB)</i>
 <a href="https://www.adacore.com/download/more">gtkada-2021-x86_64-windows64-bin.exe</a>                <i>( 59 MB)</i>
 <a href="https://sourceforge.net/projects/gnavi/files/">GWindows Archive 13-Apr-2024.zip</a>                    <i>(  4 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                           <i>( 83 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.46.2-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
-<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.93.1.zip</a>                         <i>(131 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.47.0-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
+<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.94.2.zip</a>                         <i>(131 MB)</i>
 </pre>
 </dd></dl>
 
@@ -236,6 +241,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [conemu_downloads]: https://github.com/Maximus5/ConEmu/releases
 [conemu_relnotes]: https://conemu.github.io/blog/2023/07/24/Build-230724.html
 [cpp_examples]: https://github.com/michelou/cpp-examples#top
+[dafny_examples]: https://github.com/michelou/dafny-examples#top
 [dart_examples]: https://github.com/michelou/dart-examples#top
 [deno_examples]: https://github.com/michelou/deno-examples#top
 [diff_cli]: https://man7.org/linux/man-pages/man1/diff.1.html
@@ -244,7 +250,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [flix_examples]: https://github.com/michelou/flix-examples#top
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.46.2.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.47.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [gnat2019_downloads]: https://www.adacore.com/download/more
 [gnat2021_announcement]: https://blog.adacore.com/gnat-community-2021-is-here
