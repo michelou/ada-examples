@@ -7,7 +7,7 @@
 
 include ../Makefile.inc
 
-PROJ_NAME = PrimeAda
+PROJ_NAME = Dates
 
 SOURCE_DIR      = src
 SOURCE_MAIN_DIR = $(SOURCE_DIR)/main/ada

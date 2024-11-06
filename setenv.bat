@@ -469,6 +469,7 @@ set _VSCODE_PATH=
 set __CODE_CMD=
 for /f "delims=" %%f in ('where code.exe 2^>NUL') do set "__CODE_CMD=%%f"
 if defined __CODE_CMD (
+    for /f "delims=" %%i in ("%__CMD_CMD%") do set "_VSCODE_HOME=%%~dpi"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of VSCode executable found in PATH 1>&2
     @rem keep _VSCODE_PATH undefined since executable already in path
     goto :eof
@@ -539,6 +540,15 @@ where /q "%MSYS_HOME%\usr\bin:make.exe"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,3,*" %%i in ('"%MSYS_HOME%\usr\bin\make.exe" --version 2^>^&1 ^| findstr Make') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% make %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%MSYS_HOME%\usr\bin:make.exe"
+) 
+where /q "%VSCODE_HOME%\bin:code.cmd"
+if %ERRORLEVEL%==0 (
+    set __CODE_VERSION=
+    for /f "tokens=*" %%i in ('"%VSCODE_HOME%\bin\code.cmd" --version 2^>^&1') do (
+         if not defined __CODE_VERSION set "__CODE_VERSION=%%i"
+    )
+    set "__VERSIONS_LINE2=%__VERSIONS_LINE2% code !__CODE_VERSION!,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%VSCODE_HOME%\bin:code.cmd"
 )
 where /q "%GIT_HOME%\bin:git.exe"
 if %ERRORLEVEL%==0 (
@@ -601,7 +611,7 @@ endlocal & (
         if not defined GNAT2019_HOME set "GNAT2019_HOME=%_GNAT2019_HOME%"
         if not defined GWINDOWS_HOME set "GWINDOWS_HOME=%_GWINDOWS_HOME%"
         if not defined MSYS_HOME set "MSYS_HOME=%_MSYS_HOME%"
-        if not defined VSCODE_HOME set "VSCODE_HOME=%VSCODE_HOME%"
+        if not defined VSCODE_HOME set "VSCODE_HOME=%_VSCODE_HOME%"
         @rem We prepend %_GIT_HOME%\bin to hide C:\Windows\System32\bash.exe
         set "PATH=%_GIT_HOME%\bin;%PATH%%_MSYS_PATH%%_GNAT_PATH%%_GIT_PATH%%_VSCODE_PATH%;%~dp0bin"
         call :print_env %_VERBOSE%
