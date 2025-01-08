@@ -10,7 +10,7 @@
 </table>
 
 Code examples presented in this document can be built in two ways :
-- the batch file [`build.bat`](./Week/build.bat) calls the [`GNATmake`](gnu_gnatmake) build tool (try option `-help` to display other features)
+- the batch file [`build.bat`](./Week/build.bat) calls the [`GNATmake`][gnu_gnatmake] build tool (try option `-help` to display other features)
 - the [GPR tools][gpr_tools] &ndash; e.g. [**`gprclean`**][gprclean_cli] and [**`gprbuild`**][gprbuild_cli] &ndash; get their build information from the project file [`main.gpr`](./Week/main.gpr) <sup id="anchor_01">[1](#footnote_01)</sup>.
 
 ## <span id="forward_declaration">`forward_declaration` Example</span>
