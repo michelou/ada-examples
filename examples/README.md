@@ -33,6 +33,18 @@ This example comes from the blog post ["Opening a web page using default browser
                 <a href="./Browser/src/main/ada/Browser.adb">Browser.adb</a>
 </pre>
 
+Command [`build.sh`](./Browser/build.sh)`clean run` generates and executes the Ada program `target\Browser.exe` (which opens the URL`https://ada.tips/` in the default browser) :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="">sh</a> <a href="./Browser/build.sh">build.sh</a> -verbose clean run</b>
+Delete directory "target"
+Compile 1 Ada source file to directory "target"
+gcc -c -IF:/examples/Browser/src/main/ada/ -gnat2022 -I- -o W:\examples\Browser\target\obj\browser.o F:/examples/Browser/src/main/ada/browser.adb
+gnatbind -aOW:\examples\Browser\target\obj -x W:\examples\Browser\target\obj\browser.ali
+gnatlink W:\examples\Browser\target\obj\browser.ali -o F:/examples/Browser/target/Browser.exe
+Execute "target/Browser.exe"
+</pre>
+
 <!--=======================================================================-->
 
 ## <span id="dining_philosophers">`DiningPhilosophers` Example</span>
@@ -40,19 +52,19 @@ This example comes from the blog post ["Opening a web page using default browser
 This example has the following directory structure :
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
 |   <a href="./DiningPhilosophers/00download.txt">00download.txt</a>
 |   <a href="./DiningPhilosophers/build.bat">build.bat</a>
 |   <a href="./DiningPhilosophers/build.gpr">build.gpr</a>
 |   <a href="./DiningPhilosophers/build.sh">build.sh</a>
 |   <a href="./DiningPhilosophers/Makefile">Makefile</a>
 \---<b>src</b>
-    \---main
+    \---<b>main</b>
         \---<b>ada</b>
                 <a href="./DiningPhilosophers/src/main/ada/test_dining_philosophers.adb">test_dining_philosophers.adb</a>
 </pre>
 
-Command [**`build`**](./DiningPhilosophers/build.bat)`-verbose run` generates and runs executable `target\DiningPhilosophers.exe` :
+Command [**`build`**](./DiningPhilosophers/build.bat)`run` generates and executes the Ada program `target\DiningPhilosophers.exe` :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./DiningPhilosophers/build.bat">build</a> -verbose run</b>
@@ -94,7 +106,7 @@ ARISTOTLE is leaving
 This example has the following directory structure :
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
 |   <a href="./HelloWorld/build.bat">build.bat</a>
 |   <a href="./HelloWorld/build.gpr">build.gpr</a>
 |   <a href="./HelloWorld/build.sh">build.sh</a>
@@ -112,6 +124,8 @@ Command [`build.bat`](./HelloWorld/build.bat) generates and runs the executable 
 Compile 1 Ada source file to directory "target\obj"
 Hello WORLD!
 </pre>
+
+We get the same output with command [`grpbuild`](https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/building_with_gprbuild.html) :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/companion_tools.html#cleaning-up-with-gprclean" rel="external">gprclean</a>&amp; <a href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/building_with_gprbuild.html" rel="external">gprbuild</a>&amp; target\HelloWorld.exe</b>
@@ -132,18 +146,18 @@ Hello WORLD!
 This example has the following directory structure : 
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
 |   <a href="./Greetings/build.bat">build.bat</a>
 |   <a href="./Greetings/build.gpr">build.gpr</a>
 |   <a href="./Greetings/build.sh">build.sh</a>
 |   <a href="./Greetings/Makefile">Makefile</a>
-\---src
+\---<b>src</b>
         <a href="./Greetings/src/gmain.adb">gmain.adb</a>
         <a href="./Greetings/src/greetings.adb">greetings.adb</a>
         <a href="./Greetings/src/greetings.ads">greetings.ads</a>
 </pre>
 
-Command [`build.bat`](./Greetings/build.bat) generates and runs the executable `target\Greetings.exe`. 
+Command [`build.bat`](./Greetings/build.bat) generates and executes the Ada program `target\Greetings.exe`. 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./Greetings/build.bat">build</a> -verbose run</b>
@@ -151,6 +165,8 @@ Compile 3 Ada source files to directory "target\obj"
 Hello WORLD!
 Goodbye WORLD!
 </pre>
+
+We get the same output with command [`grpbuild`](https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/building_with_gprbuild.html) :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/companion_tools.html#cleaning-up-with-gprclean">gprclean</a> -q &amp; <a href="https://docs.adacore.com/gprbuild-docs/html/gprbuild_ug/building_with_gprbuild.html#command-line">gprbuild</a> -q &amp; target\Greetings.exe</b>
@@ -161,6 +177,24 @@ Goodbye WORLD!
 ## <span id="hangman">`Hangman` Example</span> [**&#x25B4;**](#top)
 
 Subdirectory `hangman_1.0.0_be628ad5\` is created by command [`alr`](https://alire.ada.dev/docs/#first-steps)` get hangman` <sup id="anchor_02">[2](#footnote_02)</sup>; that command is run *only once* to obtain the `Hangman` executable project from the [Alire][github_alire] repository.
+
+This example has the following directory structure :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f hangman_1.0.0_be628ad5 | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
+|   <a href="./Hangman/hangman_1.0.0_be628ad5/alire.toml">alire.toml</a>
+|   <a href="./Hangman/hangman_1.0.0_be628ad5/hangmain.adb">hangmain.adb</a>
+|   <a href="">hangman.adb</a>
+|   <a href="./Hangman/hangman_1.0.0_be628ad5/hangman.ads">hangman.ads</a>
+|   <a href="./Hangman/hangman_1.0.0_be628ad5/hangman.gpr">hangman.gpr</a>
+|   <a href="./Hangman/hangman_1.0.0_be628ad5/wordbank.txt">wordbank.txt</a>
++---<b>alire</b>
+|       <a href="./Hangman/hangman_1.0.0_be628ad5/alire/alire.lock">alire.lock</a>
+\---<b>config</b>
+        <a href="./Hangman/hangman_1.0.0_be628ad5/config/hangman_config.ads">hangman_config.ads</a>
+        <a href="./Hangman/hangman_1.0.0_be628ad5/config/hangman_config.gpr">hangman_config.gpr</a>
+        <a href="./Hangman/hangman_1.0.0_be628ad5/config/hangman_config.h">hangman_config.h</a>
+</pre>
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir" rel="external">dir</a> /b &amp; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd" rel="external">cd</a> hang*</b>
@@ -276,7 +310,7 @@ This example has the following directory structure :
                 <a href="./TimingFibonacci/src/main/ada/main.adb">main.adb</a>
 </pre>
 
-Command [**`build.bat`**](./TimingFibonacci/build.bat) generates and runs executable `target\TimingFibonacci.exe` : 
+Command [**`build.bat`**](./TimingFibonacci/build.bat)`clean run` generates and executes the Ada program `target\TimingFibonacci.exe` : 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./TimingFibonacci/build.baT">build</a> -verbose clean run</b>
@@ -406,7 +440,7 @@ Setup
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2025* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2025* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

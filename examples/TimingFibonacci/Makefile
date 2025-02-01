@@ -1,5 +1,5 @@
 ##
-## Copyright (c) 2018-2024 Stéphane Micheloud
+## Copyright (c) 2018-2025 Stéphane Micheloud
 ##
 ## Licensed under the MIT License.
 ##
@@ -7,7 +7,7 @@
 
 include ../Makefile.inc
 
-PROJ_NAME      = TimingFibonacci
+PROJ_NAME ?= $(shell basename $(CURDIR))
 
 SOURCE_DIR     = src
 TARGET_DIR     = target
@@ -32,7 +32,7 @@ clean:
 
 run: build
 	"$(TARGET)"
-  
+
 help:
 	@$(ECHO) "Usage: make all|build|clean|help|lint|run"
 	@$(ECHO) ""
@@ -45,7 +45,7 @@ help:
 	@$(ECHO) "     run    execute main program \"$(TARGET)\""
 
 ##############################################################################
-## lint
+## lint rules
 
 ## adactl expects absolute path arguments
 ARU_FILE = $(realpath ../rules.aru)

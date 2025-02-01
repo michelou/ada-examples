@@ -75,7 +75,7 @@ if defined _ARU_FILE if not exist "%_ARU_FILE%" (
     set _EXITCODE=1
     goto :eof
 )
-@rem use newer PowerShell version if available
+@rem we use the newer PowerShell version if available
 where /q pwsh.exe
 if %ERRORLEVEL%==0 ( set _PWSH_CMD=pwsh.exe
 ) else ( set _PWSH_CMD=powershell.exe

@@ -1,5 +1,5 @@
 ##
-## Copyright (c) 2018-2024 Stéphane Micheloud
+## Copyright (c) 2018-2025 Stéphane Micheloud
 ##
 ## Licensed under the MIT License.
 ##
@@ -16,7 +16,7 @@ TARGET_OBJ_DIR = $(TARGET_DIR)/obj
 ##############################################################################
 ## main rules
 
-MAIN_FILE = $(wildcard $(SOURCE_DIR)/$(PROJ_NAME).adb)
+MAIN_FILE = $(wildcard $(SOURCE_DIR)/main/ada/$(PROJ_NAME).adb)
 TARGET  = $(TARGET_DIR)/$(PROJ_NAME)$(TARGET_EXT)
 
 all: build run

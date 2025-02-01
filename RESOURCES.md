@@ -19,7 +19,7 @@ http://www.dmitry-kazakov.de/ada/strings_edit.htm
 - [AdaCore Technologies for cyber security, part 3: Security vulnerabilities and their mitigation][article_chapman3] by Roderick Chapman, July 2018.
 - [AdaCore Technologies for cyber security, part 2: The challenge of secure software][article_chapman2] by Roderick Chapman, June 2018.
 - [AdaCore Technologies for cyber security, part 1][article_chapman1] by Roderick Chapman, May 2018.
-- Learning Ada, by [Xintia](https://steemit.com/@xinta) :
+- Learning Ada, by [Xintia](https://steemit.com/@xinta) <span style="color:darkred;">(*inactive since May 2019*)</span>:
   - [Learning Ada 7: generics and (static) overloading](https://steemit.com/ada-lang/@xinta/learning-ada-7-generics-and-static-overloading), 2018.
   - [Learning Ada 6: tasking](https://steemit.com/programming/@xinta/learning-ada-6-tasking), 2018.
   - [Learning Ada 5: object oriented paradigm](https://steemit.com/ada-lang/@xinta/learning-ada-5-object-oriented-paradigm), 2017.
@@ -36,7 +36,7 @@ http://www.dmitry-kazakov.de/ada/strings_edit.htm
 - [Ada 202x support in GNAT](https://blog.adacore.com/ada-202x-support-in-gnat) by Arnaud Charlet, October 2020.
 - [Declaring subtypes of private types](https://ada.tips/declaring-subtypes-of-private-types.html) by Jacob Sparre Andersen, September 2017.
 - [Self-referencing Objects](https://ada.tips/self-referencing-objects.html) by Jacob Sparre Andersen, August 2014.
-- [Ada Tips](https://ada.tips/) by Tero Koskinen :
+- [Ada Tips](https://ada.tips/) by Tero Koskinen <span style="color:darkred;">(*inactive since September 2017*)</span> :
   - [Declaring subtypes of private types](https://ada.tips/declaring-subtypes-of-private-types.html), September 2017.
   - [Checking file header with Adacontrol](https://ada.tips/checking-file-header-with-adacontrol.html), March 2014.
   - [Checking "out" parameters with Adacontrol](https://ada.tips/checking-out-parameters-with-adacontrol.html), March 2014.
@@ -125,7 +125,7 @@ http://www.dmitry-kazakov.de/ada/strings_edit.htm
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2025* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2025* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

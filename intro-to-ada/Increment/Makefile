@@ -7,50 +7,45 @@
 
 include ../Makefile.inc
 
-PROJ_NAME = Check
+PROJ_NAME ?= $(shell basename $(CURDIR))
 
-SOURCE_DIR      = src
-SOURCE_MAIN_DIR = $(SOURCE_DIR)/main/ada
-TARGET_DIR      = target
-TARGET_OBJ_DIR  = $(TARGET_DIR)/obj
-
-MAIN_ARGS =
+SOURCE_DIR     = src
+TARGET_DIR     = target
+TARGET_OBJ_DIR = $(TARGET_DIR)/obj
 
 ##############################################################################
 ## main rules
 
-SOURCE_MAIN_FILE = $(SOURCE_MAIN_DIR)/samples_test.adb
-
+SOURCES = $(wildcard $(SOURCE_DIR)/show*.adb)
 TARGET  = $(TARGET_DIR)/$(PROJ_NAME)$(TARGET_EXT)
 
 all: build run
 
 build: $(TARGET)
 
-$(TARGET): $(SOURCE_MAIN_FILE)
+$(TARGET): $(SOURCES)
 	[[ -d "$(TARGET_OBJ_DIR)" ]] || "$(MKDIR)" -p "$(TARGET_OBJ_DIR)"
-	"$(GNATMAKE)" -d -gnat2022 -we -I"$(SOURCE_MAIN_DIR)" -D "$(TARGET_OBJ_DIR)" -o "$(TARGET)" $^
+	"$(GNATMAKE)" -d -gnat2022 -we -D "$(TARGET_OBJ_DIR)" -o "$(TARGET)" $^
 
 clean:
 	"$(RM)" -rf "$(TARGET_DIR)"
 
 run: build
-	"$(TARGET)" $(MAIN_ARGS)
+	"$(TARGET)"
 
 help:
-	@$(ECHO) "Usage: make all|build|clean|doc|help|lint|run"
+	@$(ECHO) "Usage: make all|build|clean|help|lint|run"
 	@$(ECHO) ""
 	@$(ECHO) "   Subcommands:"
 	@$(ECHO) "     all    alias for build"
 	@$(ECHO) "     build  compile Ada source files"
 	@$(ECHO) "     clean  delete generated files"
-	@$(ECHO) "     doc    generate HTML documentation"
 	@$(ECHO) "     help   print this help message"
 	@$(ECHO) "     lint   analyze Ada source files"
 	@$(ECHO) "     run    execute main program \"$(TARGET)\""
 
 ##############################################################################
-## lint
+## lint rules
 
 ## adactl expects absolute path arguments
 ARU_FILE = $(realpath ../rules.aru)
@@ -61,18 +56,9 @@ lint:
 	"$(ADACTL)" -v -f "$(ARU_FILE)" -o "$(LOG_FILE)" -w "$(realpath $(SOURCE_DIR))/*.adb"
 
 ##############################################################################
-## doc
-
-PRJ_FILE = build.gpr
-
-doc:
-	## Other options: -q=be quiet
-	"$(GNATDOC)" --project="$(PRJ_FILE)"
-
-##############################################################################
 ## phony
 
-.PHONY: all build clean doc help lint run
+.PHONY: all build clean help lint run
 
 .SUFFIXES:
 .SUFFIXES: .adb .adc .ads .o .obj .exe

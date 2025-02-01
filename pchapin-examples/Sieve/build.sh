@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2024 Stéphane Micheloud
+# Copyright (c) 2018-2025 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -317,7 +317,7 @@ TARGET_FILE="$TARGET_DIR/$PROJECT_NAME$TARGET_EXT"
 
 if [[ $LINT -eq 1 ]] && [[ ! -f "$GNAT2019_HOME/bin/gnat.exe" ]]; then
     warning "GNAT 2019 is required to execute AdaControl" 1>&2
-    LINT=false
+    LINT=0
 fi
 if [[ ! -f "$ROOT_DIR/build.gpr" ]]; then
     error "GNAT Ada project file not found" 1>&2

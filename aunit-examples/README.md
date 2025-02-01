@@ -17,16 +17,16 @@ We made the following changes to the original [`AdaCore/aunit`][adacore_aunit] c
 This example has the following directory structure :
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="">tree</a> /a /f . | <a href="">findstr</a> /v /b [A-Z]</b>
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
 |   <a href="./calculator/harness.gpr">harness.gpr</a>
 |   <a href="./calculator/Makefile">Makefile</a>
-+---tested_lib
++---<b>tested_lib</b>
 |   |   <a href="./calculator/tested_lib/testlib.gpr">testlib.gpr</a>
-|   +---lib
-|   \---src
+|   +---<b>lib</b>
+|   \---<b>src</b>
 |           <a href="./calculator/tested_lib/src/math.adb">math.adb</a>
 |           <a href="./calculator/tested_lib/src/math.ads">math.ads</a>
-\---tests
+\---<b>tests</b>
         <a href="./calculator/tests/math-test.adb">math-test.adb</A>
         math-test.ads
         math_suite.adb
@@ -184,7 +184,7 @@ Unexpected Errors: 0
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2025* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2025* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

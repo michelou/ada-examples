@@ -314,7 +314,7 @@ MAIN_ARGS=
 
 if [[ $LINT -eq 1 ]] && [[ ! -f "$GNAT2019_HOME/bin/gnat.exe" ]]; then
     warning "GNAT 2019 is required to execute AdaControl" 1>&2
-    LINT=false
+    LINT=0
 fi
 if [[ ! -f "$ROOT_DIR/build.gpr" ]]; then
     error "GNAT Ada project file not found" 1>&2

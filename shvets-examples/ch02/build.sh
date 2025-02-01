@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2024 Stéphane Micheloud
+# Copyright (c) 2018-2025 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -20,7 +20,7 @@ getHome() {
 
 debug() {
     local DEBUG_LABEL="[46m[DEBUG][0m"
-    $DEBUG && echo "$DEBUG_LABEL $1" 1>&2
+    [[ $DEBUG -eq 1 ]] && echo "$DEBUG_LABEL $1" 1>&2
 }
 
 warning() {
@@ -37,7 +37,7 @@ error() {
 cleanup() {
     [[ $1 =~ ^[0-1]$ ]] && EXITCODE=$1
 
-    if $TIMER; then
+    if [[ $TIMER -eq 1 ]]; then
         local TIMER_END=$(date +'%s')
         local duration=$((TIMER_END - TIMER_START))
         echo "Total execution time: $(date -d @$duration +'%H:%M:%S')" 1>&2
@@ -47,27 +47,27 @@ cleanup() {
 }
 
 args() {
-    [[ $# -eq 0 ]] && HELP=true && return 1
+    [[ $# -eq 0 ]] && HELP=1 && return 1
 
     for arg in "$@"; do
         case "$arg" in
         ## options
-        -debug)       DEBUG=true ;;
-        -help)        HELP=true ;;
-        -msys)        MSYS=true ;;
-        -timer)       TIMER=true ;;
-        -verbose)     VERBOSE=true ;;
+        -debug)   DEBUG=1 ;;
+        -help)    HELP=1 ;;
+        -msys)    MSYS=1 ;;
+        -timer)   TIMER=1 ;;
+        -verbose) VERBOSE=1 ;;
         -*)
             error "Unknown option \"$arg\""
             EXITCODE=1 && return 0
             ;;
         ## subcommands
-        clean)   CLEAN=true ;;
-        compile) COMPILE=true ;;
-        help)    HELP=true ;;
-        lint)    LINT=true ;;
-        run)     COMPILE=true && RUN=true ;;
-        test)    COMPILE=true && TEST=true ;;
+        clean)   CLEAN=1 ;;
+        compile) COMPILE=1 ;;
+        help)    HELP=1 ;;
+        lint)    LINT=1 ;;
+        run)     COMPILE=1 && RUN=1 ;;
+        test)    COMPILE=1 && TEST=1 ;;
         *)
             error "Unknown subcommand \"$arg\""
             EXITCODE=1 && return 0
@@ -83,7 +83,7 @@ args() {
     debug "Variables  : MSYS_HOME=$MSYS_HOME"
     debug "Variables  : MAIN_NAME=$MAIN_NAME MAIN_ARGS=$MAIN_ARGS"
     # See http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
-    $TIMER && TIMER_START=$(date +"%s")
+    [[ $TIMER -eq 1 ]] && TIMER_START=$(date +"%s")
 }
 
 help() {
@@ -109,9 +109,9 @@ EOS
 
 clean() {
     if [[ -d "$TARGET_DIR" ]]; then
-        if $DEBUG; then
+        if [[ $DEBUG -eq 1 ]]; then
             debug "Delete directory $TARGET_DIR"
-        elif $VERBOSE; then
+        elif [[ $VERBOSE -eq 1 ]]; then
             echo "Delete directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
         fi
         rm -rf "$TARGET_DIR"
@@ -135,12 +135,12 @@ lint() {
 
     ## see https://www.adalog.fr/compo/adacontrol_ug.html#command-files-provided-with-AdaControl
     local adactl_opts="-r -f \"$aru_file\" -o \"$log_file\" -w"
-    if $DEBUG; then adactl_opts="-d $adactl_opts"
-    elif $VERBOSE; then adactl_opts="-v $adactl_opts"
+    if [[ $DEBUG -eq 1 ]]; then adactl_opts="-d $adactl_opts"
+    elif [[ $VERBOSE -eq 1 ]]; then adactl_opts="-v $adactl_opts"
     fi
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "$ADACTL_CMD $adactl_opts \"$SOURCE_DIR/*.adb\"" 1>&2
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Analyze Ada source files in directory \"${SOURCE_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     local path="$PATH"
@@ -148,9 +148,9 @@ lint() {
     cd "$TARGET_DIR"
     eval "\"$ADACTL_CMD\" $adactl_opts \"$SOURCE_DIR/*.adb\""
     if [[ $? -ne 0 ]]; then
-        if $DEBUG; then
+        if [[ $DEBUG -eq 1 ]]; then
             cat "$log_file"
-        elif $VERBOSE; then
+        elif [[ $VERBOSE -eq 1 ]]; then
             cat "$log_file"
         fi
         cd "$ROOT_DIR"
@@ -179,16 +179,16 @@ compile() {
     local n_files="$n Ada source file$s"
 
     local gnatmake_cmd="$GNATMAKE_CMD"
-    $MSYS && gnatmake_cmd="$MSYS_GNATMAKE_CMD"
+    [[ $MSYS -eq 1 ]] && gnatmake_cmd="$MSYS_GNATMAKE_CMD"
  
     source_files="$SOURCE_MAIN_DIR/$MAIN_NAME.adb"
     ## -we : Treat all warnings as errors
     local gnatmake_opts="-gnat2022 -we -D \"$TARGET_OBJ_DIR\" -o \"$TARGET_FILE\""
-    $DEBUG && gnatmake_opts="-d $gnatmake_opts"
+    [[ $DEBUG -eq 1 ]] && gnatmake_opts="-d $gnatmake_opts"
 
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "\"$gnatmake_cmd\" $gnatmake_opts $source_files"
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Compile $n_files to directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "\"$gnatmake_cmd\" $gnatmake_opts $source_files"
@@ -201,7 +201,7 @@ compile() {
 mixed_path() {
     if [[ -x "$CYGPATH_CMD" ]]; then
         $CYGPATH_CMD -am "$*"
-    elif $mingw || $msys; then
+    elif [[ $(($mingw + $msys)) -gt 0 ]]; then
         echo "$*" | sed 's|/|\\\\|g'
     else
         echo "$*"
@@ -216,9 +216,9 @@ doc() {
     ## Options: -p=Process private part of packages
     local gnatdoc_opts="-d -p \"--project=%_ROOT_DIR%build.gpr\" --output=html"
 
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "\"$GNATDOC_CMD\" $gnatdoc_opts"
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Generate HTML documentation" 1>&2
     fi
     eval "\*$GNATDOC_CMD\" $gnatdoc_opts"
@@ -237,9 +237,9 @@ run() {
         error "Executable \"${TARGET_FILE/$ROOT_DIR\//}\" not found"
         cleanup 1
     fi
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "$TARGET_FILE"
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Execute \"${TARGET_FILE/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$TARGET_FILE"
@@ -263,33 +263,35 @@ SOURCE_MAIN_DIR="$SOURCE_DIR/main/ada"
 TARGET_DIR="$ROOT_DIR/target"
 TARGET_OBJ_DIR="$TARGET_DIR/obj"
 
-CLEAN=false
-COMPILE=false
-DEBUG=false
-HELP=false
-LINT=false
-MSYS=false
-RUN=false
-TIMER=false
-VERBOSE=false
+## We refrain from using `true` and `false` which are Bash commands
+## (see https://man7.org/linux/man-pages/man1/false.1.html)
+CLEAN=0
+COMPILE=0
+DEBUG=0
+HELP=0
+LINT=0
+MSYS=0
+RUN=0
+TIMER=0
+VERBOSE=0
 
 COLOR_START="[32m"
 COLOR_END="[0m"
 
-cygwin=false
-mingw=false
-msys=false
-darwin=false
+cygwin=0
+mingw=0
+msys=0
+darwin=0
 case "$(uname -s)" in
-    CYGWIN*) cygwin=true ;;
-    MINGW*)  mingw=true ;;
-    MSYS*)   msys=true ;;
-    Darwin*) darwin=true      
+    CYGWIN*) cygwin=1 ;;
+    MINGW*)  mingw=1 ;;
+    MSYS*)   msys=1 ;;
+    Darwin*) darwin=1      
 esac
 unset CYGPATH_CMD
 unset TARGET_EXT
 PSEP=":"
-if $cygwin || $mingw || $msys; then
+if [[ $(($cygwin + $mingw + $msys)) -gt 0 ]]; then
     CYGPATH_CMD="$(which cygpath 2>/dev/null)"
     TARGET_EXT=".exe"
 	PSEP=";"
@@ -308,9 +310,9 @@ TARGET_FILE="$TARGET_DIR/$PROJECT_NAME$TARGET_EXT"
 MAIN_NAME=bool
 MAIN_ARGS=
 
-if $LINT && [[ ! -f "$GNAT2019_HOME/bin/gnat.exe" ]]; then
+if [[ $LINT -eq 1 ]] && [[ ! -f "$GNAT2019_HOME/bin/gnat.exe" ]]; then
     warning "GNAT 2019 is required to execute AdaControl" 1>&2
-    LINT=false
+    LINT=0
 fi
 if [[ ! -f "$ROOT_DIR/build.gpr" ]]; then
     error "GNAT Ada project file not found" 1>&2
@@ -327,18 +329,18 @@ args "$@"
 ##############################################################################
 ## Main
 
-$HELP && help && cleanup
+[[ $HELP -eq 1 ]] && help && cleanup
 
-if $CLEAN; then
+if [[ $CLEAN -eq 1 ]]; then
     clean || cleanup 1
 fi
-if $LINT; then
+if [[ $LINT -eq 1 ]]; then
     lint || cleanup 1
 fi
-if $COMPILE; then
+if [[ $COMPILE -eq 1 ]]; then
     compile || cleanup 1
 fi
-if $RUN; then
+if [[ $RUN -eq 1 ]]; then
     run || cleanup 1
 fi
 cleanup
