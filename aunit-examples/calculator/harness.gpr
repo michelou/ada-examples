@@ -1,4 +1,4 @@
-with "../aunit-22.0.0/share/gpr/aunit";
+with "../aunit-25.0.0/dist/share/gpr/aunit";
 with "tested_lib/testlib";
 
 project Harness is

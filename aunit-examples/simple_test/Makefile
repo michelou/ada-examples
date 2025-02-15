@@ -1,3 +1,10 @@
+##
+## Copyright (c) 2018-2025 Stéphane Micheloud
+##
+## Licensed under the MIT License.
+##
+##############################################################################
+
 include ../Makefile.inc
 
 all: aunit
@@ -10,5 +17,8 @@ clean:
 	-"$(GPRCLEAN)" -Pharness
 	-"$(GPRCLEAN)" -Ptested_lib/testlib
 	"$(RM)" -rf obj tested_lib/obj
+
+##############################################################################
+## phony
 
 .PHONY: all aunit clean

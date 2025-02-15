@@ -53,4 +53,4 @@ endif
 ############################### AUnit library ################################
 
 ROOT_DIR     = $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
-AUNIT_DIR    = $(ROOT_DIR)/aunit-22.0.0
+AUNIT_DIR    = $(ROOT_DIR)/aunit-25.0.0/dist
