@@ -1,0 +1,85 @@
+-- adapted from https://github.com/Blady-Com/GPR_Template
+abstract project Common is
+
+   type OS_Type is ("Linux", "Windows", "macOS", "auto");
+   Target_OS : OS_Type := external ("Target_OS", "auto");
+
+   Target_Triplet := Project'Target;
+   case Target_OS is
+      when "auto" =>
+         case Target_Triplet is
+           when "x86_64-linux" =>
+              Target_OS := "Linux";
+           when "i686-pc-mingw32" =>
+              Target_OS := "Windows";
+           when "x86_64-darwin" =>
+              Target_OS := "macOS";
+           when others =>
+              null;
+           end case;
+      when others =>
+         null;
+   end case;
+
+   type Build_Mode_Type is
+     ("Profiling", "Optimizing", "Debugging", "Release");
+   Build_Mode : Build_Mode_Type := external ("BUILD_MODE", "Debugging");
+
+   package Builder is
+      case Build_Mode is
+         when "Profiling" | "Optimizing" | "Debugging" =>
+            for Global_Configuration_Pragmas use "pragma_debug.adc";
+
+         when "Release" =>
+            null;
+      end case;
+   end Builder;
+
+   package Compiler is
+      --  Common options used for the build modes
+      Common_Options := ("-gnatW8", "-gnatU", "-gnatf");
+      case Build_Mode is
+         when "Profiling" =>
+            for Switches ("ada") use Common_Options & ("-g", "-pg");
+
+         when "Optimizing" | "Release" =>
+            for Switches ("ada") use Common_Options & ("-gnatp", "-gnatn", "-O2");
+
+         when "Debugging" =>
+            for Switches ("ada") use Common_Options & ("-gnatVaep", "-gnatw.eDH.Y",
+                                                       "-fstack-check", "-g", "-gnato", "-gnatE", "-gnata", "-gnateA",
+                                                       "-gnateE", "-gnateF", "-gnateV", "-Wall");
+      end case;
+   end Compiler;
+
+   package Binder is
+      case Build_Mode is
+         when "Profiling" | "Optimizing" | "Debugging" =>
+            for Switches ("ada") use ("-Es");
+
+         when "Release" =>
+            null;
+      end case;
+   end Binder;
+
+   package Linker is
+      case Build_Mode is
+         when "Profiling" =>
+            for Switches ("ada") use ("-g", "-pg", "-Wl,-no_pie");
+
+         when "Optimizing" =>
+            for Switches ("ada") use ("-Wl,-no_pie");
+
+         when "Debugging" =>
+            for Switches ("ada") use ("-g", "-Wl,-no_pie");
+
+         when "Release" =>
+            null;
+      end case;
+   end Linker;
+
+   package Pretty_Printer is
+      for Default_Switches ("ada") use ("-M120", "-W8");
+   end Pretty_Printer;
+
+end Common;

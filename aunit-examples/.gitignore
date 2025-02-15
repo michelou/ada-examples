@@ -1,1 +1,3 @@
-aunit-22.0.0/
+*.tar.gz
+*.zip
+aunit-2?.0.0/
