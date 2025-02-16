@@ -16,7 +16,7 @@
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.47][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.48][git_releases] ([*release notes*][git_relnotes])
 - [GNAT CE 2021][gnat2021_downloads] ([*announcement*][gnat2021_announcement])
 
 Optionally one may also install the following software:
@@ -200,8 +200,8 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://www.adacore.com/download/more">gtkada-2021-x86_64-windows64-bin.exe</a>                <i>( 59 MB)</i>
 <a href="https://sourceforge.net/projects/gnavi/files/">GWindows Archive 13-Apr-2024.zip</a>                    <i>(  4 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                           <i>( 83 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.47.1-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
-<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.96.4.zip</a>                         <i>(131 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.48.1-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
+<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.97.2.zip</a>                         <i>(131 MB)</i>
 </pre>
 </dd></dl>
 
@@ -251,7 +251,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [flix_examples]: https://github.com/michelou/flix-examples#top
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.47.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.48.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [gnat2019_downloads]: https://www.adacore.com/download/more
 [gnat2021_announcement]: https://blog.adacore.com/gnat-community-2021-is-here
