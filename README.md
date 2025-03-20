@@ -16,7 +16,7 @@
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.48][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.49][git_releases] ([*release notes*][git_relnotes])
 - [GNAT CE 2021][gnat2021_downloads] ([*announcement*][gnat2021_announcement])
 
 Optionally one may also install the following software:
@@ -32,7 +32,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][linux_opt] directory on Unix).
 
-For instance our development environment looks as follows (*February 2025*) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (*March 2025*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\adactl\       <i>( 79 MB)</i>
@@ -103,9 +103,9 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   adactl 1.22r16c, alr 2.0.2, gcc 13.3.1, gnat Community 2021,
-   Gwindows 13-Apr-2024, make 4.4.1, code 1.97.2,
-   git 2.48.1, diff 3.10, bash 5.2.37(1)
+   adactl 1.22r16c, alr 2.1.0, gcc 13.3.1, gnat Community 2021,
+   Gwindows 13-Apr-2024, make 4.4.1, code 1.98.2,
+   git 2.49.0, diff 3.11, bash 5.2.37(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> code diff git make</b>
 C:\opt\VSCode\Code.exe
@@ -123,7 +123,7 @@ C:\opt\msys64\usr\bin\make.exe
  <a href="https://alire.ada.dev/docs/" rel="external">Alire</a> is a source-based package manager for the Ada and <a href="https://learn.adacore.com/courses/intro-to-spark/chapters/01_Overview.html#what-is-it" rel="external">SPARK</a> programming languages.
  </p>
  <p >
- We install <a href="https://alire.ada.dev/docs/" rel="external">Alire</a> from the Zip file <a href="https://github.com/alire-project/alire/releases" rel="external">alr-2.0.2-bin-x86_64-windows.zip</a>; the archive contains the two files <code>bin\alr.exe</code> and <code>LICENSE.txt</code> (GNU license). We simply copy them to directory <code>%GNAT_HOME%\bin\</code> (in our case <code>GNAT_HOME=C:\opt\GNAT\2021\</code>).
+ We install <a href="https://alire.ada.dev/docs/" rel="external">Alire</a> from the Zip file <a href="https://github.com/alire-project/alire/releases" rel="external">alr-2.1.0-bin-x86_64-windows.zip</a>; the archive contains the two files <code>bin\alr.exe</code> and <code>LICENSE.txt</code> (GNU license). We simply copy them to directory <code>%GNAT_HOME%\bin\</code> (in our case <code>GNAT_HOME=C:\opt\GNAT\2021\</code>).
 </dd></dl>
 
 <span id="footnote_02">[2]</span> ***GNAT 2019*** [↩](#anchor_02)
@@ -193,15 +193,15 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://www.adalog.fr/en/adacontrol.html" rel="external">adactl-1.22r16c-exe_windows_ce2019.zip</a>              <i>( 26 MB)</i>
-<a href="https://github.com/alire-project/alire/releases/" rel="external">alr-2.0.2-bin-x86_64-windows.zip</a>                    <i>( 11 MB)</i>
+<a href="https://github.com/alire-project/alire/releases/" rel="external">alr-2.1.0-bin-x86_64-windows.zip</a>                    <i>( 11 MB)</i>
 <a href="https://github.com/Maximus5/ConEmu/releases/tag/v23.07.24" rel="external">ConEmuPack.230724.7z</a>                                <i>(  5 MB)</i>
 <a href="https://www.adacore.com/download/more">gnat-community-2019-20190517-x86_64-windows-bin.exe</a> <i>(380 MB)</i>
 <a href="https://www.adacore.com/download" rel="external">gnat-2021-20210519-x86_64-windows64-bin.exe</a>         <i>(562 MB)</i>
 <a href="https://www.adacore.com/download/more">gtkada-2021-x86_64-windows64-bin.exe</a>                <i>( 59 MB)</i>
 <a href="https://sourceforge.net/projects/gnavi/files/">GWindows Archive 13-Apr-2024.zip</a>                    <i>(  4 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                           <i>( 83 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.48.1-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
-<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.97.2.zip</a>                         <i>(131 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.49.0-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
+<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.98.2.zip</a>                         <i>(131 MB)</i>
 </pre>
 </dd></dl>
 
@@ -228,7 +228,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2025* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2025* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -251,7 +251,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [flix_examples]: https://github.com/michelou/flix-examples#top
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.48.1.txt
+[git_relnotes]: https://github.com/git/git/blob/v2.49.0/Documentation/RelNotes/2.49.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [gnat2019_downloads]: https://www.adacore.com/download/more
 [gnat2021_announcement]: https://blog.adacore.com/gnat-community-2021-is-here
