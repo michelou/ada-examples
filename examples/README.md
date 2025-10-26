@@ -354,8 +354,8 @@ C:\opt\msys64\mingw64\bin\windres.exe
 C:\opt\GNAT\2021\bin\windres.exe
 &nbsp;
 <b>&gt; C:\opt\msys64\mingw64\bin\<a href="https://gcc.gnu.org/onlinedocs/gnat_ugn/Switches-for-gnatmake.html">gnatmake.exe</a> --version</b>
-GNATMAKE 13.2.0
-Copyright (C) 1995-2023, Free Software Foundation, Inc.
+GNATMAKE 15.2.0
+Copyright (C) 1995-2025, Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.
 There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 &nbsp;
