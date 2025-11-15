@@ -131,7 +131,7 @@ gnatlink W:\gwindows-examples\tutorial1\target\obj\tutorial1.ali -o W:\gwindows-
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2025* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2025* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
