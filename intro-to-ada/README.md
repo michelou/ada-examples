@@ -15,23 +15,48 @@ Code examples presented in this document can be built in two ways :
 
 ## <span id="forward_declaration">`forward_declaration` Example</span>
 
-Code example [`forward_declaration`](./ch03/forward_declaration/) consists of
-- the source file [`mutually_recursive_subprograms.adb`](./ch03/forward_declaration/src/main/ada/mutually_recursive_subprograms.adb)
-- the project file [`build.gpr`](./ch03/forward_declaration/build.gpr) and
-- the batch file [`build.bat`](./ch03/forward_declaration/build.bat).
-
-We can build/execute this project as follows :
+This example has the following directory structure :
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="./ch03/forward_declaration/build.bat">build</a> clean run</b>
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+|   <a href="./ch03/forward_declaration/build.adc">build.adc</a>
+|   <a href="./ch03/forward_declaration/build.bat">build.bat</a>
+|   <a href="./ch03/forward_declaration/build.gpr">build.gpr</a>
+\---<b>src</b>
+    \---<b>main</b>
+        \---<b>ada</b>
+                <a href="./ch03/forward_declaration/src/main/ada/mutually_recursive_subprograms.adb">mutually_recursive_subprograms.adb</a>
 </pre>
+
+Command [`build.bat`](./ch03/forward_declaration/build.bat)`clean run` generate and execute the Ada program `target\\mutually_recursive_subprograms.exe` :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./ch03/forward_declaration/build.bat">build</a> -verbose clean run</b>
+Compile 1 Ada source file to directory "target\obj"
+Execute program "mutually_recursive_subprograms.exe"
+</pre>
+
+<!--=======================================================================-->
 
 ## <span id="book">`Book` Example</span> [**&#x25B4;**](#top)
 
-Code example [`Book`](./ch04/Book/) consists of
-- the five source files [`book.ads`](./ch04/Book/src/main/ada/book.ads), [`book.adb`](./ch04/Book/src/main/ada/book.adb), [`book-additional_operations.ads`](./ch04/Book/src/main/ada/book-additional_operations.ads), [`book-additional_operations.adb`](./ch04/Book/src/main/ada/book-additional_operations.adb) and [`main.adb`](./ch04/Book/src/main/ada/main.adb).
-- the project file [`build.gpr`](./ch04/Book/build.gpr) and
-- the batch file [`build.bat`](./ch04/Book/build.bat).
+This example has the following directory structure :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
+|   <a href="./ch04/Book/build.bat">build.bat</a>
+|   <a href="./ch04/Book/build.gpr">build.gpr</a>
+\---<b>src</b>
+    \---<b>main</b>
+        \---<b>ada</b>
+                <a href="./ch04/Book/src/main/ada/book-additional_operations.adb">book-additional_operations.adb</a>
+                <a href="./ch04/Book/src/main/ada/book-additional_operations.ads">book-additional_operations.ads</a>
+                <a href="./ch04/Book/src/main/ada/book.adb">book.adb</a>
+                <a href="./ch04/Book/src/main/ada/book.ads">book.ads</a>
+                <a href="./ch04/Book/src/main/ada/main.adb">main.adb</a>
+</pre>
+
+Command [`build.bat`](./ch04/Book/build.bat) generates and executes the Ada program target\Book.exe` :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./ch04/Book/build.bat">build</a> clean run</b>
@@ -43,14 +68,23 @@ Book Title: Visible for my children
 Book Author: Author not visible for my children
 </pre>
 
-## <span id="week">`Week` Example</span>
+<!--=======================================================================-->
 
-Code example [`Week`](./ch04/Week/) consists of
-- the two source files [`Week.ads`](./ch04/Week/src/Week.ads) and [`Main.adb`](./ch04/Week/src/Main.adb),
-- the project file [`build.gpr`](./ch04/Week/build.gpr) and
-- the batch file [`build.bat`](./ch04/Week/build.bat).
+## <span id="week">`Week` Example</span> [**&#x25B4;**](#top)
 
-We can build/execute this project as follows :
+This example has the following directory structure :
+
+<pre style="font-size:80%;">
+ tree /a /f . | findstr /v /b [A-Z]
+|   <a href="./ch04/Week/00download.txt">00download.txt</a>
+|   <a href="./ch04/Week/build.bat">build.bat</b>
+|   <a href="./ch04/Week/build.gpr">build.gpr</a>
+\---src</b>
+        <a href="./ch04/Week/src/Main.adb">Main.adb</a>
+        <a href="./ch04/Week/src/Week.ads">Week.ads</a>
+</pre>
+
+Command [`build.bat`](./ch04/Week/build.bat)`clean run` generates and execute the Ada program `target\Week.exe` :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./ch04/Week/build.bat">build</a> clean run</b>
@@ -131,7 +165,7 @@ B : Boolean := Read_Int (Stream, My_Int);
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2025* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2025* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
