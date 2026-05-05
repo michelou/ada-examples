@@ -1,5 +1,5 @@
 ##
-## Copyright (c) 2018-2025 Stéphane Micheloud
+## Copyright (c) 2018-2026 Stéphane Micheloud
 ##
 ## Licensed under the MIT License.
 ##
@@ -7,7 +7,7 @@
 
 include ../Makefile.inc
 
-PROJ_NAME = TimingFibonacci
+PROJ_NAME ?= $(shell basename $(CURDIR))
 
 SOURCE_DIR      = src
 SOURCE_MAIN_DIR = $(SOURCE_DIR)/main/ada

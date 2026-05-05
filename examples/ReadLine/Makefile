@@ -1,5 +1,5 @@
 ##
-## Copyright (c) 2018-2025 Stéphane Micheloud
+## Copyright (c) 2018-2026 Stéphane Micheloud
 ##
 ## Licensed under the MIT License.
 ##
@@ -7,7 +7,7 @@
 
 include ../Makefile.inc
 
-PROJ_NAME      = Main
+PROJ_NAME ?= $(shell basename $(CURDIR))
 
 SOURCE_DIR     = src
 TARGET_DIR     = target
