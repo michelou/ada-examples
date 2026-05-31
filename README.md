@@ -21,18 +21,18 @@ This project depends on the following external software for the **Microsoft Wind
 
 Optionally one may also install the following software:
 
-- [AdaControl 1.22][adactl_downloads] (*inactive since September 2022*)
+- [AdaControl 1.22][adactl_downloads] (*inactive since [September 2022](https://github.com/Adalog-fr/Adacontrol)*)
 - [Alire 2.1][alire_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*changes*][alire_changes])
 - [ConEmu 2023][conemu_downloads] ([*release notes*][conemu_relnotes])
 - [GNAT CE 2019][gnat2019_downloads] <sup id="anchor_02">[2](#footnote_02)</sup>
 - [GWindows 2024][gwindows_downloads] ([*release notes*][gwindows_relnotes])
 - [MSYS2 2024][msys2_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][msys2_changelog])
-- [Visual Studio Code 1.118][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.122][vscode_downloads] ([*release notes*][vscode_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][linux_opt] directory on Unix).
 
-For instance our development environment looks as follows (*May 2026*) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (*June 2026*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\adactl\       <i>( 79 MB)</i>
@@ -103,8 +103,8 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   adactl 1.22r16c, alr 2.1.0, gcc 13.4.0, gnat Community 2021,
-   Gwindows 13-Apr-2024, make 4.4.1, code 1.118.1,
+   adactl 1.22r16c, alr 2.1.1, gcc 13.4.0, gnat Community 2021,
+   Gwindows 13-Apr-2024, make 4.4.1, code 1.122.1,
    git 2.54.0, diff 3.12, bash 5.3.9(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> code diff git make</b>
@@ -123,7 +123,7 @@ C:\opt\msys64\usr\bin\make.exe
  <a href="https://alire.ada.dev/docs/" rel="external">Alire</a> is a source-based package manager for the Ada and <a href="https://learn.adacore.com/courses/intro-to-spark/chapters/01_Overview.html#what-is-it" rel="external">SPARK</a> programming languages.
  </p>
  <p >
- We install <a href="https://alire.ada.dev/docs/" rel="external">Alire</a> from the Zip file <a href="https://github.com/alire-project/alire/releases" rel="external">alr-2.1.0-bin-x86_64-windows.zip</a>; the archive contains the two files <code>bin\alr.exe</code> and <code>LICENSE.txt</code> (GNU license). We simply copy them to directory <code>%GNAT_HOME%\bin\</code> (in our case <code>GNAT_HOME=C:\opt\GNAT\2021\</code>).
+ We install <a href="https://alire.ada.dev/docs/" rel="external">Alire</a> from the Zip file <a href="https://github.com/alire-project/alire/releases" rel="external">alr-2.1.1-bin-x86_64-windows.zip</a>; the archive contains the two files <code>bin\alr.exe</code> and <code>LICENSE.txt</code> (GNU license). We simply copy them to directory <code>%GNAT_HOME%\bin\</code> (in our case <code>GNAT_HOME=C:\opt\GNAT\2021\</code>).
 </dd></dl>
 
 <span id="footnote_02">[2]</span> ***GNAT 2019*** [↩](#anchor_02)
@@ -141,7 +141,7 @@ The <a href="http://repo.msys2.org/distrib/x86_64/" rel="external">MSYS64</a> so
 <pre style="font-size:80%;max-width:484px;">
   <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> /r c:\opt\msys64 gnat.exe gnatmake.exe</b>
   c:\opt\msys64\mingw64\bin\gnat.exe
-  c:\opt\msys64\mingw64\bin\<a href="https://gcc.gnu.org/onlinedocs/gcc-12.1.0/gnat_ugn/Running-gnatmake.html#Running-gnatmake" rel="external">gnatmake.exe</a>
+  c:\opt\msys64\mingw64\bin\<a href="https://gcc.gnu.org/onlinedocs/gcc-16.1.0/gnat_ugn/Running-gnatmake.html#Running-gnatmake" rel="external">gnatmake.exe</a>
   &nbsp;
   <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> /r c:\opt\msys64 gcc.exe make.exe pacman.exe</b>
   c:\opt\msys64\mingw64\bin\gcc.exe
@@ -155,7 +155,7 @@ The <a href="http://repo.msys2.org/distrib/x86_64/" rel="external">MSYS64</a> so
   <b>&gt; %MSYS_HOME%\mingw64\bin\gnat.exe --version | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> GNAT</b>
   GNAT 16.1.0
 &nbsp;
-  <b>&gt; %MSYS_HOME%\mingw64\bin\<a href="https://gcc.gnu.org/onlinedocs/gcc-12.1.0/gnat_ugn/Running-gnatmake.html#Running-gnatmake" rel="external">gnatmake.exe</a> --version | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> GNAT</b>
+  <b>&gt; %MSYS_HOME%\mingw64\bin\<a href="https://gcc.gnu.org/onlinedocs/gcc-16.1.0/gnat_ugn/Running-gnatmake.html#Running-gnatmake" rel="external">gnatmake.exe</a> --version | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> GNAT</b>
   GNATMAKE 16.1.0
 </pre>
 </dd>
@@ -163,7 +163,7 @@ The <a href="http://repo.msys2.org/distrib/x86_64/" rel="external">MSYS64</a> so
 <a href=""><code>gcc.exe</code>/<code>make.exe</code></a>
 <pre style="font-size:80%;">
   <b>&gt; %MSYS_HOME%\mingw64\bin\<a href="https://gcc.gnu.org/onlinedocs/gcc/Invoking-GCC.html" rel="external">gcc.exe</a> --version | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> gcc</b>
-  gcc.exe (Rev6, Built by MSYS2 project) 15.2.0
+  gcc.exe (Rev5, Built by MSYS2 project) 16.1.0
   &nbsp;
   <b>&gt; %MSYS_HOME%\usr\bin\<a href="https://www.gnu.org/software/make/manual/make.html" rel="external">make.exe</a> --version | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> Make</b>
   GNU Make 4.4.1
@@ -182,6 +182,9 @@ The <a href="http://repo.msys2.org/distrib/x86_64/" rel="external">MSYS64</a> so
    (1/3) Compiling GSettings XML schema files...
    (2/3) Updating icon theme caches...
    (3/3) Updating the info directory file...
+&nbsp;
+<b>&gt; C:\opt\msys64\mingw64\bin\<a href="">gnat.exe</a> --version | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /b GNAT</b>
+GNAT 16.1.0
 </pre>
 </dd></dl>
 
@@ -193,7 +196,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://www.adalog.fr/en/adacontrol.html" rel="external">adactl-1.22r16c-exe_windows_ce2019.zip</a>              <i>( 26 MB)</i>
-<a href="https://github.com/alire-project/alire/releases/" rel="external">alr-2.1.0-bin-x86_64-windows.zip</a>                    <i>( 11 MB)</i>
+<a href="https://github.com/alire-project/alire/releases/" rel="external">alr-2.1.1-bin-x86_64-windows.zip</a>                    <i>( 11 MB)</i>
 <a href="https://github.com/Maximus5/ConEmu/releases/tag/v23.07.24" rel="external">ConEmuPack.230724.7z</a>                                <i>(  5 MB)</i>
 <a href="https://www.adacore.com/download/more">gnat-community-2019-20190517-x86_64-windows-bin.exe</a> <i>(380 MB)</i>
 <a href="https://www.adacore.com/download" rel="external">gnat-2021-20210519-x86_64-windows64-bin.exe</a>         <i>(562 MB)</i>
@@ -201,7 +204,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://sourceforge.net/projects/gnavi/files/">GWindows Archive 13-Apr-2024.zip</a>                    <i>(  4 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                           <i>( 83 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.54.0-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
-<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.118.1.zip</a>                        <i>(131 MB)</i>
+<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.122.1.zip</a>                        <i>(131 MB)</i>
 </pre>
 </dd></dl>
 
@@ -228,7 +231,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2026* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2026* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -236,7 +239,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [ada]: https://www.adacore.com/
 [adactl_downloads]: https://www.adalog.fr/en/adacontrol.html
 [akka_examples]: https://github.com/michelou/akka-examples#top
-[alire_changes]: https://github.com/alire-project/alire/blob/master/doc/user-changes.md#release-20-dev
+[alire_changes]: https://github.com/alire-project/alire/blob/master/doc/user-changes.md#release-21
 [alire_downloads]: https://github.com/alire-project/alire/releases/
 [cobol_examples]: https://github.com/michelou/cobol-examples#top
 [conemu_downloads]: https://github.com/Maximus5/ConEmu/releases

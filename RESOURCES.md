@@ -66,12 +66,16 @@ http://www.dmitry-kazakov.de/ada/strings_edit.htm
 
 ## <span id="news">News</span>
 
-- [Ada-Belgium](https://people.cs.kuleuven.be/~dirk.craeynest/ada-belgium/).
-- [Ada Europe](http://www.ada-europe.org/).
-- [Ada France](https://www.ada-france.org/).
-- [Ada Narkive Archives](https://comp.lang.ada.narkive.com/).
-- [Ada Planet](https://www.laeran.pl/adaplanet/i/).
-- [Ada Switzerland](https://www.ada-switzerland.ch/)
+- [Learn AdaCore](https://www.ada-user.org/) :
+  - [What's New in Ada 2022](https://learn.adacore.com/courses/whats-new-in-ada-2022/index.html).
+- [Ada User Society](https://www.ada-user.org/) :
+  - [Ada-Belgium](https://people.cs.kuleuven.be/~dirk.craeynest/ada-belgium/).
+  - [Ada-Europe](http://www.ada-europe.org/).
+  - [Ada France](https://www.ada-france.org/).
+    - [La version 2.1.1 du gestionnaire de paquetage Alire est disponible](https://www.ada-france.org/adafr/blogs/posts/2026/05/31/La-version-2.1.1-du-gestionnaire-de-paquetage-Alire-est-disponible), May 2026.
+  - [Ada Narkive Archives](https://comp.lang.ada.narkive.com/).
+  - [Ada Planet](https://www.laeran.pl/adaplanet/i/).
+  - [Ada Switzerland](https://www.ada-switzerland.ch/)
 - [AdaCore News](https://www.eejournal.com/?s=AdaCore) ([Electronic Engineering Journal](https://www.eejournal.com/)).
 - **NARKIVE** &ndash; [comp.lang.ada](https://comp.lang.ada.narkive.com/).
 - **reddit** &ndash; [r/ada](https://www.reddit.com/r/ada/).
@@ -125,7 +129,7 @@ http://www.dmitry-kazakov.de/ada/strings_edit.htm
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2026* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2026* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
