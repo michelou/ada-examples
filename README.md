@@ -4,7 +4,7 @@
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:25%;"><a href="https://www.adacore.com/" rel="external"><img src="docs/images/adamascot.png" width="100" alt="Ada project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://www.adacore.com/" rel="external" title="Ada">Ada</a> code examples coming from various websites and books.<br/>
-  It also includes several build scripts (<a href="https://cloudblogs.microsoft.com/opensource/2023/02/21/introducing-bash-for-beginners/l" rel="external">bash scripts</a>, <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>) for experimenting with <a href="https://www.adacore.com/" rel="external">Ada</a> on a Windows machine.</td>
+  It also includes several build scripts (<a href="https://cloudblogs.microsoft.com/opensource/2023/02/21/introducing-bash-for-beginners/l" rel="external">bash scripts</a>, <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>, <a href="https://learn.microsoft.com/en-us/powershell/scripting/samples/sample-scripts-for-administration" rel="external">PowerShell scripts</a>) for experimenting with <a href="https://www.adacore.com/" rel="external">Ada</a> on a Windows machine.</td>
   </tr>
 </table>
 
@@ -25,7 +25,7 @@ Optionally one may also install the following software:
 - [Alire 2.1][alire_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*changes*][alire_changes])
 - [ConEmu 2023][conemu_downloads] ([*release notes*][conemu_relnotes])
 - [GNAT CE 2019][gnat2019_downloads] <sup id="anchor_02">[2](#footnote_02)</sup>
-- [GWindows 2024][gwindows_downloads] ([*release notes*][gwindows_relnotes])
+- [GWindows 2026][gwindows_downloads] ([*release notes*][gwindows_relnotes])
 - [MSYS2 2024][msys2_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][msys2_changelog])
 - [Visual Studio Code 1.122][vscode_downloads] ([*release notes*][vscode_relnotes])
 
@@ -40,9 +40,9 @@ C:\opt\ConEmu\       <i>( 26 MB)</i>
 C:\opt\Git\          <i>(397 MB)</i>
 C:\opt\GNAT\2019\    <i>(1.1 GB)</i>
 C:\opt\GNAT\2021\    <i>(2.8 GB)</i>
-C:\opt\GWindows\     <i>( 15 MB)</i>
+C:\opt\GWindows\     <i>( 12 MB)</i>
 C:\opt\msys64\       <i>(2.8 GB)</i>
-C:\opt\VSCode\       <i>(404 MB)</i>
+C:\opt\VSCode\       <i>(763 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_releases] provides a BASH emulation used to run [**`git.exe`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -104,7 +104,7 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    adactl 1.22r16c, alr 2.1.1, gcc 13.4.0, gnat Community 2021,
-   Gwindows 13-Apr-2024, make 4.4.1, code 1.122.1,
+   Gwindows 09-May-2026, make 4.4.1, code 1.122.1,
    git 2.54.0, diff 3.12, bash 5.3.9(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> code diff git make</b>
@@ -113,6 +113,8 @@ C:\opt\Git\usr\bin\diff.exe
 C:\opt\Git\bin\git.exe
 C:\opt\msys64\usr\bin\make.exe
 </pre>
+
+<!--=======================================================================-->
 
 ## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 
@@ -175,16 +177,16 @@ The <a href="http://repo.msys2.org/distrib/x86_64/" rel="external">MSYS64</a> so
 </dd>
 <dd>
 <pre style="font-size:80%;">
-   <b>&gt; c:\opt\msys64\usr\bin\<a href="https://www.archlinux.org/pacman/pacman.8.html" rel="external">pacman.exe</a> -Syu mingw-w64-x86_64-gcc-ada</b>
+  <b>&gt; c:\opt\msys64\usr\bin\<a href="https://www.archlinux.org/pacman/pacman.8.html" rel="external">pacman.exe</a> -Syu mingw-w64-x86_64-gcc-ada</b>
    :: Synchronizing package databases...
-   [...]
-   :: Running post-transaction hooks...
-   (1/3) Compiling GSettings XML schema files...
-   (2/3) Updating icon theme caches...
-   (3/3) Updating the info directory file...
-&nbsp;
-<b>&gt; C:\opt\msys64\mingw64\bin\<a href="">gnat.exe</a> --version | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /b GNAT</b>
-GNAT 16.1.0
+  [...]
+  :: Running post-transaction hooks...
+  (1/3) Compiling GSettings XML schema files...
+  (2/3) Updating icon theme caches...
+  (3/3) Updating the info directory file...
+  &nbsp;
+  <b>&gt; C:\opt\msys64\mingw64\bin\<a href="">gnat.exe</a> --version | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /b GNAT</b>
+  GNAT 16.1.0
 </pre>
 </dd></dl>
 
@@ -201,7 +203,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://www.adacore.com/download/more">gnat-community-2019-20190517-x86_64-windows-bin.exe</a> <i>(380 MB)</i>
 <a href="https://www.adacore.com/download" rel="external">gnat-2021-20210519-x86_64-windows64-bin.exe</a>         <i>(562 MB)</i>
 <a href="https://www.adacore.com/download/more">gtkada-2021-x86_64-windows64-bin.exe</a>                <i>( 59 MB)</i>
-<a href="https://sourceforge.net/projects/gnavi/files/">GWindows Archive 13-Apr-2024.zip</a>                    <i>(  4 MB)</i>
+<a href="https://sourceforge.net/projects/gnavi/files/">GWindows Archive 09-May-2026.zip</a>                    <i>(  4 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                           <i>( 83 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.54.0-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
 <a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.122.1.zip</a>                        <i>(131 MB)</i>
@@ -269,7 +271,7 @@ https://sourceforge.net/p/gnavi/news/2022/11/gwindows-release-13-nov-2022-revisi
 https://sourceforge.net/p/gnavi/news/2023/05/gwindows-release-29-may-2023-revision-480/
 https://sourceforge.net/p/gnavi/news/2024/04/gwindows-release-13-apr-2024-revision-549/
 -->
-[gwindows_relnotes]: https://sourceforge.net/p/gnavi/news/2024/04/gwindows-release-13-apr-2024-revision-549/
+[gwindows_relnotes]: https://sourceforge.net/p/gnavi/news/
 [haskell_examples]: https://github.com/michelou/haskell-examples#top
 [kafka_examples]: https://github.com/michelou/kafka-examples#top
 [kotlin_examples]: https://github.com/michelou/kotlin-examples#top

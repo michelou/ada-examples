@@ -25,6 +25,7 @@ This example comes from the blog post ["Opening a web page using default browser
 |   <a href="./Browser/00download.txt">00download.txt</a>
 |   <a href="./Browser/build.bat">build.bat</a>
 |   <a href="./Browser/build.gpr">build.gpr</a>
+|   <a href="./Browser/build.ps1">build.ps1</a>
 |   <a href="./Browser/build.sh">build.sh</a>
 |   <a href="./Browser/Makefile">Makefile</a>
 \---<b>src</b>
@@ -101,6 +102,8 @@ ARISTOTLE is eating
 ARISTOTLE is leaving
 </pre>
 
+<!--=======================================================================-->
+
 ## <span id="hello">`HelloWorld` Example</span> [**&#x25B4;**](#top)
 
 This example has the following directory structure :
@@ -109,6 +112,7 @@ This example has the following directory structure :
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
 |   <a href="./HelloWorld/build.bat">build.bat</a>
 |   <a href="./HelloWorld/build.gpr">build.gpr</a>
+|   <a href="./HelloWorld/build.ps1">build.ps1</a>
 |   <a href="./HelloWorld/build.sh">build.sh</a>
 |   <a href="./HelloWorld/Makefile">Makefile</a>
 \---<b>src</b>
@@ -141,6 +145,18 @@ Link
 Hello WORLD!
 </pre>
 
+Finally command [`pswh -f build.ps1`](./HelloWorld/build.ps1)`clean run`<sup id="anchor_02">[2](#footnote_02)</sup> generates and executes the executable `target\HelloWorld.exe`.
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://powershellexplained.com/2017-12-29-Powershell-what-is-pwsh/" rel="external">pwsh</a> <a href="./HelloWorld/build.ps1">build.ps1</a> -verbose clean run</b>
+VERBOSE: Delete directory "target"
+VERBOSE: Compile 1 Ada source file to directory "target\obj"
+VERBOSE: Execute Ada program "target\HelloWorld.exe"
+Hello WORLD!
+</pre>
+
+<!--=======================================================================-->
+
 ## <span id="greetings">`Greetings` Example</span> [**&#x25B4;**](#top)
 
 This example has the following directory structure : 
@@ -149,6 +165,7 @@ This example has the following directory structure :
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
 |   <a href="./Greetings/build.bat">build.bat</a>
 |   <a href="./Greetings/build.gpr">build.gpr</a>
+|   <a href="./Greetings/build.ps1">build.ps1</a>
 |   <a href="./Greetings/build.sh">build.sh</a>
 |   <a href="./Greetings/Makefile">Makefile</a>
 \---<b>src</b>
@@ -176,7 +193,7 @@ Goodbye WORLD!
 
 ## <span id="hangman">`Hangman` Example</span> [**&#x25B4;**](#top)
 
-Subdirectory `hangman_1.0.0_be628ad5\` is created by command [`alr`](https://alire.ada.dev/docs/#first-steps)` get hangman` <sup id="anchor_02">[2](#footnote_02)</sup>; that command is run *only once* to obtain the `Hangman` executable project from the [Alire][github_alire] repository.
+Subdirectory `hangman_1.0.0_be628ad5\` is created by command [`alr`](https://alire.ada.dev/docs/#first-steps)` get hangman` <sup id="anchor_03">[3](#footnote_03)</sup>; that command is run *only once* to obtain the `Hangman` executable project from the [Alire][github_alire] repository.
 
 This example has the following directory structure :
 
@@ -367,7 +384,33 @@ There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR P
 </pre>
 </dd></dl>
 
-<span id="footnote_02">[2]</span> ***Alire*** [↩](#anchor_02)
+<span id="footnote_02">[2]</span> ***PS1 build with debug traces*** [↩](#anchor_02)
+
+<dl><dd>
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://powershellexplained.com/2017-12-29-Powershell-what-is-pwsh/" rel="external" rel="external">pwsh</a> <a href="./HelloWorld/build.ps1">build.ps1</a> -debug clean run</b>
+DEBUG: Options    : DEBUG=True TIMER=False VERBOSE=False
+DEBUG: Subcommands: Clean Compile Run
+DEBUG: Variables  : "ADACTL_HOME=C:\opt\adactl"
+DEBUG: Variables  : "GIT_HOME=C:\opt\Git"
+DEBUG: Variables  : "GNAT_HOME=C:\opt\GNAT\2021"
+DEBUG: Variables  : "GNAT2019_HOME=C:\opt\GNAT\2019"
+DEBUG: Variables  : "MSYS_HOME=C:\opt\msys64"
+DEBUG: Variables  : MAIN_NAME=main MAIN_ARGS=
+DEBUG: Variables  : PROJECT_NAME=HelloWorld
+DEBUG: [System.IO.Directory]::Delete('N:\examples\HelloWorld\target', True)
+DEBUG: "C:\opt\GNAT\2021\bin\gnatmake.exe" -d -gnat2022 -we -I"N:\examples\HelloWorld\src\main\ada" -D "N:\examples\HelloWorld\target\obj" -o "N:\examples\HelloWorld\target\HelloWorld.exe" "N:\examples\HelloWorld\src\main\ada\main.adb"
+gcc -c -IN:\examples\HelloWorld\src\main\ada\ -gnat2022 -IN:\examples\HelloWorld\src\main\ada -I- -o N:\examples\HelloWorld\target\obj\main.o N:\examples\HelloWorld\src\main\ada\main.adb
+completed 1 out of 1 (100%)...
+gnatbind -IN:\examples\HelloWorld\src\main\ada -aON:\examples\HelloWorld\target\obj -x N:\examples\HelloWorld\target\obj\main.ali
+gnatlink N:\examples\HelloWorld\target\obj\main.ali -o N:\examples\HelloWorld\target\HelloWorld.exe
+DEBUG: "N:\examples\HelloWorld\target\HelloWorld.exe"
+Hello WORLD!
+DEBUG: ExitCode=0
+</pre>
+</dd></dl>
+
+<span id="footnote_03">[3]</span> ***Alire*** [↩](#anchor_03)
 
 <dl><dd>
 We obtain the <code>Hangman</code> executable example with command <code><b><a href="https://alire.ada.dev/docs/#first-steps" rel="external">alr</a> get</b></code>:
