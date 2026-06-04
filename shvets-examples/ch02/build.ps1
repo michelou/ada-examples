@@ -103,7 +103,7 @@ foreach ($ARG in $args) {
         $N++
     }
 }
-$MAIN_NAME = 'main'
+$MAIN_NAME = 'bool'
 $MAIN_ARGS = $null
 
 $SOURCE_MAIN_FILE = $SOURCE_MAIN_DIR + $SEP + $MAIN_NAME + '.adb'

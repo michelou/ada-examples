@@ -1,4 +1,9 @@
 #!/usr/bin/env pwsh
+#
+# Copyright (c) 2018-2026 Stéphane Micheloud
+#
+# Licensed under the MIT License.
+#
 
 ## only for interactive debugging !
 $DEBUG = $false
@@ -17,6 +22,7 @@ if ($PSVersionTable.PSVersion -lt "6.0" -or $IsWindows) {
 
 $BASENAME = (Get-Item $PSScriptRoot).Basename
 $ROOT_DIR = $PSScriptRoot
+$PATH_SEP = [IO.Path]::PathSeparator
 $SEP = [IO.Path]::DirectorySeparatorChar
 
 $SOURCE_DIR = $ROOT_DIR + $SEP + 'src'
@@ -28,7 +34,7 @@ $TARGET_OBJ_DIR = $TARGET_DIR + $SEP + 'obj'
 
 ## required for gnatdoc
 if (! (Test-Path -PathType Leaf -Path ($ROOT_DIR + $SEP + 'build.gpr'))) {
-    Write-Error "GNAT Ada project file not found" --Foreground
+    Write-Error "GNAT Ada project file not found"
     $EXITCODE = 1
     Cleanup $EXITCODE
 }
@@ -67,11 +73,11 @@ $MSYS = $false
 $TIMER = $false
 $VERBOSE = $false
 $N = 0
-ForEach ($ARG in $args) {
+foreach ($ARG in $args) {
     if ($ARG.StartsWith("-")) {
         ## option
         if ($ARG -ieq "-debug") { $DEBUG = $true; $DebugPreference='Continue'
-        } elseif ($ARG -ieq "-help"   ) { $COMMANDS = 'PrintHelp'
+        } elseif ($ARG -ieq "-help"   ) { $COMMANDS = 'Print-Help'
         } elseif ($ARG -ieq "-msys"   ) { $MSYS = $true
         } elseif ($ARG -ieq "-timer"  ) { $TIMER = $true
         } elseif ($ARG -ieq "-verbose") { $VERBOSE = $true; $VerbosePreference = 'Continue'
@@ -85,7 +91,7 @@ ForEach ($ARG in $args) {
         if ($ARG -ieq "clean") { $COMMANDS += 'Clean'
         } elseif ($ARG -ieq "compile") { $COMMANDS += 'Compile'
         } elseif ($ARG -ieq "doc" ) { $COMMANDS += 'Compile', 'Doc'
-        } elseif ($ARG -ieq "help") { $COMMANDS = 'PrintHelp'
+        } elseif ($ARG -ieq "help") { $COMMANDS = 'Print-Help'
         } elseif ($ARG -ieq "lint") { $COMMANDS += 'Lint'
         } elseif ($ARG -ieq "run" ) { $COMMANDS += 'Compile', 'Run'
         } elseif ($ARG -ieq "test") { $COMMANDS += 'Compile', 'Test'
@@ -97,25 +103,25 @@ ForEach ($ARG in $args) {
         $N++
     }
 }
-$MAIN_NAME = "gmain"
+$MAIN_NAME = 'gmain'
 $MAIN_ARGS = $null
 
 $SOURCE_MAIN_FILE = $SOURCE_MAIN_DIR + $SEP + $MAIN_NAME + '.adb'
 $PROJECT_NAME = $BASENAME
 $EXE_FILE = $TARGET_DIR + $SEP + $PROJECT_NAME + $EXE
 
-if ($MSYS -and ! (Test-Path -Path $MSYS_GNATMAKE_CMD)) {
+if ($MSYS -and ! (Test-Path -PathType Leaf -Path $MSYS_GNATMAKE_CMD)) {
     Write-Warning "MSYS GNAT Make not found; use standard GNAT Make instead"
     $MSYS = $false
 }
 if ($COMMANDS -contains 'Lint') {
-    if (! (Test-Path -Path ($Env:GNAT2019_HOME + $SEP + "bin" + $SEP + "gnat.exe"))) {
+    if (! (Test-Path -PathType Leaf -Path ($Env:GNAT2019_HOME + $SEP + 'bin' + $SEP + 'gnat' + $EXE))) {
         Write-Warning "GNAT 2019 is required to execute AdaControl"
         $COMMANDS = $COMMANDS.Replace('Lint', '')
     } else {
         $PARENT_DIR = Split-Path -Parent $ROOT_DIR
         $ARU_FILE = (Get-ChildItem $PARENT_DIR -Filter *.aru) | Select-Object -First 1 -ExpandProperty FullName
-        if (! (Test-Path -Path $ARU_FILE)) {
+        if (! (Test-Path -PathType Leaf -Path $ARU_FILE)) {
             Write-Warning "ARU file not found"
             $COMMANDS = $COMMANDS.Replace('Lint', '')
         }
@@ -148,37 +154,37 @@ function Main
     }
     if ($TIMER) {
         $DURATION = New-TimeSpan -Start $TIMER_START -End (Get-Date)
-        Write-Host "Total execution time: $DURATION"
+        Write-Output "Total execution time: $DURATION"
     }
     Cleanup $EXITCODE
 }
 
-function PrintHelp
+function Print-Help
 {
-    Write-Host "Usage: $BASENAME { <option> | <subcommand> }"
-    Write-Host ""
-    Write-Host "   Options:"
-    Write-Host "     -debug      print commands executed by this script"
-    Write-Host "     -msys       use MSYS GNAT Make if available"
-    Write-Host "     -timer      print total execution time"
-    Write-Host "     -verbose    print progress messages"
-    Write-Host ""
-    Write-Host "   Subcommands:"
-    Write-Host "     clean       delete generated files"
-    Write-Host "     compile     compile Ada source files"
-    Write-Host "     doc         generate HTML documentation"
-    Write-Host "     help        print this help message"
-    Write-Host "     lint        analyze Ada source files with AdaControl"
-    Write-Host "     run         execute main program ""$MAIN_NAME"""
-    Write-Host "     test        execute unit tests with AUnit"
+    Write-Output "Usage: $BASENAME { <option> | <subcommand> }"
+    Write-Output ""
+    Write-Output "   Options:"
+    Write-Output "     -debug      print commands executed by this script"
+    Write-Output "     -msys       use MSYS GNAT Make if available"
+    Write-Output "     -timer      print total execution time"
+    Write-Output "     -verbose    print progress messages"
+    Write-Output ""
+    Write-Output "   Subcommands:"
+    Write-Output "     clean       delete generated files"
+    Write-Output "     compile     compile Ada source files"
+    Write-Output "     doc         generate HTML documentation"
+    Write-Output "     help        print this help message"
+    Write-Output "     lint        analyze Ada source files with AdaControl"
+    Write-Output "     run         execute main program ""$MAIN_NAME"""
+    Write-Output "     test        execute unit tests with AUnit"
 }
 
 function Clean
 {
-    DeleteDir $TARGET_DIR
+    Delete-Dir $TARGET_DIR
 }
 
-function DeleteDir
+function Delete-Dir
 {
     param (
         [string] $dir
@@ -207,40 +213,34 @@ function Lint
 
     ## AdaControl requires the GNAT 2019 tool chain
     $OLD_PATH=$Env:PATH
-    $Env:PATH = $Env:GNAT2019_HOME + $SEP + 'bin;' + $Env:PATH
-    if ($DEBUG) {
-        $GCC_CMD = (Get-Command gcc).Path
-        Write-Debug "GCC command is: $GCC_CMD"
-    }
+    $Env:PATH = $Env:GNAT2019_HOME + $SEP + 'bin' + $PATH_SEP + $Env:PATH
+    Write-Debug "GCC command is: $((Get-Command gcc).Path)"
+
     ## .adt and .ali files are generated in current directory
     Push-Location "$TARGET_DIR"
-    if ($DEBUG) { Write-Debug "Current directory: $(Get-Location)" }
+    Write-Debug "Current directory: $(Get-Location)"
 
     ## see https://www.adalog.fr/compo/adacontrol_ug.html#command-files-provided-with-AdaControl
     $ADACTL_VERBOSE_OPTS = $null
-    if ($DEBUG) { $ADACTL_VERBOSE_OPTS = '-v'
-    } elseif ($VERBOSE) { $ADACTL_VERBOSE_OPTS = '-v'
-    }
+    if ($DEBUG -or $VERBOSE) { $ADACTL_VERBOSE_OPTS = '-v' }
     Write-Debug """$ADACTL_CMD"" -d $ADACTL_VERBOSE_OPTS -f ""$ARU_FILE"" -o ""$LOG_FILE"" -w ""$SOURCE_MAIN_DIR\*"""
     Write-Verbose "Analyze Ada source files"
 
     &"$ADACTL_CMD" -d $ADACTL_VERBOSE_OPTS -f "$ARU_FILE" -o "$LOG_FILE" -w "$SOURCE_MAIN_DIR\*"
     if ($LASTEXITCODE -eq 0) {
-        if ($DEBUG) { type "$LOG_FILE"
-        } elseif ($VERBOSE) { type "$LOG_FILE"
+        if ($DEBUG -or $VERBOSE) {
+            Write-Debug "type $LOG_FILE%"
+            type "$LOG_FILE"
         }
         Pop-Location
         $Env:PATH = $OLD_PATH
-        if ($DEBUG) { Write-Debug "Current directory: $(Get-Location)" }
+        Write-Debug "Current directory: $(Get-Location)"
         $EXITCODE = 1
         return
     }
     Pop-Location
     $Env:PATH = $OLD_PATH
-    if ($DEBUG) {
-        $GCC_CMD = (Get-Command gcc).Path
-        Write-Debug "GCC command is: $GCC_CMD"
-    }
+    Write-Debug "GCC command is: $((Get-Command gcc).Path)"
 }
 
 function Compile
@@ -314,14 +314,14 @@ function Run
     }
 }
 
-function Compile_test
+function Compile-Test
 {
-    Write-Warning "Not yet implemented"
+    Write-Warning "Subcommand 'Compile-Test' is not yet implemented"
 }
 
 function Test
 {
-    Write-Warning "Subcommand 'test' is not yet implemented"
+    Write-Warning "Subcommand 'Test' is not yet implemented"
 }
 
 function Cleanup

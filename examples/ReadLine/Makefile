@@ -9,14 +9,16 @@ include ../Makefile.inc
 
 PROJ_NAME ?= $(shell basename $(CURDIR))
 
-SOURCE_DIR     = src
-TARGET_DIR     = target
-TARGET_OBJ_DIR = $(TARGET_DIR)/obj
+SOURCE_DIR      = src
+SOURCE_MAIN_DIR = $(SOURCE_DIR)/main/ada
+TARGET_DIR      = target
+TARGET_OBJ_DIR  = $(TARGET_DIR)/obj
 
 ##############################################################################
 ## main rules
 
-MAIN_FILE = $(wildcard $(SOURCE_DIR)/main/ada/$(PROJ_NAME).adb)
+MAIN_FILE = $(wildcard $(SOURCE_MAIN_DIR)/$(PROJ_NAME).adb)
+
 TARGET  = $(TARGET_DIR)/$(PROJ_NAME)$(TARGET_EXT)
 
 all: build run

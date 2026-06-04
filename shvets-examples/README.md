@@ -19,6 +19,7 @@ This example has the following directory structure :
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /f /a . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
 |   <a href="./ch02/build.bat">build.bat</a>
 |   <a href="./ch02/build.gpr">build.gpr</a>
+|   <a href="./ch02/build.ps1">build.ps1</a>
 |   <a href="./ch02/build.sh">build.sh</a>
 \---src
     \---main

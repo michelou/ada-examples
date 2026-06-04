@@ -57,6 +57,7 @@ This example has the following directory structure :
 |   <a href="./DiningPhilosophers/00download.txt">00download.txt</a>
 |   <a href="./DiningPhilosophers/build.bat">build.bat</a>
 |   <a href="./DiningPhilosophers/build.gpr">build.gpr</a>
+|   <a href="./DiningPhilosophers/build.ps1">build.ps1</a>
 |   <a href="./DiningPhilosophers/build.sh">build.sh</a>
 |   <a href="./DiningPhilosophers/Makefile">Makefile</a>
 \---<b>src</b>
@@ -288,8 +289,12 @@ This example has the following directory structure :
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
 |   <a href="./SeparateProcedure/00download.txt">00download.txt</a>
 |   <a href="./SeparateProcedure/build.bat">build.bat</a>
-\---src
-    \---main
+|   <a href="./SeparateProcedure/build.gpr">build.gpr</a>
+|   <a href="./SeparateProcedure/build.ps1">build.ps1</a>
+|   <a href="./SeparateProcedure/build.sh">build.sh</a>
+|   <a href="./SeparateProcedure/Makefile">Makefile</a>
+\---<b>src</b>
+    \---<b>main</b>
         \---<b>ada</b>
                 <a href="./SeparateProcedure/src/main/ada/main.adb">main.adb</a>
                 <a href="./SeparateProcedure/src/main/ada/package_x-sep.adb">package_x-sep.adb</a>
@@ -319,6 +324,7 @@ This example has the following directory structure :
 |   <a href="./TimingFibonacci/00download.txt">00download.txt</a>
 |   <a href="./TimingFibonacci/build.bat">build.bat</a>
 |   <a href="./TimingFibonacci/build.gpr">build.gpr</a>
+|   <a href="./TimingFibonacci/build.ps1">build.ps1</a>
 |   <a href="./TimingFibonacci/build.sh">build.sh</a>
 |   <a href="./TimingFibonacci/Makefile">Makefile</a>
 \---<b>src</b>
@@ -337,6 +343,19 @@ Fibonacci number:
 23
 Result:  28657
 Execution time =  0.552800000 milliseconds.
+</pre>
+
+Similarly, command [`pwsh -f build.ps`](./TimingFibonacci/build.ps1)`-verbose clean run` generates and executes the Ada program `target\TimingFibonacci.exe` :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://powershellexplained.com/2017-12-29-Powershell-what-is-pwsh/" rel="external">pwsh</a> -f <a href="./TimingFibonacci/build.ps1">build.ps1</a> clean -verbose run</b>
+VERBOSE: Delete directory "target"
+VERBOSE: Compile 1 Ada source file to directory "target\obj"
+VERBOSE: Execute Ada program "target\TimingFibonacci.exe"
+Fibonacci number:
+45
+Result:  1134903170
+Execution time =  16384.872200000 milliseconds.
 </pre>
 
 <!--=======================================================================-->
@@ -371,7 +390,7 @@ C:\opt\msys64\mingw64\bin\windres.exe
 C:\opt\GNAT\2021\bin\windres.exe
 &nbsp;
 <b>&gt; C:\opt\msys64\mingw64\bin\<a href="https://gcc.gnu.org/onlinedocs/gnat_ugn/Switches-for-gnatmake.html">gnatmake.exe</a> --version</b>
-GNATMAKE 15.2.0
+GNATMAKE 16.1.0
 Copyright (C) 1995-2025, Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.
 There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -388,7 +407,7 @@ There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR P
 
 <dl><dd>
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://powershellexplained.com/2017-12-29-Powershell-what-is-pwsh/" rel="external" rel="external">pwsh</a> <a href="./HelloWorld/build.ps1">build.ps1</a> -debug clean run</b>
+<b>&gt; <a href="https://powershellexplained.com/2017-12-29-Powershell-what-is-pwsh/" rel="external">pwsh</a> <a href="./HelloWorld/build.ps1">build.ps1</a> -debug clean run</b>
 DEBUG: Options    : DEBUG=True TIMER=False VERBOSE=False
 DEBUG: Subcommands: Clean Compile Run
 DEBUG: Variables  : "ADACTL_HOME=C:\opt\adactl"

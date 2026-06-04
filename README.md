@@ -27,7 +27,7 @@ Optionally one may also install the following software:
 - [GNAT CE 2019][gnat2019_downloads] <sup id="anchor_02">[2](#footnote_02)</sup>
 - [GWindows 2026][gwindows_downloads] ([*release notes*][gwindows_relnotes])
 - [MSYS2 2024][msys2_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][msys2_changelog])
-- [Visual Studio Code 1.122][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.123][vscode_downloads] ([*release notes*][vscode_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][linux_opt] directory on Unix).
@@ -104,7 +104,7 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    adactl 1.22r16c, alr 2.1.1, gcc 13.4.0, gnat Community 2021,
-   Gwindows 09-May-2026, make 4.4.1, code 1.122.1,
+   Gwindows 09-May-2026, make 4.4.1, code 1.123.0,
    git 2.54.0, diff 3.12, bash 5.3.9(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> code diff git make</b>
@@ -206,7 +206,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://sourceforge.net/projects/gnavi/files/">GWindows Archive 09-May-2026.zip</a>                    <i>(  4 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                           <i>( 83 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.54.0-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
-<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.122.1.zip</a>                        <i>(131 MB)</i>
+<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.123.0.zip</a>                        <i>(131 MB)</i>
 </pre>
 </dd></dl>
 
