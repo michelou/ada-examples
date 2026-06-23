@@ -3,12 +3,12 @@
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:25%;"><a href="https://www.adacore.com/" rel="external"><img src="docs/images/adamascot.png" width="100" alt="Ada project"/></a></td>
-  <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://www.adacore.com/" rel="external" title="Ada">Ada</a> code examples coming from various websites and books.<br/>
-  It also includes several build scripts (<a href="https://cloudblogs.microsoft.com/opensource/2023/02/21/introducing-bash-for-beginners/l" rel="external">bash scripts</a>, <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>, <a href="https://learn.microsoft.com/en-us/powershell/scripting/samples/sample-scripts-for-administration" rel="external">PowerShell scripts</a>) for experimenting with <a href="https://www.adacore.com/" rel="external">Ada</a> on a Windows machine.</td>
+  <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://www.adacore.com/" rel="external" title="https://www.adacore.com/">Ada</a> code examples coming from various websites and books.<br/>
+  It also includes several build scripts (<a href="https://cloudblogs.microsoft.com/opensource/2023/02/21/introducing-bash-for-beginners/l" rel="external">bash scripts</a>, <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external" title="https://makefiletutorial.com/">Make scripts</a>, <a href="https://learn.microsoft.com/en-us/powershell/scripting/samples/sample-scripts-for-administration" rel="external">PowerShell scripts</a>) for experimenting with <a href="https://www.adacore.com/" rel="external" title="https://www.adacore.com/">Ada</a> on a Windows machine.</td>
   </tr>
 </table>
 
-[Akka][akka_examples], [C++][cpp_examples], [COBOL][cobol_examples], [Component Pascal][component_pascal_examples], [Dafny][dafny_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Erlang][erlang_examples], [Flix][flix_examples], [Go][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Modula-2][m2_examples], [MySQL][mysql_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [Standard ML][sml_examples], [TruffleSqueak][trufflesqueak_examples], [WiX Toolset][wix_examples] and [Zig][zig_examples] are other topics we are continuously monitoring.
+[Akka][akka_examples], [C++][cpp_examples], [COBOL][cobol_examples], [Common&nbsp;Lisp][cl_examples], [Component&nbsp;Pascal][component_pascal_examples], [Dafny][dafny_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Erlang][erlang_examples], [Flix][flix_examples], [Go][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Modula-2][m2_examples], [MySQL][mysql_examples], [Node.js][nodejs_examples], [PowerShell][powershell_examples], [Rust][rust_examples], [Scala&nbsp;3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [Standard&nbsp;ML][sml_examples], [TruffleSqueak][trufflesqueak_examples], [WiX&nbsp;Toolset][wix_examples] and [Zig][zig_examples] are other topics we are continuously monitoring.
 
 > **&#9755;** Read the document <a href="https://www.adaic.org/advantages/ada-comp-chart/" rel="external">"Ada Comparison Chart"</a> for an overview of evolution of the major features of the Ada programming language.
 
@@ -27,7 +27,7 @@ Optionally one may also install the following software:
 - [GNAT CE 2019][gnat2019_downloads] <sup id="anchor_02">[2](#footnote_02)</sup>
 - [GWindows 2026][gwindows_downloads] ([*release notes*][gwindows_relnotes])
 - [MSYS2 2024][msys2_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][msys2_changelog])
-- [Visual Studio Code 1.123][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.125][vscode_downloads] ([*release notes*][vscode_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][linux_opt] directory on Unix).
@@ -89,12 +89,14 @@ We also define a virtual drive &ndash; e.g. drive **`W:`** &ndash; in our workin
 > **:mag_right:** We use the Windows external command [**`subst`**][windows_subst] to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst" rel="external">subst</a> W: <a href="https://docs.microsoft.com/en-us/windows/deployment/usmt/usmt-recognized-environment-variables#bkmk-2" rel="external">%USERPROFILE%</a>\workspace\ada-examples</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst" rel="external">subst</a> W: <a href="https://docs.microsoft.com/en-us/windows/deployment/usmt/usmt-recognized-environment-variables#bkmk-2" rel="external">%USERPROFILE%</a>\workspace-perso\ada-examples</b>
 > </pre>
 
 In the next section we give a brief description of the [batch files][windows_batch_file] present in this project.
 
-## <span id="commands">Batch commands</span>
+<!--=======================================================================-->
+
+## <span id="commands">Batch commands</span> [**&#x25B4;**](#top)
 
 ### **`setenv.bat`** <sup id="anchor_05">[5](#footnote_05)</sup>
 
@@ -104,7 +106,7 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    adactl 1.22r16c, alr 2.1.1, gcc 13.4.0, gnat Community 2021,
-   Gwindows 09-May-2026, make 4.4.1, code 1.123.0,
+   Gwindows 09-May-2026, make 4.4.1, code 1.125.1,
    git 2.54.0, diff 3.12, bash 5.3.9(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> code diff git make</b>
@@ -204,9 +206,9 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://www.adacore.com/download" rel="external">gnat-2021-20210519-x86_64-windows64-bin.exe</a>         <i>(562 MB)</i>
 <a href="https://www.adacore.com/download/more">gtkada-2021-x86_64-windows64-bin.exe</a>                <i>( 59 MB)</i>
 <a href="https://sourceforge.net/projects/gnavi/files/">GWindows Archive 09-May-2026.zip</a>                    <i>(  4 MB)</i>
-<a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                           <i>( 83 MB)</i>
+<a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20260611.exe</a>                           <i>( 90 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.54.0-64-bit.7z.exe</a>                    <i>( 46 MB)</i>
-<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.123.0.zip</a>                        <i>(131 MB)</i>
+<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.125.1.zip</a>                        <i>(131 MB)</i>
 </pre>
 </dd></dl>
 
@@ -238,11 +240,12 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 
 <!-- link refs -->
 
-[ada]: https://www.adacore.com/
-[adactl_downloads]: https://www.adalog.fr/en/adacontrol.html
+[ada]: https://www.adacore.com/ "https://www.adacore.com/"
+[adactl_downloads]: https://www.adalog.fr/en/adacontrol.html "https://www.adalog.fr/en/adacontrol.html"
 [akka_examples]: https://github.com/michelou/akka-examples#top
 [alire_changes]: https://github.com/alire-project/alire/blob/master/doc/user-changes.md#release-21
-[alire_downloads]: https://github.com/alire-project/alire/releases/
+[alire_downloads]: https://github.com/alire-project/alire/releases/ "https://github.com/alire-project/alire/releases/"
+[cl_examples]: https://github.com/michelou/cl-examples#top
 [cobol_examples]: https://github.com/michelou/cobol-examples#top
 [conemu_downloads]: https://github.com/Maximus5/ConEmu/releases
 [conemu_relnotes]: https://conemu.github.io/blog/2023/07/24/Build-230724.html
@@ -287,11 +290,12 @@ https://sourceforge.net/p/gnavi/news/2024/04/gwindows-release-13-apr-2024-revisi
 [man1_mv]: https://www.linux.org/docs/man1/mv.html
 [man1_rmdir]: https://www.linux.org/docs/man1/rmdir.html
 [man1_sed]: https://www.linux.org/docs/man1/sed.html
-[man1_wc]: https://www.linux.org/docs/man1/wc.html
+[man1_wc]: https://www.linux.org/docs/man1/wc.html "https://www.linux.org/docs/man1/wc.html"
 [msys2_changelog]: https://github.com/msys2/setup-msys2/blob/main/CHANGELOG.md
 [msys2_downloads]: http://repo.msys2.org/distrib/x86_64/
 [mysql_examples]: https://github.com/michelou/mysql-examples#top
 [nodejs_examples]: https://github.com/michelou/nodejs-examples#top
+[powershell_examples]: https://github.com/michelou/powershell-examples#top
 [rust_examples]: https://github.com/michelou/rust-examples#top
 [scala3_examples]: https://github.com/michelou/dotty-examples#top
 [sml_examples]: https://github.com/michelou/sml-examples#top
@@ -306,4 +310,4 @@ https://sourceforge.net/p/gnavi/news/2024/04/gwindows-release-13-apr-2024-revisi
 [windows_subst]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst
 [wix_examples]: https://github.com/michelou/wix-examples#top
 [zig_examples]: https://github.com/michelou/zig-examples#top
-[zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/
+[zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/ "https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/"

@@ -23,6 +23,7 @@ if %_HELP%==1 (
     exit /b !_EXITCODE!
 )
 
+set _CLAUDE_PATH=
 set _GIT_PATH=
 set _GNAT_PATH=
 set _MSYS_PATH=
@@ -37,6 +38,13 @@ if not %_EXITCODE%==0 (
     call :gnat2019
     if not !_EXITCODE!==0 (
         @rem optional
+        set _EXITCODE=0
+    )
+)
+if %_USE_CLAUDE%==1 (
+    call :claude
+    if not !_EXITCODE!==0 (
+        echo %_WARNING_LABEL% Claude not installed 1>&2
         set _EXITCODE=0
     )
 )
@@ -128,7 +136,7 @@ goto :eof
 :args
 set _BASH=0
 set _HELP=0
-set _BASH=0
+set _USE_CLAUDE=0
 set _VERBOSE=0
 :args_loop
 set "__ARG=%~1"
@@ -137,6 +145,7 @@ if not defined __ARG goto args_done
 if "%__ARG:~0,1%"=="-" (
     @rem option
     if "%__ARG%"=="-bash" ( set _BASH=1
+    ) else if "%__ARG%"=="-claude" ( set _USE_CLAUDE=1
     ) else if "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if "%__ARG%"=="-help" ( set _HELP=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
@@ -160,7 +169,7 @@ goto args_loop
 call :drive_name "%_ROOT_DIR%"
 if not %_EXITCODE%==0 goto :eof
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% Options    : _BASH=%_BASH% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Options    : _BASH=%_BASH% _USE_CLAUDE=%_USE_CLAUDE _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _HELP=%_HELP% 1>&2
     echo %_DEBUG_LABEL% Variables  : _DRIVE_NAME=%_DRIVE_NAME% 1>&2
 )
@@ -175,10 +184,20 @@ if "%__GIVEN_PATH:~-1,1%"=="\" set "__GIVEN_PATH=%__GIVEN_PATH:~0,-1%"
 
 @rem https://serverfault.com/questions/62578/how-to-get-a-list-of-drive-letters-on-a-system-through-a-windows-shell-bat-cmd
 set __DRIVE_NAMES=F:G:H:I:J:K:L:M:N:O:P:Q:R:S:T:U:V:W:X:Y:Z:
-for /f %%i in ('wmic logicaldisk get deviceid ^| findstr :') do (
-    set "__DRIVE_NAMES=!__DRIVE_NAMES:%%i=!"
+@rem deprecated since Windows 11
+@rem for /f %%i in ('wmic logicaldisk get deviceid ^| findstr :') do (
+@rem     set "__DRIVE_NAMES=!__DRIVE_NAMES:%%i=!"
+@rem )
+@rem alernative in Windows 11
+for /f "delims=" %%i in ('fsutil fsinfo drives') do (
+    set "__LINE=%%i"
+    set "__DRIVES=!__LINE:Drives:=!"
+    set "__DRIVES=!__DRIVES:\=!"
+    for %%d in (!__DRIVES!) do (
+        set "__DRIVE_NAMES=!__DRIVE_NAMES:%%d=!"
+    )
 )
-if %_DEBUG%==1 echo %_DEBUG_LABEL% __DRIVE_NAMES=%__DRIVE_NAMES% ^(WMIC^) 1>&2
+if %_DEBUG%==1 echo %_DEBUG_LABEL% __DRIVE_NAMES=%__DRIVE_NAMES% ^(fsutil^) 1>&2
 if not defined __DRIVE_NAMES (
     echo %_ERROR_LABEL% No more free drive name 1>&2
     set _EXITCODE=1
@@ -234,18 +253,17 @@ goto :eof
 if %_VERBOSE%==1 (
     set __BEG_P=%_STRONG_FG_CYAN%
     set __BEG_O=%_STRONG_FG_GREEN%
-    set __BEG_N=%_NORMAL_FG_YELLOW%
     set __END=%_RESET%
 ) else (
     set __BEG_P=
     set __BEG_O=
-    set __BEG_N=
     set __END=
 )
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-bash%__END%       start Git bash shell instead of Windows command prompt
+echo     %__BEG_O%-claude%__END%     add Claude command to the project environment
 echo     %__BEG_O%-debug%__END%      print commands executed by this script
 echo     %__BEG_O%-verbose%__END%    print progress messages
 echo.
@@ -284,6 +302,34 @@ if not exist "%_ADACTL_HOME%\adactl.exe" (
     set _EXITCODE=1
     goto :eof
 )
+goto :eof
+
+@rem output parameters: _CLAUDE_HOME, _CLAUDE_PATH
+:claude
+set _CLAUDE_HOME=
+set _CLAUDE_PATH=
+
+set __CLAUDE_CMD=
+for /f "delims=" %%f in ('where claude.exe 2^>NUL') do set "__CLAUDE_CMD=%%f"
+if defined __CLAUDE_CMD (
+    for /f "delims=" %%i in ("%__CLAUDE_CMD%") do set "__CLAUDE_BIN_DIR=%%~dpi"
+    for /f "delims=" %%f in ("!__CLAUDE_BIN_DIR!\.") do set "_CLAUDE_HOME=%%~dpf"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Claude executable found in PATH 1>&2
+) else if defined CLAUDE_HOME (
+    set "_CLAUDE_HOME=%CLAUDE_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable CLAUDE_HOME 1>&2
+) else (
+    if exist "%USERPROFILE%\.local\bin" set "_CLAUDE_HOME=%USERPROFILE%\.local"
+    if defined _CLAUDE_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Claude installation directory "!_CLAUDE_HOME!" 1>&2
+    )
+)
+if not exist "%_CLAUDE_HOME%\bin\claude.exe" (
+    echo %_ERROR_LABEL% Claude executable not found ^("%_CLAUDE_HOME%"^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_CLAUDE_PATH=;%_CLAUDE_HOME%\bin"
 goto :eof
 
 @rem output parameters: _GNAT_HOME, _GNAT_PATH
@@ -499,11 +545,14 @@ set "_VSCODE_PATH=;%_VSCODE_HOME%"
 goto :eof
 
 :print_env
-set __VERBOSE=%1
-set __VERSIONS_LINE1=
-set __VERSIONS_LINE2=
-set __VERSIONS_LINE3=
+set __USE_CLAUDE=%1
+set __VERBOSE=%2
+set "__VERSIONS_LINE1=  "
+set "__VERSIONS_LINE2=  "
+set "__VERSIONS_LINE3=  "
 set __WHERE_ARGS=
+setlocal enabledelayedexpansion
+
 where /q "%ADACTL_HOME%:adactl.exe"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,3,*" %%i in ('"%ADACTL_HOME%\adactl.exe" -h version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% adactl %%k,"
@@ -517,6 +566,13 @@ if %ERRORLEVEL%==0 (
         set "__VERSIONS_LINE1=%__VERSIONS_LINE1% alr !__ALR_VERSION!,"
     )
     set __WHERE_ARGS=%__WHERE_ARGS% "%GNAT_HOME%\bin:alr.exe"
+)
+if %__USE_CLAUDE%==1 (
+    where /q "%CLAUDE_HOME%\bin:claude.exe"
+    if %ERRORLEVEL%==0 (
+        for /f "tokens=1,*" %%i in ('call "%CLAUDE_HOME%\bin\claude.exe" --version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% Claude %%i,"
+        set __WHERE_ARGS=%__WHERE_ARGS% "%CLAUDE_HOME%\bin:claude.exe"
+    )
 )
 where /q "%GNAT_HOME%\bin:gcc.exe"
 if %ERRORLEVEL%==0 (
@@ -566,24 +622,25 @@ where /q "%GIT_HOME%\bin:bash.exe"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1-3,4,*" %%i in ('"%GIT_HOME%\bin\bash.exe" --version ^| findstr bash') do (
         set "__VERSION=%%l"
-        setlocal enabledelayedexpansion
+        @rem setlocal enabledelayedexpansion
         set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bash !__VERSION:-release=!"
     )
     set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\bin:bash.exe"
 )
 echo Tool versions:
-echo   %__VERSIONS_LINE1%
-echo   %__VERSIONS_LINE2%
-echo   %__VERSIONS_LINE3%
+echo %__VERSIONS_LINE1%
+echo %__VERSIONS_LINE2%
+echo %__VERSIONS_LINE3%
 if %__VERBOSE%==1 (
     echo Tool paths: 1>&2
     for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do (
         set "__LINE=%%p"
-        setlocal enabledelayedexpansion
+        @rem setlocal enabledelayedexpansion
         echo    !__LINE:%USERPROFILE%=%%USERPROFILE%%! 1>&2
     )
     echo Environment variables: 1>&2
     if defined ADACTL_HOME echo    "ADACTL_HOME=%ADACTL_HOME%" 1>&2
+    if defined CLAUDE_HOME echo    "CLAUDE_HOME=%CLAUDE_HOME%" 1>&2
     if defined GIT_HOME echo    "GIT_HOME=%GIT_HOME%" 1>&2
     if defined GNAT_HOME echo    "GNAT_HOME=%GNAT_HOME%" 1>&2
     if defined GNAT2019_HOME echo    "GNAT2019_HOME=%GNAT2019_HOME%" 1>&2
@@ -593,10 +650,11 @@ if %__VERBOSE%==1 (
     echo Path associations: 1>&2
     for /f "delims=" %%i in ('subst') do (
         set "__LINE=%%i"
-        setlocal enabledelayedexpansion
+        @rem setlocal enabledelayedexpansion
         echo    !__LINE:%USERPROFILE%=%%USERPROFILE%%! 1>&2
     )
 )
+endlocal
 goto :eof
 
 @rem #########################################################################
@@ -606,6 +664,9 @@ goto :eof
 endlocal & (
     if %_EXITCODE%==0 (
         if not defined ADACTL_HOME set "ADACTL_HOME=%_ADACTL_HOME%"
+        if %_USE_CLAUDE%==0 ( set _CLAUDE_PATH=
+        ) else ( if not defined CLAUDE_HOME set "CLAUDE_HOME=%_CLAUDE_HOME%"
+        )              
         if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
         if not defined GNAT_HOME set "GNAT_HOME=%_GNAT_HOME%"
         if not defined GNAT2019_HOME set "GNAT2019_HOME=%_GNAT2019_HOME%"
@@ -613,17 +674,21 @@ endlocal & (
         if not defined MSYS_HOME set "MSYS_HOME=%_MSYS_HOME%"
         if not defined VSCODE_HOME set "VSCODE_HOME=%_VSCODE_HOME%"
         @rem We prepend %_GIT_HOME%\bin to hide C:\Windows\System32\bash.exe
-        set "PATH=%_GIT_HOME%\bin;%PATH%%_MSYS_PATH%%_GNAT_PATH%%_GIT_PATH%%_VSCODE_PATH%;%~dp0bin"
-        call :print_env %_VERBOSE%
+        set "PATH=%_GIT_HOME%\bin;%PATH%%_MSYS_PATH%%_GNAT_PATH%%_CLAUDE_PATH%%_GIT_PATH%%_VSCODE_PATH%;%~dp0bin"
+        call :print_env %_USE_CLAUDE% %_VERBOSE%
         if not "%CD:~0,2%"=="%_DRIVE_NAME%" (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME% 1>&2
             cd /d %_DRIVE_NAME%
         )
         if %_BASH%==1 (
             @rem see https://conemu.github.io/en/GitForWindows.html
-            if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_GIT_HOME%\usr\bin\bash.exe" --login 1>&2
-            cmd.exe /c "%_GIT_HOME%\usr\bin\bash.exe --login"
+            if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_GIT_HOME%\bin\bash.exe" --login 1>&2
+            cmd.exe /c "%_GIT_HOME%\bin\bash.exe" --login
         )
+    )
+    if %_USE_CLAUDE%==1 (
+        @rem see https://wiip.fr/en/blog/claude-code-powershell-tool
+        set CLAUDE_CODE_USE_POWERSHELL_TOOL=1
     )
     if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
     for /f "delims==" %%i in ('set ^| findstr /b "_"') do set %%i=

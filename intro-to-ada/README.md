@@ -4,7 +4,7 @@
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:100px;"><a href="https://www.adacore.com/" rel="external"><img style="border:0;" src="../docs/images/adamascot.png" width="100" alt="Ada project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>intro-to-ada\</code></strong> contains <a href="https://www.adacore.com/" rel="external">Ada</a> code examples coming from <a href="https://www.adacore.com/" rel="external">AdaCore</a>'s online tutorial <a href="https://learn.adacore.com/courses/intro-to-ada" rel="external">Introduction to Ada</a>.
+    Directory <strong><code>intro-to-ada\</code></strong> contains <a href="https://www.adacore.com/" rel="external" title="https://www.adacore.com/">Ada</a> code examples coming from <a href="https://www.adacore.com/" rel="external">AdaCore</a>'s online tutorial <a href="https://learn.adacore.com/courses/intro-to-ada" rel="external" title="https://learn.adacore.com/courses/intro-to-ada">Introduction to Ada</a>.
   </td>
   </tr>
 </table>
@@ -18,7 +18,7 @@ Code examples presented in this document can be built in two ways :
 This example has the following directory structure :
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external" title="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external" title="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
 |   <a href="./ch03/forward_declaration/build.adc">build.adc</a>
 |   <a href="./ch03/forward_declaration/build.bat">build.bat</a>
 |   <a href="./ch03/forward_declaration/build.gpr">build.gpr</a>
@@ -43,7 +43,7 @@ Execute program "mutually_recursive_subprograms.exe"
 This example has the following directory structure :
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external" title="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external" title="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
 |   <a href="./ch04/Book/build.bat">build.bat</a>
 |   <a href="./ch04/Book/build.gpr">build.gpr</a>
 \---<b>src</b>
@@ -79,7 +79,7 @@ This example has the following directory structure :
 |   <a href="./ch04/Week/00download.txt">00download.txt</a>
 |   <a href="./ch04/Week/build.bat">build.bat</b>
 |   <a href="./ch04/Week/build.gpr">build.gpr</a>
-\---src</b>
+\---<b>src</b>
         <a href="./ch04/Week/src/Main.adb">Main.adb</a>
         <a href="./ch04/Week/src/Week.ads">Week.ads</a>
 </pre>

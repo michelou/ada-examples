@@ -1,18 +1,39 @@
-.DS_Store
+*~
+*.aux
+*.bak
+*.cache
+*.cfg
+*.class
+*.config
 *.exe
+*.hi
+*.ho
+*.log
+*.o
+*.obj
+.project
 *.stderr
 *.stdout
+.DS_Store
+
+# Directories
 .idea/
-.project
 .settings/
 .vscode/
 obj/
 out/
 target/
 
-# project specific
+# Claude specific
+CLAUDE.md
+CLAUDE*local.md
+.claude/
+
+# Project specific
 .adt
 .ali
-*_LOCAL/
+*_LOCAL.ini
+*_LOCAL.json
 *_LOCAL.md
 *_LOCAL.txt
+*_LOCAL/
